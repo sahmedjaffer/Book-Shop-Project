@@ -1,3 +1,4 @@
+const chalk = require('chalk');
 const mongoose = require('mongoose');
 require('dotenv').config;
 
@@ -5,9 +6,9 @@ const connect = async () => {
 
     try {
         await mongoose.connect(process.env.MONGODB_URI);
-        console.log('Successfully connected to MongoDB datbase');
+        console.log(`${chalk.green('Successfully connected to MongoDB database')}`);
     } catch (error) {
-        console.error('Connection Error!', error.message);
+        console.error(`${chalk.red('Connection Error!, ')}${chalk.red( error.message)}`);
     }
     
 };
