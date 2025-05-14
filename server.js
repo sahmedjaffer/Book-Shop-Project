@@ -4,7 +4,6 @@ const logger = require('morgan');
 require('dotenv').config();
 const methodOverride = require('method-override');
 const session = require('express-session');
-const bcrypt = require('bcrypt');
 const PORT = process.env.PORT ? (process.env.PORT) : 3005;
 const db = require('./db');
 
@@ -24,25 +23,27 @@ app.use((req, res, next) => {
     next();
 });
 
-const authRouter = require('./routes/authRouter.js');
+app.get('/', (req, res) =>{
+    res.send('Welcome aboard!!!!')
+    console.log(`${chalk.green('Welcome aboard!!!! , the root Page Working Fine')}`);
+});
+
+const authRouter = require('../Book-Shop-Project/routes/authRouter.js');
 const userRouter = require('./routes/userRouter.js');
 const authorRouter = require('./routes/authorRouter.js');
 const bookRouter = require('./routes/bookRouter.js');
 const orderRouter = require('./routes/orderRouter.js');
 
 
-//app.use('/auth', authRouter);
+app.use("/auth", authRouter);
 //app.use('/users',userRouter);
-//app.use('/author', authorRouter);
+app.use('/author', authorRouter);
 //app.use('/book', bookRouter);
 //app.use('/order', orderRouter);
 
 
 
-app.get('/', (req, res) =>{
-    res.send('Welcome aboard!!!!')
-    console.log(`${chalk.green('Welcome aboard!!!! , the root Page Working Fine')}`);
-});
+
 
 
 
