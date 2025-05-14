@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema(
         password: {type: String, required: true},
         address: {type: String, required: true},
         phone: {type: String, required: true},
-        role:{type: String, required: true},
+        role:{type: mongoose.Schema.Types.ObjectId, ref: 'Role'},
         order : [
             {
                 type: mongoose.Schema.Types.ObjectId,
@@ -17,3 +17,7 @@ const userSchema = new mongoose.Schema(
         ]
     }
 )
+
+
+const User = mongoose.model('User',userSchema);
+exports.model = User;

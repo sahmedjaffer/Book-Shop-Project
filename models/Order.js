@@ -6,10 +6,10 @@ const orderSchema = new mongoose.Schema(
         deliveryaddess: {type: String, required: true},
         paymentmethod: {type: String},
         status: {type: String},
-        orderitem: [
+        items: [
             {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: 'OrderItem'
+                ref: 'Book'
             }
         ],
         user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true}
@@ -19,3 +19,7 @@ const orderSchema = new mongoose.Schema(
         timestamps: true
     }
 )
+
+
+const Order = mongoose.model('Order',orderSchema);
+exports.model = Order;
