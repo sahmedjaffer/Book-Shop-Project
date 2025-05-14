@@ -7,7 +7,7 @@ const registerUser = async (req, res) => {
         // check if the user exist
         const userInDatabase = await User.findOne({email: req.body.email});
         if(userInDatabase){
-            return res.send(`${userInDatabase} is already exist!`);
+            return res.send(`${userInDatabase.email} is already exist!`);
         };
         // check if the password and confirm password are matched
         if (req.body.password !== req.body.confirmPassword){

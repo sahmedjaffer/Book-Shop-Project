@@ -5,6 +5,12 @@ const Author = require('../models/Author.js')
 
 const listAllAuthors = async (req, res) => {
     try {
+
+        const authorInDatabase = await Author.findOne({name: req.body.name});
+
+        if(authorInDatabase){
+            return res.send(`${authorInDatabase} is already exist`)
+        }
         
     } catch (error) {
         
