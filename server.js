@@ -36,14 +36,10 @@ const orderRouter = require('./routes/orderRouter.js');
 
 
 app.use("/auth", authRouter);
-//app.use('/users',userRouter);
-app.use('/author', authorRouter);
-//app.use('/book', bookRouter);
-//app.use('/order', orderRouter);
-
-
-
-
+app.use('/users',userRouter);
+app.use('/authors', authorRouter);
+app.use('/books', bookRouter);
+app.use('/orders', orderRouter);
 
 
 

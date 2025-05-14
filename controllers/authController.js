@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
 const chalk = require('chalk');
 const User = require('../models/User.js');
-const Role = require('../models/Role.js');
 // create a new user and the role if not exist
 const registerUser = async (req, res) => {
     try {
@@ -17,16 +16,6 @@ const registerUser = async (req, res) => {
 
         // hashed the password
         const hashedPassword = bcrypt.hashSync(req.body.password, 12);
-        
-        // check if the role is exist
-        let role = await Role.findOne({role: req.body.role});
-        if(!role) {
-            role = await Role.create(
-                {
-                    role: req.body.role
-                }
-            )
-        }
 
         // create the user
         const user = await User.create(
@@ -37,7 +26,7 @@ const registerUser = async (req, res) => {
             password: hashedPassword,
             address: req.body.address,
             phone: req.body.phone,
-            role: role._id,
+            role: req.body.role,
             order: []
         })
         res.send(`${chalk.green(`Congrats the user with email ${user.email} created successfully!`)}`)
@@ -60,9 +49,15 @@ const signInUser = async (req, res) => {
         }
         req.session.user = {
             email: user.email,
-            _id: user._id
+            _id: user._id,
+            first: user.first
         }
-        res.send(`Dear ${user.first} Welcome to our bookshop`)
+        if(user.role === 'Admin'){
+                    res.send(`Dear ${first} Welcome to our bookshop as a ${user.role}`)
+        } else {
+                    res.send(`Dear ${first} Welcome to our bookshop`)
+
+        }
     } catch (error) {
         console.error(`${chalk.red('An error has occurred signing in a user!')}` + `${chalk.red(error.message)}`)
     }
