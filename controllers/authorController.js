@@ -1,8 +1,5 @@
-const bcrypt = require('bcrypt');
 const chalk = require('chalk');
-const Book = require('../models/Book.js');
 const Author = require('../models/Author.js');
-const User = require('../models/User.js');
 
 const listAllAuthors = async (req, res) => {
     try {
