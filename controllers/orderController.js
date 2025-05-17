@@ -18,7 +18,7 @@ const listAllOrders = async (req, res) => {
 const listOrderById = async (req, res) => {
     try {
         const orderById = await Order.findById(req.params.id);
-        return res.send(`${orderById.title} has been found` + orderById);
+        return res.send(`${orderById.id} order has been found` + orderById);
         
     } catch (error) {
         console.error(`${chalk.red('Error occurred in listing order by ID ', error.message)}`); 
@@ -39,19 +39,31 @@ const updateOrder = async (req, res) => {
 
 const createNewOrder = async (req, res) => {
     try {
-        const user = await User.findOne(_id);
-        const addressInDatabase = user.address;
 
-        if (addressInDatabase !== req.body.deliveryAddress) {
-            
+        req.session.user = {
+            _id: '6824d80ef8c6ee221028e903',
         }
 
+         const user = await User.findById(req.session.user._id)
 
+
+        
+
+
+
+        
+        if (!req.body.deliveryAddress){
+            const books = await Book.findById(id) 
+            const newOrder = await Order.create({... req.body, deliveryAddress: user.address});
+            user.order.push(newOrder._id);
+            await user.save();
+        return res.send(`Dear ${user.first + user.last} your order placed successfully!`)
+        }
 
         const newOrder = await Order.create(req.body);
         user.order.push(newOrder._id);
-        user.save();
-        return res.this.send(`Dear ${user.first + user.last} your order placed successfully!`)
+        await user.save();
+        return res.send(`Dear ${user.first + user.last} your order placed successfully!`)
 
 
 

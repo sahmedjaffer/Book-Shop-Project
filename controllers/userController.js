@@ -1,11 +1,11 @@
 const bcrypt = require('bcrypt');
 const chalk = require('chalk');
-const User = require('../models/Book.js');
+const User = require('../models/User.js');
 
 const listAllUsers = async (req, res) => {
     try {
         const listUsers = await User.find();
-        return res.send(listUsers);
+        return res.send({listUsers});
     } catch (error) {
         console.error(`${chalk.red('Error occurred in listing users!.', error.message)}`);
     }   
@@ -14,7 +14,7 @@ const listAllUsers = async (req, res) => {
 const listUserById = async (req, res) => {
     try {
         const findUserById = await User.findById(req.params.id);
-        return res.send(findUserById)
+        return res.send({findUserById})
     } catch (error) {
         
     }
