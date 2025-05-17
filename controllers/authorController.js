@@ -54,12 +54,6 @@ const updateAuthor = async (req, res) => {
 
 const deleteAuthor = async (req, res) => {
 
-    try {
-        
-    } catch (error) {
-        
-    }
-    
 
      try {
              const userID = req.params.id;
