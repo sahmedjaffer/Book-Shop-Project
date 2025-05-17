@@ -44,10 +44,6 @@ const deleteAuthor = async (req, res) => {
 }
 
 
-
-
-
-
 module.exports = {
     listAllAuthors,
     listAuthorById,

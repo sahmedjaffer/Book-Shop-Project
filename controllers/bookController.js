@@ -10,7 +10,7 @@ const listAllBooks = async (req, res) => {
        return res.send({allBooks});
 
     } catch (error) {
-                console.error(`${chalk.red('Error occurred in listing all book ', error.message)}`)
+        console.error(`${chalk.red('Error occurred in listing all book ', error.message)}`)
 
     }
     
@@ -31,9 +31,9 @@ const listBookById = async (req, res) => {
 const updateBook = async (req, res) => {
     try {
          const updateBookById = await Book.findByIdAndUpdate(req.params.id, req.body, {new:true});
-         return res.send(`Book ${updateBookById.title} has been updated` + updateBookById)
+         return res.send(`Book ${updateBookById.title} has been updated` + updateBookById);
     } catch (error) {
-                console.error(`${chalk.red('Error occurred in updating book ', error.message)}`)
+         console.error(`${chalk.red('Error occurred in updating book ', error.message)}`);
 
     }
     
