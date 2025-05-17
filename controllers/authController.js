@@ -53,9 +53,9 @@ const signInUser = async (req, res) => {
             first: user.first
         }
         if(user.role === 'Admin'){
-                    res.send(`Dear ${first} Welcome to our bookshop as a ${user.role}`)
+                    res.send(`Dear ${user.first} Welcome to our bookshop as a ${user.role}`)
         } else {
-                    res.send(`Dear ${first} Welcome to our bookshop`)
+                    res.send(`Dear ${user.first} ${user._id} Welcome to our bookshop`)
 
         }
     } catch (error) {
