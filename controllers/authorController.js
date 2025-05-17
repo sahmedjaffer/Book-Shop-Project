@@ -53,12 +53,26 @@ const updateAuthor = async (req, res) => {
 }
 
 const deleteAuthor = async (req, res) => {
-    try {
-        
-    } catch (error) {
-        
-    }
-    
+
+     try {
+             const userID = req.params.id;
+     
+             // Find the Author by ID and delete it
+             const author = await Author.findByIdAndDelete(userID);
+     
+             if (author) {
+                 res.status(200).json({
+                     message: "Author deleted successfully."
+                 });
+            
+         }} catch (error) {
+             console.log(error);
+             res.status(404).json({
+                 message: "Author not found!",
+                 error: error.message
+             })
+         }
+
 }
 
 
