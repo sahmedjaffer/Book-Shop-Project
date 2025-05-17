@@ -86,11 +86,6 @@ const updateUser = async (req, res) => {
      }
      
  };
-
-
-
-
-
 module.exports = {
     listAllUsers,
     listUserById,
