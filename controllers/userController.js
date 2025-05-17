@@ -5,6 +5,9 @@ const User = require('../models/User.js');
 const listAllUsers = async (req, res) => {
     try {
         const listUsers = await User.find();
+        if (!listUsers){
+        return res.send(`Sorry No Users was Found`);
+        }
         return res.send({listUsers});
     } catch (error) {
         console.error(`${chalk.red('Error occurred in listing users!.', error.message)}`);
@@ -14,6 +17,9 @@ const listAllUsers = async (req, res) => {
 const listUserById = async (req, res) => {
     try {
         const findUserById = await User.findById(req.params.id);
+        if (!findUserById){
+        return res.send(`Sorry User with id ${req.params.id} not found`);
+        }
         return res.send({findUserById})
     } catch (error) {
         console.error(`${chalk.red('Error occurred in listing users By ID!.', error.message)}`);
@@ -27,17 +33,18 @@ const updateUser = async (req, res) => {
         const { first , last , email , address , phone } = req.body ;
      
       // find user by id
-         const user = await User.findById(id);
+         const user = await User.findByIdAndUpdate(req.params.id, req.body, {new:true});
          if (!user) {
-             return res.status(404).json ({ message: "User not found !"});  
+            
          
          if(first) user.first = first ;
          if(last) user.last = last ;
          if(email) user.email= email ; 
          if(address) user.address = address;
          if(phone) user.phone = phone ; 
+          return res.status(404).json ({ message: "User not found !"});  
      
-             
+         }
          
              // Save the updated user
          const updatedUser = await user.save();
@@ -47,12 +54,12 @@ const updateUser = async (req, res) => {
                  first: updatedUser.first,
                  last: updatedUser.last,
                  email: updatedUser.email,
-                 adress: updatedUser.adress,
+                 address: updatedUser.address,
                  phone: updatedUser.phone
                  
              });
 
-            }
+            
                      
      } catch (error) {
          console.log(error);
