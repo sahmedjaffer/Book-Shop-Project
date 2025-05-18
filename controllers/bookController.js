@@ -8,44 +8,24 @@ const listAllBooks = async (req, res) => {
         if(!listBooks){
             return res.send('No Books Found');
         };
-      //  console.log(listBooks.author.name)
-       // return res.send({listBooks});
-        res.render('books/all', { listBooks });
-
+        res.render('books/all', {listBooks});
     } catch (error) {
         console.error(`${chalk.red('Error occurred in listing all book ', error.message)}`)
-    };
-    
+    };  
 };
-
-// const getRecipeById = async (req, res) => {
-//   try {
-//     const recipe = await Recipe.findById(req.params.id).populate('author')
-//     res.render('./recipes/show.ejs', { user: req.session.user, recipe })
-//   } catch (error) {
-//     console.error('An error has occurred getting a recipe!', error.message)
-//   }
-// }
-
-
 
 const listBookById = async (req, res) => {
     try {
         const bookById = await Book.findById(req.params.id).populate('author');
-        
         if(!bookById){
             return res.send(`the Book with the id ${req.params.id} not found`);
         }
-        console.log(bookById.author);
-        return res.send(`${bookById.title} has been found` + bookById);
-//       res.render('books/show', {
-//   bookById: bookById,
-//   Author: bookById.author
-// });
+         res.render('books/show', {bookById});
     } catch (error) {;
         console.error(`${chalk.red('Error occurred in listing book by id ', error.message)}`);
     };
 };
+
 
 const updateBook = async (req, res) => {
     try {
@@ -59,9 +39,12 @@ const updateBook = async (req, res) => {
     };
 };
 
+
 const createNewBook = async (req, res) => {
     try {
+        const bookInDatabase = await Book.findOne({isbn: req.body.isbn})
         const authorInDatabase = await Author.findOne({name: req.body.authorName});
+        if (!bookInDatabase){
         if (authorInDatabase) {
             const book = await Book.create(req.body);
             authorInDatabase.works.push(book._id);
@@ -74,14 +57,27 @@ const createNewBook = async (req, res) => {
                     biography: req.body.authorBiography,
                     works: []
       });
-            const book = await Book.create(req.body, {author: authorInDatabase._id});
+
+            const book = new Book({
+            isbn: req.body.isbn,
+            title: req.body.title,
+            description: req.body.description,
+            unitPrice: req.body.unitPrice,
+            stock: req.body.stock,
+            category: req.body.category,
+            publisher: req.body.publisher,
+            author: author._id
+            });
+
+            const book11 = await Book.create(book);
+            console.log(book.author)
+            await book.save();
             author.works.push(book._id);
-            author.save();
-           return res.send(`Book ${book.title} and Author ${author.name} have been created` + {author} + {book}) 
+            await author.save();
+           return res.send(`Book ${book.title} and Author ${author.name} have been created`) 
+        }}else {
+                return res.send(`Book ${bookInDatabase.title} already exist`) 
         }
-
-
-
     } catch (error) {
         console.error(`${chalk.red('Error occurred in creating book ', error.message)}`)
     }

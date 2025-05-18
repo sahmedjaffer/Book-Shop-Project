@@ -1,11 +1,10 @@
 <h1><%= bookById.title %></h1>
-<% if (bookById.author && bookById.author.works && bookById.author.works.map(id => id.toString()).includes(bookById._id.toString())) { %>
-  <p>Author: <%= bookById.author.name %></p>
-<% } %>
 <p>Description: <%= bookById.description %></p>
 <p>Price: $<%= bookById.unitPrice %></p>
 <p>Stock: <%= bookById.stock %></p>
 <p>Category: <%= bookById.category %></p>
 <p>ISBN: <%= bookById.isbn %></p>
-<p>Image: <a href="<%= bookById.image %>">image url</a></p>
+<p>Image: <a href="<%= bookById.image %>" target="_blank">View Image</a></p>
+<img src="<%= bookById.image %>" alt="Book Cover" style="max-width: 200px; height: auto;">
+<p>Author: <%= bookById.author ? bookById.author.name : 'No author info' %></p>
 <a href="/books">Back to all books</a>

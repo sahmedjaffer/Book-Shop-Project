@@ -2,16 +2,16 @@
 <ul>
   <% listBooks.forEach(book => { %>
     <li>
-      <a href="/books/<%= book._id %>"><%= book.title %></a>
+      <a href="/books/<%= book._id %>"><Title>: </Title><%= book.title %></a>
     </li>
     <li>
-      <p><%= book.category %></p>
+      <p>Category: <%= book.category %></p>
     </li>
     <li>
-      <p><%= book.publisher %></p>
+      <p>Publisher: <%= book.publisher %></p>
     </li>
     <li>
-      <p><%= book.author %></p>
-    </li>
+
+    <p>Author: <%= book.author?.name || 'No Author Info' %></p>.    </li>
   <% }) %>
 </ul>
