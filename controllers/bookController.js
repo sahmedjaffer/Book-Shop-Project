@@ -4,24 +4,44 @@ const Author = require('../models/Author.js');
 
 const listAllBooks = async (req, res) => {
     try {
-        const listBooks = await Book.find();
+        const listBooks = await Book.find({}).populate('author');
         if(!listBooks){
             return res.send('No Books Found');
         };
-        return res.send({listBooks});
+      //  console.log(listBooks.author.name)
+       // return res.send({listBooks});
+        res.render('books/all', { listBooks });
+
     } catch (error) {
         console.error(`${chalk.red('Error occurred in listing all book ', error.message)}`)
     };
     
 };
 
+// const getRecipeById = async (req, res) => {
+//   try {
+//     const recipe = await Recipe.findById(req.params.id).populate('author')
+//     res.render('./recipes/show.ejs', { user: req.session.user, recipe })
+//   } catch (error) {
+//     console.error('An error has occurred getting a recipe!', error.message)
+//   }
+// }
+
+
+
 const listBookById = async (req, res) => {
     try {
-        const bookById = await Book.findById(req.params.id);
+        const bookById = await Book.findById(req.params.id).populate('author');
+        
         if(!bookById){
             return res.send(`the Book with the id ${req.params.id} not found`);
         }
+        console.log(bookById.author);
         return res.send(`${bookById.title} has been found` + bookById);
+//       res.render('books/show', {
+//   bookById: bookById,
+//   Author: bookById.author
+// });
     } catch (error) {;
         console.error(`${chalk.red('Error occurred in listing book by id ', error.message)}`);
     };
@@ -52,10 +72,9 @@ const createNewBook = async (req, res) => {
                 {
                     name: req.body.authorName,
                     biography: req.body.authorBiography,
-                    works:[]
-                }
-            );
-            const book = await Book.create(req.body);
+                    works: []
+      });
+            const book = await Book.create(req.body, {author: authorInDatabase._id});
             author.works.push(book._id);
             author.save();
            return res.send(`Book ${book.title} and Author ${author.name} have been created` + {author} + {book}) 

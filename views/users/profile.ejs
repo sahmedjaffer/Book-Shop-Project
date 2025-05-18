@@ -1,0 +1,16 @@
+<%- include('../partials/header.ejs') %>
+
+<h2><%= userData.first %> <%= userData.last %>'s Profile</h2>
+
+<div>
+  <a href=<%= `/auth/${userData._id}/update-password` %>>Update Password</a>
+</div>
+
+<h3>Orders:</h3>
+<ul>
+  <% userData.order.forEach(itm => { %>
+    <li><a href="/orders/<%= itm._id %>"><%= recipe.title %></a></li>
+  <% }) %>
+</ul>
+
+<%- include('../partials/footer.ejs') %>

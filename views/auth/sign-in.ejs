@@ -1,12 +1,21 @@
-<%- include('partials/header') %>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <%- include('../partials/header') %>
 <h2>Login</h2>
-<form action="../auth/sign-in.ejs" method="POST">
+<form action="../auth/sign-in" method="POST">
   <label>Email:</label>
   <input type="email" name="email" required>
   <label>Password:</label>
   <input type="password" name="password" required>
   <button type="submit">Login</button>
 </form>
+<%- include('../partials/footer') %>
+</body>
+</html>
 
-<%- include('partials/footer') %>

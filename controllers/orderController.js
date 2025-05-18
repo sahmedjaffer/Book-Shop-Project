@@ -5,7 +5,7 @@ const Book = require('../models/Book.js')
 
 const listAllOrders = async (req, res) => {
     try {
-        const showAllOrders = await Order.find();
+        const showAllOrders = await Order.find({});
         if(!showAllOrders){
             return res.send('No orders found!')
         }
@@ -17,7 +17,7 @@ const listAllOrders = async (req, res) => {
 
 const listOrderById = async (req, res) => {
     try {
-        const orderById = await Order.findById(req.params.id);
+        const orderById = await Order.findById(req.params.id).populate('user');
         if(!orderById){
             return res.send(`${orderById.id} order not found`);
         }

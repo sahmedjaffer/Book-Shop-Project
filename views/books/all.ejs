@@ -1,0 +1,17 @@
+<h1>All Books</h1>
+<ul>
+  <% listBooks.forEach(book => { %>
+    <li>
+      <a href="/books/<%= book._id %>"><%= book.title %></a>
+    </li>
+    <li>
+      <p><%= book.category %></p>
+    </li>
+    <li>
+      <p><%= book.publisher %></p>
+    </li>
+    <li>
+      <p><%= book.author %></p>
+    </li>
+  <% }) %>
+</ul>

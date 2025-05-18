@@ -4,11 +4,22 @@ const User = require('../models/User.js');
 
 const listAllUsers = async (req, res) => {
     try {
-        const listUsers = await User.find();
+        const listUsers = await User.find().populate('order','book');
+        const usersData = {
+            first: User.first,
+            last: User.last,
+            email: User.email,
+            address: User.address,
+            phone:User.phone ,
+            role:User.role,
+            isActive:User.isActive,
+            order: User.order
+        };
         if (!listUsers){
         return res.send(`Sorry No Users was Found`);
         }
-        return res.send({listUsers});
+        //return res.send({listUsers});
+        res.render('./users/profile.ejs', { usersData });
     } catch (error) {
         console.error(`${chalk.red('Error occurred in listing users!.', error.message)}`);
     }   
@@ -16,11 +27,22 @@ const listAllUsers = async (req, res) => {
 
 const listUserById = async (req, res) => {
     try {
-        const findUserById = await User.findById(req.params.id);
+        const findUserById = await User.findById(req.params.id).populate('order','book');
+        const userData = {
+            first: findUserById.first,
+            last: findUserById.last,
+            email: findUserById.email,
+            address: findUserById.address,
+            phone:findUserById.phone ,
+            role:findUserById.role,
+            isActive:findUserById.isActive,
+            order: findUserById.order
+        };
         if (!findUserById){
         return res.send(`Sorry User with id ${req.params.id} not found`);
         }
-        return res.send({findUserById})
+       // return res.send({findUserById})
+        res.render('./users/profile.ejs', { userData });
     } catch (error) {
         console.error(`${chalk.red('Error occurred in listing users By ID!.', error.message)}`);
     }

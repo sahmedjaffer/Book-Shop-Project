@@ -1,0 +1,41 @@
+@baseUrl = http://localhost:4001
+
+### Get all books
+GET {{baseUrl}}/books
+
+###
+
+### Get a specific book by ID
+GET {{baseUrl}}/books/6829e72fb2804749e746ad63
+
+###
+
+
+### Create a new book
+POST {{baseUrl}}/books/new
+Content-Type: application/json
+
+
+  {
+    "isbn": "9781234567890",
+    "title": "The Sample Book 1",
+    "description": "A great test book for developers.",
+    "unitPrice": 29.99,
+    "stock": 15,
+    "image": "https://example.com/book1.jpg",
+    "category": "Programming",
+    "publisher": "CodeHouse Publishing",
+    "authorName": "Jane Doe",
+    "biography": "Jane is a passionate software engineer and author of many tech books."
+  }
+
+
+
+### Create a new book
+PUT {{baseUrl}}/books/6829e72fb2804749e746ad63
+Content-Type: application/json
+
+  {
+    "authorName": "Jane Doe",
+    "biography": "Jane is a passionate software engineer and author of many tech books."
+  }
