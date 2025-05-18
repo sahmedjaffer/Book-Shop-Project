@@ -3,7 +3,7 @@ const Author = require('../models/Author.js');
 
 const listAllAuthors = async (req, res) => {
     try {
-        const allAuthors = await Author.find();
+        const allAuthors = await Author.find({});
         if(!listAllAuthors) {
             return res.send('No Authors has been found')
         }
@@ -15,7 +15,7 @@ const listAllAuthors = async (req, res) => {
 
 const listAuthorById = async (req, res) => {
     try {
-         const findAuthor = await Author.findById(req.params.id)
+         const findAuthor = await Author.findById(req.params.id).populate('works')
          if(!findAuthor) {
             return res.send(`No Authors with that id ${findAuthor} has been found`);
          };

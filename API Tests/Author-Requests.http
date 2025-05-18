@@ -1,0 +1,11 @@
+@baseUrl = http://localhost:4001
+
+### Get all Authors
+GET {{baseUrl}}/authors
+
+###
+
+### Get a specific book by ID
+GET {{baseUrl}}/authors/6829d5244fb51d35922b6301
+
+###
