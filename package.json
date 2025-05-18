@@ -4,7 +4,11 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --watch server.js"
+    "start": "nodemon server.js"
+  },
+  "nodemonConfig": {
+    "restartable": "rs",
+    "delay": 2500
   },
   "keywords": [],
   "author": "",
@@ -17,8 +21,9 @@
     "express": "^5.1.0",
     "express-session": "^1.18.1",
     "method-override": "^3.0.0",
-    "mongoose": "^8.14.2",
-    "morgan": "^1.10.0"
+    "mongoose": "^8.15.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.10"
   },
   "repository": {
     "type": "git",
