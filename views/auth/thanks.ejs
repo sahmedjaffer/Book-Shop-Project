@@ -1,7 +1,26 @@
-<%- include('../partials/header.ejs') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%- include('../partials/header.ejs') %>
 
-<h2>Thanks for signing up!</h2>
+  <main class="confirmation-container">
+    <div class="confirmation-card">
+      <div class="confirmation-icon">🎉</div>
+      <h1 class="confirmation-title">Thanks for signing up!</h1>
+      <p class="confirmation-text">Your account has been successfully created.</p>
+      <div class="confirmation-actions">
+        <a href="/auth/sign-in" class="auth-button">Sign In Now</a>
+      </div>
+      <p class="confirmation-note">Check your email for verification instructions</p>
+    </div>
+  </main>
 
-<h2>Sign in <a href="/auth/sign-in">here</a>.</h2>
-
-<%- include('../partials/footer.ejs') %>
+  <%- include('../partials/footer.ejs') %>
+</body>
+</html>

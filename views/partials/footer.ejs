@@ -1,6 +1,36 @@
-    </main>
-    <footer>
-      <p>&copy; <%= new Date().getFullYear() %> Book Shop</p>
-    </footer>
-  </body>
-</html>
+<!-- partials/footer.ejs -->
+<link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-section">
+      <h4 class="footer-heading">Book Shop</h4>
+      <p class="footer-text">Discover your next great read with us since 2010</p>
+      <p class="copyright">&copy; <%= new Date().getFullYear() %> Book Shop. All rights reserved.</p>
+    </div>
+
+    <div class="footer-section">
+      <h4 class="footer-heading">Quick Links</h4>
+      <ul class="footer-links">
+        <li><a href="/about" class="footer-link">About Us</a></li>
+        <li><a href="/contact" class="footer-link">Contact</a></li>
+        <li><a href="/privacy" class="footer-link">Privacy Policy</a></li>
+        <li><a href="/terms" class="footer-link">Terms of Service</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h4 class="footer-heading">Connect</h4>
+      <div class="social-links">
+        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+      </div>
+      <div class="contact-info">
+        <p class="footer-text">📧 hello@bookshop.com</p>
+        <p class="footer-text">📞 (555) 123-4567</p>
+      </div>
+    </div>
+  </div>
+</footer>

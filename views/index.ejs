@@ -1,16 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | My Book Shop</title>
+<link rel="stylesheet" href="/css/style.css">    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-<%- include('partials/header') %>
-  <h2>Welcome to our Bookstore!</h2>
-  <p>Find your favorite books here.</p>
-<%- include('partials/footer') %>
+    <%- include('partials/header') %>
+
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">Discover Your Next Favorite Book</h1>
+                <p class="hero-subtitle">Explore our curated collection of bestsellers and hidden gems</p>
+                <a href="/books" class="cta-button">Browse Collection</a>
+            </div>
+        </section>
+
+        <!-- Featured Books -->
+        <section class="featured-books">
+            <h2 class="section-title">New Arrivals</h2>
+            <div class="book-grid">
+                <!-- Sample Book Card - Repeat for each featured book -->
+                <div class="book-card">
+                    <img src="https://via.placeholder.com/200x300" alt="Book Cover" class="book-image">
+                    <h3 class="book-title">Book Title</h3>
+                    <p class="book-author">Author Name</p>
+                    <p class="book-price">$29.99</p>
+                    <a href="/books/1" class="book-link">View Details</a>
+                </div>
+                <!-- Repeat more book cards -->
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter">
+            <div class="newsletter-content">
+                <h2 class="section-title">Stay Updated</h2>
+                <p class="newsletter-text">Subscribe to our newsletter for latest releases and special offers</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit" class="cta-button">Subscribe</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <%- include('partials/footer') %>
 </body>
 </html>
-
-
-
-

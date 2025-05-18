@@ -3,19 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Login</title>
+  <!-- Correct CSS path (remove /public) -->
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-  <%- include('../partials/header') %>
-<h2>Login</h2>
-<form action="../auth/sign-in" method="POST">
-  <label>Email:</label>
-  <input type="email" name="email" required>
-  <label>Password:</label>
-  <input type="password" name="password" required>
-  <button type="submit">Login</button>
-</form>
-<%- include('../partials/footer') %>
+  <!-- Update partials path -->
+<%- include('../partials/header') %>
+
+  <main class="auth-container">
+    <div class="auth-card">
+      <h2 class="auth-title">Login</h2>
+      
+      <!-- Fix form action path -->
+<form action="/auth/sign-in" method="POST">
+          <div class="form-group">
+          <label for="email" class="form-label">Email:</label>
+          <input type="email" id="email" name="email" class="form-input" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="form-label">Password:</label>
+          <input type="password" id="password" name="password" class="form-input" required>
+        </div>
+
+        <button type="submit" class="auth-button">Sign In</button>
+      </form>
+
+      <div class="auth-links">
+        <!-- Fix navigation paths -->
+        <a href="/sign-up" class="auth-link">Create Account</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Update partials path -->
+  <%- include('../partials/footer') %>
 </body>
 </html>
-

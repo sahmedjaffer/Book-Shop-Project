@@ -1,5 +1,18 @@
+<head>
+<link rel="stylesheet" href="/css/style.css">
+
+</head>
+
 <%- include('../partials/header.ejs') %>
 
-<h2>Your password has been updated, <%= user.first %>!</h2>
+<div class="password-updated-container">
+  <div class="confirmation-message">
+    <h2>Your password has been updated, <%= user.first %>!</h2>
+    <p class="confirmation-text">
+      You can now use your new password to sign in to your account.
+    </p>
+    <a href="/profile" class="return-link">Return to Your Profile</a>
+  </div>
+</div>
 
 <%- include('../partials/footer.ejs') %>

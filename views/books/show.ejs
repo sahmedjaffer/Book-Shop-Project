@@ -1,10 +1,74 @@
-<h1><%= bookById.title %></h1>
-<p>Description: <%= bookById.description %></p>
-<p>Price: $<%= bookById.unitPrice %></p>
-<p>Stock: <%= bookById.stock %></p>
-<p>Category: <%= bookById.category %></p>
-<p>ISBN: <%= bookById.isbn %></p>
-<p>Image: <a href="<%= bookById.image %>" target="_blank">View Image</a></p>
-<img src="<%= bookById.image %>" alt="Book Cover" style="max-width: 200px; height: auto;">
-<p>Author: <%= bookById.author ? bookById.author.name : 'No author info' %></p>
-<a href="/books">Back to all books</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= bookById.title %> | My Book Shop</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/book-details.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+
+    <main class="main-content">
+        <div class="book-detail-container">
+            <div class="book-header">
+                <h1 class="book-title"><%= bookById.title %></h1>
+                
+                <div class="book-image-container">
+                    <img src="<%= bookById.image %>" alt="Book Cover" class="book-image">
+                </div>
+            </div>
+
+            <div class="book-info-grid">
+                <div class="book-info-section">
+                    <div class="book-info-item">
+                        <span class="book-info-label">Description</span>
+                        <%= bookById.description %>
+                    </div>
+                    
+                    <div class="book-info-item">
+                        <span class="book-info-label">Price</span>
+                        <span class="book-price">$<%= bookById.unitPrice %></span>
+                    </div>
+                    
+                    <div class="book-info-item">
+                        <span class="book-info-label">Stock</span>
+                        <span class="book-stock <%= bookById.stock > 0 ? 'in-stock' : 'out-of-stock' %>">
+                            <%= bookById.stock %>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="book-info-section">
+                    <div class="book-info-item">
+                        <span class="book-info-label">Category</span>
+                        <%= bookById.category %>
+                    </div>
+                    
+                    <div class="book-info-item">
+                        <span class="book-info-label">ISBN</span>
+                        <%= bookById.isbn %>
+                    </div>
+                    
+                    <div class="book-info-item">
+                        <span class="book-info-label">Author</span>
+                        <%= bookById.author ? bookById.author.name : 'No author info' %>
+                    </div>
+                    
+                    <div class="book-info-item">
+                        <span class="book-info-label">Image Link</span>
+                        <a href="<%= bookById.image %>" target="_blank" class="book-image-link">View Full Image</a>
+                    </div>
+                </div>
+            </div>
+
+            <a href="/books" class="back-link">Back to All Books</a>
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+    <script src="/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+/* book-details.css */
+.book-detail-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.book-header {
+  border-bottom: 2px solid #eee;
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.book-title {
+  color: #2c3e50;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.book-image-container {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.book-image {
+  max-width: 300px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.book-image:hover {
+  transform: scale(1.03);
+}
+
+.book-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.book-info-section {
+  padding: 1.5rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.book-info-item {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: #34495e;
+}
+
+.book-info-label {
+  display: block;
+  color: #7f8c8d;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.book-price {
+  color: #27ae60;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+/* Stock status classes */
+.book-stock.in-stock {
+  color: #2ecc71;
+  font-weight: bold;
+}
+
+.book-stock.out-of-stock {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.8rem 1.5rem;
+  background-color: #3498db;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.back-link:hover {
+  background-color: #2980b9;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .book-title {
+    font-size: 2rem;
+  }
+  
+  .book-image {
+    max-width: 200px;
+  }
+  
+  .book-info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .book-detail-container {
+    padding: 1rem;
+    margin: 1rem;
+  }
+  
+  .book-title {
+    font-size: 1.8rem;
+  }
+}
