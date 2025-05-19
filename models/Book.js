@@ -10,6 +10,9 @@ const bookSchema = new mongoose.Schema(
         image: {type: String},
         category: {type: String, required: true},
         publisher: {type: String, required: true},
+        publicationDate:{type: String, required: true},
+        pages:{type: String, required: true},
+        language:{type: String, required: true},
         author: {type: mongoose.Schema.Types.ObjectId, ref: 'Author'}
     },
     {timestamps: true}

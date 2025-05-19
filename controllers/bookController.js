@@ -66,6 +66,9 @@ const createNewBook = async (req, res) => {
             stock: req.body.stock,
             category: req.body.category,
             publisher: req.body.publisher,
+            publicationDate: req.body.publicationDate,
+            pages: req.body.pages,
+            language:req.body.language,
             author: author._id
             });
 
