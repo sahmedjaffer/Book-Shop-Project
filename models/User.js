@@ -8,7 +8,6 @@ const userSchema = new mongoose.Schema(
         address: {type: String, required: true},
         phone: {type: String, required: true},
         role:{type: String},
-        isActive:{type: Boolean},
         order : [
             {
                 type: mongoose.Schema.Types.ObjectId,

@@ -1,0 +1,26 @@
+<%- include('../partials/header.ejs') %>
+
+<h2><%= bookById.title %></h2>
+<p>Book ISBN: <%= bookById.isbn %></p>
+<p>Book Price: <%= bookById.unitPrice %></p>
+<% if(bookById.stock > 0){ %>
+<p>Stock:  Book is available we have <%= bookById.stock %> in stock</p>
+<% }else{ %>
+<p>Stock: Sorry the book is out stock</p>
+<% } %>
+<p>Book Category: <%= bookById.category %></p>
+<p>Book Publisher<%= bookById.publisher %></p>
+<p>Book Author: <%= bookById.author.name %></p>
+<p>Author Biography: <%= bookById.author.biography %></p>
+<img src="<%= bookById.image %>" alt="<%= bookById.title %>" width="300" />
+<p>About The Book <%= bookById.description %></p>
+  
+<form action="/books/<%= bookById._id %>/edit">
+  <button>Edit</button>
+</form>
+
+<form action="/books/<%= bookById._id %>?_method=DELETE" method="POST">
+  <button type="submit">Delete</button>
+</form>
+<%- include('../partials/footer.ejs') %>
+

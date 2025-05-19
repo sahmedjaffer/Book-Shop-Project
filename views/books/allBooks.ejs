@@ -2,6 +2,9 @@
 <h1>All Books</h1>
   <%- include('../partials/header') %>
 <ul>
+  <form action="/books/new">
+  <button>Add New Book</button>
+</form>
   <% allBooks.forEach(book => { %>
     <li>
       <a href="/books/<%= book._id %>"><Title>: </Title><%= book.title %></a>

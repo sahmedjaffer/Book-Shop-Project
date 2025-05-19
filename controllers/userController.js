@@ -35,7 +35,6 @@ const listUserById = async (req, res) => {
             address: findUserById.address,
             phone:findUserById.phone ,
             role:findUserById.role,
-            isActive:findUserById.isActive,
             order: findUserById.order
         };
         if (!findUserById){
