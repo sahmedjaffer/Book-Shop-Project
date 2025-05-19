@@ -6,6 +6,11 @@ GET {{baseUrl}}/authors
 ###
 
 ### Get a specific book by ID
-GET {{baseUrl}}/authors/6829d5244fb51d35922b6301
+GET {{baseUrl}}/authors/682a2658410355108c7efd72
+
+###
+
+### Get a specific book by ID
+POST  {{baseUrl}}/authors
 
 ###

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Authors | My Book Shop</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/authors.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+
+    <main class="main-content">
+        <div class="author-list-container">
+            <h1>All Authors</h1>
+            
+            <ul class="author-list">
+                <% allAuthors.forEach(author => { %>
+                    <li class="author-item">
+                        <a href="/authors/<%= author._id %>" class="author-name"><%= author.name %></a>
+                        
+                        <div class="author-details">
+                            <div>
+                                <strong>Biography</strong>
+                                <p class="author-bio">
+                                    <%= author.biography ? 
+                                        author.biography.substring(0, 150) + (author.biography.length > 150 ? '...' : '') : 
+                                        'No biography available' %>
+                                </p>
+                            </div>
+                            
+                            <div>
+                                <strong>Published Works</strong>
+                                <p class="works-count"><%= author.works.length %> books</p>
+                            </div>
+                        </div>
+                        
+                        <a href="/authors/<%= author._id %>" class="view-details">View Details</a>
+                    </li>
+                <% }) %>
+            </ul>
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+    <script src="/js/main.js"></script>
+</body>
+</html>

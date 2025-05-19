@@ -27,40 +27,19 @@ app.use((req, res, next) => {
 
 
 
-// app.get('/', (req, res) =>{
-//     try {
-//     res.render('index');
-//     console.log(`${chalk.green('Welcome aboard!!!! , the root Page Working Fine')}`);
-//     } catch (error) {
-//         console.error('error occured', error.message)
-//     }
-
-// });
-
 // app.get('/', (req, res) => {
-//     res.render('index', {}, (err, html) => {
-//         if (err) {
-//             console.error('Render Error:', err.message);
-//             return res.status(500).send('خطأ في عرض الصفحة');
-//         }
-//         console.log(`${chalk.green('Welcome aboard!!!! , the root Page Working Fine')}`);
-//         res.send(html);
-//     });
+//   res.render('index');
 // });
 
-app.get('/', (req, res) => {
-  res.render('index');
-});
 
-
-
+const indexRouter = require('./routes/indexRouter.js');
 const authRouter = require('./routes/authRouter.js');
 const userRouter = require('./routes/userRouter.js');
 const authorRouter = require('./routes/authorRouter.js');
 const bookRouter = require('./routes/bookRouter.js');
 const orderRouter = require('./routes/orderRouter.js');
 
-
+app.use('/', indexRouter);
 app.use("/", authRouter);
 app.use('/users',userRouter);
 app.use('/authors', authorRouter);

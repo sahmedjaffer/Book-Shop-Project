@@ -25,5 +25,5 @@ Content-Type: application/json
     "category": "Memoir",
     "publisher": "Random House",
     "authorName": "Tara Westover",
-    "biography": "Historian and memoirist from rural Idaho"
+    "authorBiography": "Historian and memoirist from rural Idaho"
   }

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= findAuthor.name %> | My Book Shop</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/authors.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+
+    <main class="main-content">
+        <div class="author-detail-container">
+            <h1 class="author-title"><%= findAuthor.name %></h1>
+            
+            <section class="author-bio-section">
+                <h2>Biography</h2>
+                <p class="author-bio">
+                    <%= findAuthor.biography || 'No biography available' %>
+                </p>
+            </section>
+
+            <section class="author-works-section">
+                <h2>Published Works (<%= findAuthor.works.length %>)</h2>
+                
+                <% if (findAuthor.works && findAuthor.works.length > 0) { %>
+                    <div class="works-list">
+                        <% findAuthor.works.forEach(work => { %>
+                            <div class="work-item">
+                                <div class="work-header">
+                                    <h3 class="work-title"><%= work.title %></h3>
+                                    <span class="work-price">$<%= work.unitPrice.toFixed(2) %></span>
+                                </div>
+                                
+                                <div class="work-details">
+                                    <p class="work-description"><%= work.description %></p>
+                                    
+                                    <div class="work-meta">
+                                        <div class="meta-item">
+                                            <i class="fas fa-barcode"></i>
+                                            <span>ISBN: <%= work.isbn %></span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <i class="fas fa-cube"></i>
+                                            <span>Stock: <%= work.stock %></span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <i class="fas fa-book-open"></i>
+                                            <span>Category: <%= work.category %></span>
+                                        </div>
+                                        <div class="meta-item">
+                                            <i class="fas fa-print"></i>
+                                            <span>Publisher: <%= work.publisher %></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }) %>
+                    </div>
+                <% } else { %>
+                    <p class="no-works">No works found for this author.</p>
+                <% } %>
+            </section>
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+    <script src="/js/main.js"></script>
+</body>
+</html>

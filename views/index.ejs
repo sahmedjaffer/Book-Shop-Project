@@ -4,34 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home | My Book Shop</title>
-<link rel="stylesheet" href="/css/style.css">    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
-    <%- include('partials/header') %>
 
+<body>
+<%- include('partials/header') %>
     <main class="main-content">
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-content">
-                <h1 class="hero-title">Discover Your Next Favorite Book</h1>
-                <p class="hero-subtitle">Explore our curated collection of bestsellers and hidden gems</p>
-                <a href="/books" class="cta-button">Browse Collection</a>
+        <!-- Authors Section -->
+        <section class="highlight-section authors-section">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-users"></i> Featured Authors</h2>
+                <a href="/authors" class="view-all">View All Authors →</a>
+            </div>
+            <div class="authors-grid">
+                <% const featuredAuthors = authors.slice(0, 4); %>
+                <% featuredAuthors.forEach(author => { %>
+                    <div class="author-card">
+                        <h3 class="author-name"><%= author.name %></h3>
+                        <p class="author-works"><%= author.works.length %> published works</p>
+                        <a href="/authors/<%= author._id %>" class="btn view-details">View Profile</a>
+                    </div>
+                <% }) %>
             </div>
         </section>
 
-        <!-- Featured Books -->
-        <section class="featured-books">
-            <h2 class="section-title">New Arrivals</h2>
-            <div class="book-grid">
-                <!-- Sample Book Card - Repeat for each featured book -->
-                <div class="book-card">
-                    <img src="https://via.placeholder.com/200x300" alt="Book Cover" class="book-image">
-                    <h3 class="book-title">Book Title</h3>
-                    <p class="book-author">Author Name</p>
-                    <p class="book-price">$29.99</p>
-                    <a href="/books/1" class="book-link">View Details</a>
-                </div>
-                <!-- Repeat more book cards -->
+        <!-- Books Section -->
+        <section class="highlight-section books-section">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-book-open"></i> New Arrivals</h2>
+                <a href="/books" class="view-all">Browse All Books →</a>
+            </div>
+            <div class="books-grid">
+                <% const newBooks = books.slice(0, 4); %>
+                <% newBooks.forEach(book => { %>
+                    <div class="book-card">
+                        <a href="/books/<%= book._id %>">
+                            <img src="<%= book.coverImage || '/images/placeholder-book.jpg' %>" alt="<%= book.title %>" class="book-cover">
+                        </a>
+                        <h3 class="book-title">
+                            <a href="/books/<%= book._id %>"><%= book.title %></a>
+                        </h3>
+                        <p class="book-author">By <%= book.author.name %></p>
+                        <div class="book-price">$<%= book.unitPrice %></div>
+                        <button class="btn add-to-cart"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                    </div>
+                <% }) %>
+            </div>
+        </section>
+
+        <!-- Orders Section -->
+        <section class="highlight-section orders-section">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-shopping-bag"></i> Recent Orders</h2>
+                <a href="/orders" class="view-all">View Order History →</a>
+            </div>
+            <div class="orders-list">
+                <table class="orders-table">
+                    <thead>
+                        <tr>
+                            <th>Order #</th>
+                            <th>Date</th>
+                            <th>Items</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% const recentOrders = orders.slice(0, 5); %>
+                        <% recentOrders.forEach(order => { %>
+                            <tr class="order-item">
+                                <td>#<%= order.orderNumber %></td>
+                                <td><%= new Date(order.date).toLocaleDateString() %></td>
+                                <td><%= order.items.length %> items</td>
+                                <td>$<%= order.total.toFixed(2) %></td>
+                                <td><span class="status-badge <%= order.status.toLowerCase() %>"><%= order.status %></span></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
             </div>
         </section>
 
