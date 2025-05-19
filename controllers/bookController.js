@@ -73,7 +73,8 @@ const createNewBook = async (req, res) => {
             author.works.push(book._id);
             book.save();
             author.save();
-           return res.send(`Book ${book.title} and Author ${author.name} have been created` + {author} + {book}) 
+            res.redirect(`/books/${book._id}`)
+          // return res.send(`Book ${book.title} and Author ${author.name} have been created` + {author} + {book}) 
         }
     }
     } catch (error) {
