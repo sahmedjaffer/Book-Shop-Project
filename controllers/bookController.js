@@ -4,27 +4,22 @@ const Author = require('../models/Author.js');
 
 const listAllBooks = async (req, res) => {
     try {
-        const listBooks = await Book.find({}).populate('author');
-        if(!listBooks){
-            return res.send('No Books Found');
-        };
-        res.render('books/all', {listBooks});
+        const allBooks = await Book.find().populate('author');
+       //return res.send({allBooks});
+        res.render('../views/books/all.ejs', {allBooks})
+
     } catch (error) {
         console.error(`${chalk.red('Error occurred in listing all book ', error.message)}`)
-    };  
-};
-
+    } 
+}
 const listBookById = async (req, res) => {
     try {
         const bookById = await Book.findById(req.params.id).populate('author');
-        if(!bookById){
-            return res.send(`the Book with the id ${req.params.id} not found`);
-        }
-         res.render('books/show', {bookById});
-    } catch (error) {;
-        console.error(`${chalk.red('Error occurred in listing book by id ', error.message)}`);
-    };
-};
+        //return res.send(`${bookById.title} has been found` + bookById);
+        res.render('../views/books/show.ejs', {bookById})
+        
+    } catch (error) {
+        console.error(`${chalk.red('Error occurred in listing book by id ', error.message)}`)
 
 
 const updateBook = async (req, res) => {
@@ -48,6 +43,7 @@ const createNewBook = async (req, res) => {
         if (authorInDatabase) {
             const book = await Book.create(req.body);
             authorInDatabase.works.push(book._id);
+            book.save();
             authorInDatabase.save();
             return res.send(`Book ${book.title} has been created`)
         } else {
@@ -73,10 +69,9 @@ const createNewBook = async (req, res) => {
             console.log(book.author)
             await book.save();
             author.works.push(book._id);
-            await author.save();
-           return res.send(`Book ${book.title} and Author ${author.name} have been created`) 
-        }}else {
-                return res.send(`Book ${bookInDatabase.title} already exist`) 
+            book.save();
+            author.save();
+           return res.send(`Book ${book.title} and Author ${author.name} have been created` + {author} + {book}) 
         }
     } catch (error) {
         console.error(`${chalk.red('Error occurred in creating book ', error.message)}`)

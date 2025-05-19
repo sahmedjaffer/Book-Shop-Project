@@ -1,10 +1,30 @@
-<h1><%= bookById.title %></h1>
-<p>Description: <%= bookById.description %></p>
-<p>Price: $<%= bookById.unitPrice %></p>
-<p>Stock: <%= bookById.stock %></p>
-<p>Category: <%= bookById.category %></p>
-<p>ISBN: <%= bookById.isbn %></p>
-<p>Image: <a href="<%= bookById.image %>" target="_blank">View Image</a></p>
-<img src="<%= bookById.image %>" alt="Book Cover" style="max-width: 200px; height: auto;">
-<p>Author: <%= bookById.author ? bookById.author.name : 'No author info' %></p>
-<a href="/books">Back to all books</a>
+<%- include('../partials/header.ejs') %>
+
+<h2><%= bookById.title %></h2>
+<p>Book ISBN: <%= bookById.isbn %></p>
+<p>Book Price: <%= bookById.unitPrice %></p>
+<% if(bookById.stock > 0){ %>
+<p>Stock:  Book is available we have <%= bookById.stock %> in stock</p>
+<% }else{ %>
+<p>Stock: Sorry the book is out stock</p>
+<% } %>
+<p>Book Category: <%= bookById.category %></p>
+<p>Book Publisher<%= bookById.publisher %></p>
+<p>Book Author: <%= bookById.author.name %></p>
+<p>Author Biography: <%= bookById.author.biography %></p>
+<img src="<%= bookById.image %>" alt="<%= bookById.title %>" width="300" />
+<p>About The Book <%= bookById.description %></p>
+  
+<form action="/books/<%= bookById._id %>/edit">
+  <button>Edit</button>
+</form>
+
+<form action="/books/<%= bookById._id %>?_method=DELETE" method="POST">
+  <button type="submit">Delete</button>
+</form>
+<form action="/orders/<%= bookById.order._id %>?_method=PUT" method="POST">
+  <button type="submit">Buy</button>
+</form>
+
+<%- include('../partials/footer.ejs') %>
+
