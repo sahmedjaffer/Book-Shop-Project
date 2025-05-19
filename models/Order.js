@@ -6,7 +6,7 @@ const orderSchema = new mongoose.Schema(
         status: {type: String},
         deliveryAddress: {type: String, required: true},
         totalPrice:{type: String, required: true},
-        listOfItems: [
+        cart: [
             {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Book'

@@ -1,0 +1,132 @@
+@baseUrl = http://localhost:4001
+
+### Get all books
+
+GET {{baseUrl}}/books
+
+###
+
+### Get a specific book by ID
+
+GET {{baseUrl}}/books/682a36f896d6b76699ebff33
+
+###
+
+
+### Create a new book
+
+POST {{baseUrl}}/books
+
+Content-Type: application/json
+  {
+    "isbn": "978-0143127550",
+
+
+    "title": "Educated: A Memoir",
+
+
+    "description": "Remarkable story of self-education and triumph",
+
+
+    "unitPrice": 31.00,
+
+
+    "stock": 45,
+
+
+    "image": "https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?ixlib=rb-1.2.1", 
+
+
+    "category": "Memoir",
+
+
+    "publisher": "Random House",
+
+
+    "authorName": "Tara Westover",
+
+
+    "authorBiography": "Historian and memoirist from rural Idaho"
+  }
+
+###
+
+
+### Update a book
+
+PUT  {{baseUrl}}/books/682a36f896d6b76699ebff33
+
+Content-Type: application/json
+  {
+
+    "isbn": "9789645293521",
+
+
+    "title": "Guidance From the Holy Qur'an",
+
+
+    "description": "Thematic explanation of key Qur'anic concepts from a Shi’a perspective.",
+
+
+    "unitPrice": 11.00,
+
+
+    "stock": 40,
+
+
+    "image": "https://www.al-islam.org/sites/default/files/images/guidance_from_holy_quran.jpg",
+
+
+    "category": "Qur'anic Studies",
+
+
+    "publisher": "Ansariyan Publications",
+
+
+    "authorName": "Ayatollah Dastghaib Shirazi",
+
+
+    "authorBiography": "A prominent Iranian Ayatollah known for accessible Islamic education and ethics."
+
+  }
+
+###
+
+
+### Update a book
+
+DELETE   {{baseUrl}}/books/682a36f896d6b76699ebff33
+
+Content-Type: application/json
+  {
+
+    "isbn": "9789645293521",
+
+
+    "title": "Guidance From the Holy Qur'an",
+
+
+    "description": "Thematic explanation of key Qur'anic concepts from a Shi’a perspective.",
+
+
+    "unitPrice": 11.00,
+
+
+    "stock": 40,
+
+
+    "image": "https://www.al-islam.org/sites/default/files/images/guidance_from_holy_quran.jpg",
+
+
+    "category": "Qur'anic Studies",
+
+
+    "publisher": "Ansariyan Publications",
+
+
+    "authorName": "Ayatollah Dastghaib Shirazi",
+
+
+    "authorBiography": "A prominent Iranian Ayatollah known for accessible Islamic education and ethics."
+
+  }

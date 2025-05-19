@@ -1,0 +1,12 @@
+<%- include('../partials/header.ejs') %>
+
+<h2>All Books</h2>
+<ul>
+  <% allBooks.forEach(book => { %>
+  <li>
+    <a href="/books/<%= book._id %>"><%= book.title %></a>
+  </li>
+  <% }) %>
+</ul>
+
+<%- include('../partials/footer.ejs') %>

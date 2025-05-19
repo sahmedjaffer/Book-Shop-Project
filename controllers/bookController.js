@@ -6,20 +6,19 @@ const Order = require('../models/Order.js');
 
 const listAllBooks = async (req, res) => {
     try {
-        const allBooks = await Book.find();
-       return res.send({allBooks});
+        const allBooks = await Book.find().populate('author');
+       //return res.send({allBooks});
+        res.render('../views/books/all.ejs', {allBooks})
 
     } catch (error) {
         console.error(`${chalk.red('Error occurred in listing all book ', error.message)}`)
-
-    }
-    
+    } 
 }
-
 const listBookById = async (req, res) => {
     try {
-        const bookById = await Book.findById(req.params.id)
-        return res.send(`${bookById.title} has been found` + bookById)
+        const bookById = await Book.findById(req.params.id).populate('author');
+        //return res.send(`${bookById.title} has been found` + bookById);
+        res.render('../views/books/show.ejs', {bookById})
         
     } catch (error) {
         console.error(`${chalk.red('Error occurred in listing book by id ', error.message)}`)
@@ -46,6 +45,7 @@ const createNewBook = async (req, res) => {
  
             const book = await Book.create(req.body);
             authorInDatabase.works.push(book._id);
+            book.save();
             authorInDatabase.save();
             return res.send(`Book ${book.title} has been created`)
         } else {
@@ -59,6 +59,7 @@ const createNewBook = async (req, res) => {
             );
             const book = await Book.create(req.body);
             author.works.push(book._id);
+            book.save();
             author.save();
            return res.send(`Book ${book.title} and Author ${author.name} have been created` + {author} + {book}) 
         }
