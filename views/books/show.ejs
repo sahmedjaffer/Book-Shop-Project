@@ -22,9 +22,5 @@
 <form action="/books/<%= bookById._id %>?_method=DELETE" method="POST">
   <button type="submit">Delete</button>
 </form>
-<form action="/orders/<%= bookById.order._id %>?_method=PUT" method="POST">
-  <button type="submit">Buy</button>
-</form>
-
 <%- include('../partials/footer.ejs') %>
 

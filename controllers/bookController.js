@@ -13,14 +13,16 @@ const listAllBooks = async (req, res) => {
     } 
 }
 const listBookById = async (req, res) => {
-    try {
+
+try {
         const bookById = await Book.findById(req.params.id).populate('author');
         //return res.send(`${bookById.title} has been found` + bookById);
         res.render('../views/books/show.ejs', {bookById})
         
     } catch (error) {
-        console.error(`${chalk.red('Error occurred in listing book by id ', error.message)}`)
-
+        console.error(`${chalk.red('Error occurred in listing book by id ', error.message)}`)}
+}
+    
 
 const updateBook = async (req, res) => {
     try {
@@ -73,6 +75,7 @@ const createNewBook = async (req, res) => {
             author.save();
            return res.send(`Book ${book.title} and Author ${author.name} have been created` + {author} + {book}) 
         }
+    }
     } catch (error) {
         console.error(`${chalk.red('Error occurred in creating book ', error.message)}`)
     }
@@ -96,5 +99,5 @@ module.exports = {
     listBookById,
     updateBook,
     deleteBook,
-    createNewBook
+    createNewBook,
 }
