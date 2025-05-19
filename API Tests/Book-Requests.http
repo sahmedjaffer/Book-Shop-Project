@@ -1,0 +1,29 @@
+@baseUrl = http://localhost:4001
+
+### Get all books
+GET {{baseUrl}}/books
+
+###
+
+### Get a specific book by ID
+GET {{baseUrl}}/books/682a245519abca3087e0f2ee
+
+###
+
+
+### Create a new book
+POST {{baseUrl}}/books
+Content-Type: application/json
+
+  {
+    "isbn": "978-0143127550",
+    "title": "Educated: A Memoir",
+    "description": "Remarkable story of self-education and triumph",
+    "unitPrice": 31.00,
+    "stock": 45,
+    "image": "https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?ixlib=rb-1.2.1", 
+    "category": "Memoir",
+    "publisher": "Random House",
+    "authorName": "Tara Westover",
+    "biography": "Historian and memoirist from rural Idaho"
+  }

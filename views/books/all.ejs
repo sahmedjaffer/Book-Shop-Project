@@ -1,12 +1,18 @@
-<%- include('../partials/header.ejs') %>
 
-<h2>All Books</h2>
+<h1>All Books</h1>
 <ul>
-  <% allBooks.forEach(book => { %>
-  <li>
-    <a href="/books/<%= book._id %>"><%= book.title %></a>
-  </li>
+  <% listBooks.forEach(book => { %>
+    <li>
+      <a href="/books/<%= book._id %>"><Title>: </Title><%= book.title %></a>
+    </li>
+    <li>
+      <p>Category: <%= book.category %></p>
+    </li>
+    <li>
+      <p>Publisher: <%= book.publisher %></p>
+    </li>
+    <li>
+
+    <p>Author: <%= book.author?.name || 'No Author Info' %></p>.    </li>
   <% }) %>
 </ul>
-
-<%- include('../partials/footer.ejs') %>

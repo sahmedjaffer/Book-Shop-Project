@@ -29,7 +29,8 @@ const registerUser = async (req, res) => {
             role: req.body.role,
             order: []
         })
-        res.send(`${chalk.green(`Congrats the user with email ${user.email} created successfully!`)}`)
+       // res.send(`${chalk.green(`Congrats the user with email ${user.email} created successfully!`)}`)
+        res.render('./auth/thanks.ejs', { user });
     } catch (error) {
         console.error(`${chalk.red('An error occurred registering a user!')} `+`${chalk.red(error.message)}`)
     }  
@@ -53,9 +54,11 @@ const signInUser = async (req, res) => {
             first: user.first
         }
         if(user.role === 'Admin'){
-                    res.send(`Dear ${first} Welcome to our bookshop as a ${user.role}`)
+                //    res.send(`Dear ${user.first} Welcome to our bookshop as a ${user.role}`)
+                 res.redirect(`/users/${user._id}`);
         } else {
-                    res.send(`Dear ${first} Welcome to our bookshop`)
+                //res.send(`Dear ${user.first} ${user._id} Welcome to our bookshop`)
+                 res.redirect(`/users/${user._id}`);
 
         }
     } catch (error) {
@@ -92,13 +95,15 @@ const updatePassword = async (req, res) => {
         const hashedUpdatePassword = bcrypt.hashSync(req.body.newUpdatePassword, 12);
         user.password=hashedUpdatePassword;
         await user.save();
-        res.send('Your password hab been updated successfully');
+        //res.send('Your password hab been updated successfully');
+         res.render('./auth/confirm.ejs', {user: req.user})
     } catch (error) {
              console.error(`${chalk.red('An error has occurred updating a user!')}` + `${chalk.red(error.message)}`)                
 
     }
     
 }
+
 
 // export the modules
 module.exports = {
