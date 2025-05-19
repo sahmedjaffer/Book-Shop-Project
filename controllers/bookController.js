@@ -5,9 +5,12 @@ const Author = require('../models/Author.js');
 const listAllBooks = async (req, res) => {
     try {
         const allBooks = await Book.find().populate('author');
-       //return res.send({allBooks});
-        res.render('../views/books/all.ejs', {allBooks})
-
+       if(!allBooks){
+            res.render('./books/bookNotFound.ejs');
+       }else{
+            res.render('../views/books/allBooks.ejs', {allBooks});
+       }
+        //return res.send({allBooks});
     } catch (error) {
         console.error(`${chalk.red('Error occurred in listing all book ', error.message)}`)
     } 
@@ -16,8 +19,12 @@ const listBookById = async (req, res) => {
 
 try {
         const bookById = await Book.findById(req.params.id).populate('author');
+        if(!bookById){
+            res.render('./books/bookNotFound.ejs', {allBooks});
+        }else {
+        res.render('../views/books/showBook.ejs', {bookById})
+        }
         //return res.send(`${bookById.title} has been found` + bookById);
-        res.render('../views/books/show.ejs', {bookById})
         
     } catch (error) {
         console.error(`${chalk.red('Error occurred in listing book by id ', error.message)}`)}
@@ -28,7 +35,7 @@ const updateBook = async (req, res) => {
     try {
          const updateBookById = await Book.findByIdAndUpdate(req.params.id, req.body, {new:true});
          if(!updateBookById){
-            return res.send(`the Book with the id ${req.params.id} not found`);
+            res.render('./books/bookNotFound.ejs');
          };
          return res.send(`Book ${updateBookById.title} has been updated` + updateBookById);
     } catch (error) {
@@ -74,8 +81,10 @@ const createNewBook = async (req, res) => {
             book.save();
             author.save();
             res.redirect(`/books/${book._id}`)
-          // return res.send(`Book ${book.title} and Author ${author.name} have been created` + {author} + {book}) 
+          //. return res.send(`Book ${book.title} and Author ${author.name} have been created` + {author} + {book}) 
         }
+    } else {
+        res.redirect(`/books/${bookInDatabase._id}`)
     }
     } catch (error) {
         console.error(`${chalk.red('Error occurred in creating book ', error.message)}`)
@@ -87,9 +96,13 @@ const deleteBook = async (req, res) => {
     try {
         const deleteBookById = await Book.findByIdAndDelete(req.params.id);
         if(!deleteBookById){
-            return res.send(`the Book with the id ${req.params.id} not found`);
+           // return res.send(`the Book with the id ${req.params.id} not found`);
+           let allBooks= deleteBookById;
+            res.redirect(`/books`);
+        }else {
+       // res.send (`${deleteBookById.title} has been deleted successfully` + deleteBookById)
+       res.render('./books/confirm.ejs', {deleteBookById});
         }
-        res.send (`${deleteBookById.title} has been deleted successfully` + deleteBookById)
     } catch (error) {
              console.error(`${chalk.red('Error occurred in deleting book ', error.message)}`)
     }   

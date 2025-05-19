@@ -1,0 +1,38 @@
+<%- include('../partials/header.ejs') %>
+
+<h2>New Book</h2>
+<form action="/books" method="POST">
+  <label for="isbn">ISBN:</label>
+  <input type="text" id="isbn" name="isbn" required />
+
+  <label for="unitPrice">Unit Price:</label>
+  <input type="text" id="unitPrice" name="unitPrice" required />
+
+  <label for="stock">Stock:</label>
+  <input type="text" id="stock" name="stock" required />
+
+  <label for="category">Category:</label>
+  <input type="text" id="category" name="category" required />
+
+  <label for="publisher">Publisher:</label>
+  <input type="text" id="publisher" name="publisher" required />
+
+  <label for="authorName">Author:</label>
+  <input type="text" id="authorName" name="authorName" required />
+
+  <label for="authorBiography">Author Biography:</label>
+  <input type="text" id="authorBiography" name="authorBiography" required />
+
+  <label for="title">Title:</label>
+  <input type="text" id="title" name="title" required />
+
+  <label for="description">Description:</label>
+  <textarea id="description" name="description" required></textarea>
+
+  <label for="image">Image URL:</label>
+  <input type="text" id="image" name="image" />
+
+  <button type="submit">Create</button>
+</form>
+
+<%- include('../partials/footer.ejs') %>
