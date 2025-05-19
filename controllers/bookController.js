@@ -29,11 +29,12 @@ const listBookById = async (req, res) => {
 
 const updateBook = async (req, res) => {
     try {
-         const updateBookById = await Book.findByIdAndUpdate(req.params.id, req.body, {new:true});
+         const updateBookById = await Book.findByIdAndUpdate(req.params.id, req.body, {new:true}).populate('author');
          if(!updateBookById){
             return res.send(`the Book with the id ${req.params.id} not found`);
          };
-         return res.send(`Book ${updateBookById.title} has been updated` + updateBookById);
+       //  return res.send(`Book ${updateBookById.title} has been updated` + updateBookById);
+       res.render('books/edit', {updateBookById})
     } catch (error) {
          console.error(`${chalk.red('Error occurred in updating book ', error.message)}`);
     };

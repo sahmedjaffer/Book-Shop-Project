@@ -73,11 +73,28 @@
                     </div>
                 </div>
             </div>
-
-            <div class="book-actions">
-                <a href="/books" class="btn back-link"><i class="fas fa-arrow-left"></i> Back to Catalog</a>
-                <button class="btn add-to-cart"><i class="fas fa-cart-plus"></i> Add to Cart</button>
-            </div>
+<div class="book-actions">
+    <div class="action-buttons">
+        <a href="/books" class="btn back-link">
+            <i class="fas fa-arrow-left"></i> Back to Catalog
+        </a>
+        
+        <a href="/books/<%= bookById._id %>/edit" class="btn edit-btn">
+            <i class="fas fa-edit"></i> Edit
+        </a>
+        
+        <form action="/books/<%= bookById._id %>" method="POST" class="delete-form">
+            <input type="hidden" name="_method" value="DELETE">
+            <button type="submit" class="btn delete-btn">
+                <i class="fas fa-trash-alt"></i> Delete
+            </button>
+        </form>
+        
+        <button class="btn add-to-cart">
+            <i class="fas fa-cart-plus"></i> Add to Cart
+        </button>
+    </div>
+</div>
         </div>
     </main>
 
