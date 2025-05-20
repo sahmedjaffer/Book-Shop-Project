@@ -97,11 +97,10 @@ const deleteBook = async (req, res) => {
         const deleteBookById = await Book.findByIdAndDelete(req.params.id);
         if(!deleteBookById){
            // return res.send(`the Book with the id ${req.params.id} not found`);
-           let allBooks= deleteBookById;
             res.redirect(`/books`);
         }else {
        // res.send (`${deleteBookById.title} has been deleted successfully` + deleteBookById)
-       res.render('./books/confirm.ejs', {deleteBookById});
+       res.render('/books/confirm.ejs', {deleteBookById});
         }
     } catch (error) {
              console.error(`${chalk.red('Error occurred in deleting book ', error.message)}`)

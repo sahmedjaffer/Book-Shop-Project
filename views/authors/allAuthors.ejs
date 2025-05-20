@@ -1,0 +1,25 @@
+
+<h1>All Authors</h1>
+  <%- include('../partials/header') %>
+<ul>
+  <form action="/authors/new">
+  <button>Add New Author</button>
+</form>
+  <% allAuthors.forEach(author => { %>
+    <li>
+      <a href="/authors/<%= author._id %>"><Name>: </Name><%= author.name %></a>
+    </li>
+    <li>
+      <p>Biography: <%= author.biography %></p>
+    </li>
+      <% author.works.forEach(work => { %>
+    <li>
+      <p>Book Published: <%= work.title %></p>
+    </li>
+      <% }) %>
+
+    <li>
+
+  <% }) %>
+</ul>
+<%- include('../partials/footer') %>

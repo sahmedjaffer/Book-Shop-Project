@@ -9,3 +9,7 @@ GET {{baseUrl}}/authors
 GET {{baseUrl}}/authors/6829d5244fb51d35922b6301
 
 ###
+
+### Get a specific book by ID
+DELETE {{baseUrl}}/authors/682c8108050d788054db88f7
+###
