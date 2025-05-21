@@ -19,6 +19,11 @@
   <button>Edit</button>
 </form>
 
+<form action="/orders/addToCart/<%= bookById._id %>" method="POST">
+  <input type="hidden" name="bookId" value="<%= bookById._id %>" />
+  <button type="submit">Add to Cart</button>
+</form>
+
 <form action="/books/<%= bookById._id %>?_method=DELETE" method="POST">
   <button type="submit">Delete</button>
 </form>

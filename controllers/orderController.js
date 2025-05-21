@@ -41,14 +41,16 @@ const updateOrder = async (req, res) => {
 
 const createNewOrder = async (req, res) => {
     try {
-        req.session.user = {
-            _id: '6824d80ef8c6ee221028e903',
-        }
-         const user = await User.findById(req.session.user._id)
+        // req.session.user = {
+        //     _id: '6824d80ef8c6ee221028e903',
+        // }
+         const cart = []
+         const user = await User.findById(req.session.user._id);
          if (!req.body.deliveryAddress){
-            const books = await Book.findById(id) 
+            const books = await Book.findById(_id) 
             const newOrder = await Order.create({... req.body, deliveryAddress: user.address});
             user.order.push(newOrder._id);
+            
             await user.save();
         return res.send(`Dear ${user.first + user.last} your order placed successfully!`)
         }

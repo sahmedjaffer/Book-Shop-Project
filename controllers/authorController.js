@@ -8,6 +8,7 @@ const listAllAuthors = async (req, res) => {
             return res.send('No Authors has been found')
         }
         res.send({allAuthors})
+
     } catch (error) {
         console.error(`${chalk.red('Error occurred in listing Authors!', error.message)}`)
     }
