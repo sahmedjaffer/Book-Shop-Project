@@ -1,0 +1,21 @@
+<%- include('../partials/header.ejs') %>
+
+<h2>New Book</h2>
+<form action="/orders" method="POST">
+    <% bookCart.forEach(bookItem =>{ %>
+       
+
+              <label for="isbn">ISBN:</label>
+              <label for="title"><%= findBookInfo.isbn %></label>
+
+              <label for="unitPrice">Unit Price:</label>
+              <label for="unitPrice"><%= findBookInfo.unitPrice %></label>
+
+              <label for="qty">Quantity:</label>
+              <input type='number' value="<%= bookCart.qty %>" id="qty" name="qty" required />
+        
+    <% }) %>
+  <button type="submit">Create</button>
+</form>
+
+<%- include('../partials/footer.ejs') %>

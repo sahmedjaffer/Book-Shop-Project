@@ -44,7 +44,7 @@ const createNewOrder = async (req, res) => {
         // req.session.user = {
         //     _id: '6824d80ef8c6ee221028e903',
         // }
-         const cart = []
+         
          const user = await User.findById(req.session.user._id);
          if (!req.body.deliveryAddress){
             const books = await Book.findById(_id) 
