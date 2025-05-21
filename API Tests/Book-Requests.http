@@ -27,3 +27,11 @@ Content-Type: application/json
     "authorName": "Tara Westover",
     "biography": "Historian and memoirist from rural Idaho"
   }
+
+
+###
+
+
+### Create a new book
+DELETE {{baseUrl}}/books/682c815e097148359fdae91a
+  

@@ -3,11 +3,12 @@ const Author = require('../models/Author.js');
 
 const listAllAuthors = async (req, res) => {
     try {
-        const allAuthors = await Author.find({});
+        const allAuthors = await Author.find().populate('works');
         if(!listAllAuthors) {
-            return res.send('No Authors has been found')
+         res.redirect('/authors/new')
         }
-        res.send({allAuthors})
+       // res.send({allAuthors})
+        res.render('../views/authors/allAuthors.ejs', {allAuthors});
 
     } catch (error) {
         console.error(`${chalk.red('Error occurred in listing Authors!', error.message)}`)
