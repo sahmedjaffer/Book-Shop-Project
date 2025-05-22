@@ -38,34 +38,35 @@ const registerUser = async (req, res) => {
 
 const signInUser = async (req, res) => {
     try {
-        const user = await User.findOne({email: req.body.email})
-        if(!user){
+        const user = await User.findOne({ email: req.body.email }).populate('order');
+
+        if (!user) {
             return res.send(`No user has been found with this email ${req.body.email}. Please sign up`);
         }
 
-        const validPassword = bcrypt.compareSync(req.body.password, user.password)
-
-        if(!validPassword){
-            return res.send('Incorrect password, Please try again!')
+        const validPassword = bcrypt.compareSync(req.body.password, user.password);
+        if (!validPassword) {
+            return res.send('Incorrect password, Please try again!');
         }
+
+        // only store in session after successful authentication
         req.session.user = {
             email: user.email,
             _id: user._id,
-            first: user.first
-        }
-        if(user.role === 'Admin'){
-                //    res.send(`Dear ${user.first} Welcome to our bookshop as a ${user.role}`)
-                 res.redirect(`/users/${user._id}`);
-        } else {
-                //res.send(`Dear ${user.first} ${user._id} Welcome to our bookshop`)
-                 res.redirect(`/users/${user._id}`);
+            first: user.first,
+            role: user.role
+        };
 
+        if (user.role === 'Admin') {
+            res.redirect(`/users/${user._id}`);
+        } else {
+            res.redirect(`/users/${user._id}`);
         }
     } catch (error) {
-        console.error(`${chalk.red('An error has occurred signing in a user!')}` + `${chalk.red(error.message)}`)
+        console.error(`${chalk.red('An error has occurred signing in a user!')} ${chalk.red(error.message)}`);
     }
-    
 }
+
 
 const signOutUser = (req, res) =>{
     try {
@@ -110,5 +111,6 @@ module.exports = {
     registerUser,
     signInUser,
     signOutUser,
-    updatePassword
+    updatePassword,
+
 }

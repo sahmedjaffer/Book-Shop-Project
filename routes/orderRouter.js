@@ -29,12 +29,18 @@ try {
   if (existingBook) {
     existingBook.qty += 1;
   } else {
-    bookCart.push({ id: itemId, title: findBookInfo.title,  qty: 1 });
+
+    bookCart.push({
+      id: itemId,
+      title: findBookInfo.title,
+      unitPrice: findBookInfo.unitPrice, 
+      qty: 1
+    });
   }
   // Save the updated cart
   req.session.cart = bookCart;
   console.log('Cart contents:', bookCart);
-  res.render('../views/orders/newOrder.ejs', {bookCart, findBookInfo});
+  res.render('../views/orders/newOrder.ejs', {bookCart});
 
  // return res.json(bookCart); // or redirect or render a view
 } catch (error) {
