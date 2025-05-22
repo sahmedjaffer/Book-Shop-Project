@@ -1,16 +1,21 @@
 <%- include('../partials/header.ejs') %>
 
 <h2><%= userData.first %> <%= userData.last %>'s Profile</h2>
-
-<div>
-  <a href=<%= `/auth/${userData._id}/update-password` %>>Update Password</a>
-</div>
+<p>Email: <%= userData.email %></p>
+<p>Address: <%= userData.address %></p>
+<p>Phone: <%= userData.phone %></p>
 
 <h3>Orders:</h3>
 <ul>
-  <% userData.order.forEach(itm => { %>
-    <li><a href="/orders/<%= itm._id %>"><%= recipe.title %></a></li>
+  <% userData.order.forEach(order => { %>
+    <li>
+      <a href="/orders/<%= order._id %>">
+        Order Date: <%= new Date(order.orderDate).toLocaleString('en-GB', { dateStyle: 'short', timeStyle: 'short' }) %> - 
+        Total: <%= order.totalPrice %>
+      </a>
+    </li>
   <% }) %>
 </ul>
 
 <%- include('../partials/footer.ejs') %>
+  

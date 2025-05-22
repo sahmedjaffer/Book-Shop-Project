@@ -9,6 +9,7 @@ const listAllAuthors = async (req, res) => {
         }
        // res.send({allAuthors})
         res.render('../views/authors/allAuthors.ejs', {allAuthors});
+
     } catch (error) {
         console.error(`${chalk.red('Error occurred in listing Authors!', error.message)}`)
     }

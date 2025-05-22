@@ -5,6 +5,7 @@
   <form action="/authors/new">
   <button>Add New Author</button>
 </form>
+
   <% allAuthors.forEach(author => { %>
     <li>
       <a href="/authors/<%= author._id %>"><Name>: </Name><%= author.name %></a>

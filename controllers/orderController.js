@@ -38,29 +38,51 @@ const updateOrder = async (req, res) => {
         console.error(`${chalk.red('Error occurred in Updating order!.', error.message)}`); 
     }   
 }
-
 const createNewOrder = async (req, res) => {
-    try {
-        req.session.user = {
-            _id: '6824d80ef8c6ee221028e903',
-        }
-         const user = await User.findById(req.session.user._id)
-         if (!req.body.deliveryAddress){
-            const books = await Book.findById(id) 
-            const newOrder = await Order.create({... req.body, deliveryAddress: user.address});
-            user.order.push(newOrder._id);
-            await user.save();
-        return res.send(`Dear ${user.first + user.last} your order placed successfully!`)
-        }
-
-        const newOrder = await Order.create(req.body);
-        user.order.push(newOrder._id);
-        await user.save();
-        return res.send(`Dear ${user.first + user.last} your order placed successfully!`)
-    } catch (error) {
-        console.error(`${chalk.red('Error occurred in creating order!.', error.message)}`); 
+  try {
+    if (!req.session.user || !req.session.user._id) {
+      return res.status(401).send('User not logged in');
     }
-}
+
+    const user = await User.findById(req.session.user._id);
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+
+    const cart = req.session.cart;
+    if (!cart || cart.length === 0) {
+      return res.status(400).send('Your cart is empty.');
+    }
+
+    // Extract book IDs from session cart
+    const bookIds = cart.map(item => item.id);
+
+    // Calculate total price (if unitPrice exists in session)
+    const totalPrice = cart.reduce((sum, item) => sum + (item.qty * item.unitPrice), 0);
+
+    const deliveryAddress = req.body.deliveryAddress || user.address;
+
+    const newOrder = await Order.create({
+      user: user._id,
+      cart: bookIds, // just the array of book ObjectIds
+      deliveryAddress,
+      totalPrice: totalPrice.toFixed(2),
+      orderDate: new Date().toString()
+    });
+
+    // Save the order to the user
+    user.order.push(newOrder._id);
+    await user.save();
+
+    req.session.cart = []; // clear cart
+    res.render('/views/orders/showOrder.ejs',{user , newOrder});
+    //return res.send(`Dear ${user.first + user.last}, your order was placed successfully!`);
+  } catch (error) {
+    console.error('Error occurred in creating order!', error.message);
+    res.status(500).send('Something went wrong while placing the order.');
+  }
+};
+
 
 const deleteOrder = async (req, res) => {
     try {
@@ -68,7 +90,11 @@ const deleteOrder = async (req, res) => {
         if(!deleteOrderById){
             return res.send(`Order ${deleteOrderById} not found!`);
         }
-        return res.send(`Order ${deleteOrderById} has been deleted!`)
+       // return res.send(`Order ${deleteOrderById} has been deleted!`)
+        
+       res.render('/views/orders/confirmOrderDeletion.ejs', {deleteBookById});
+
+
     } catch (error) {
         console.error(`${chalk.red('Error occurred in deleting order!.', error.message)}`); 
     } 

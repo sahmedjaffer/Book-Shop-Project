@@ -1,0 +1,18 @@
+<%- include('../partials/header.ejs') %>
+
+<h2>Edit Order</h2>
+<form action="/orders/<%= order._id %>?_method=PUT" method="POST">
+   <label>ISBN:</label>
+    <span><%= order.isbn %></span><br/>
+
+    <label>Title:</label>
+    <span><%= bookItem.title %></span><br/>
+
+    <label>Unit Price:</label>
+    <span><%= bookItem.unitPrice %></span><br/>
+
+  <button type="submit">Update</button>
+</form>
+
+
+<%- include('../partials/footer.ejs') %>

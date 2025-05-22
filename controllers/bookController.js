@@ -19,10 +19,11 @@ const listBookById = async (req, res) => {
 
 try {
         const bookById = await Book.findById(req.params.id).populate('author');
+        const booksCart = [];
         if(!bookById){
             res.render('./books/bookNotFound.ejs', {allBooks});
         }else {
-        res.render('../views/books/showBook.ejs', {bookById})
+        res.render('../views/books/showBook.ejs', {bookById , booksCart})
         }
         //return res.send(`${bookById.title} has been found` + bookById);
         

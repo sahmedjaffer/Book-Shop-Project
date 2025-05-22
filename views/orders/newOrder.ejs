@@ -1,0 +1,32 @@
+<%- include('../partials/header.ejs') %>
+
+<h2>Cart</h2>
+<form action="/orders" method="POST">
+    <% bookCart.forEach(bookItem => { %>
+  <div>
+    <label>ISBN:</label>
+    <span><%= bookItem.isbn %></span><br/>
+
+    <label>Title:</label>
+    <span><%= bookItem.title %></span><br/>
+
+    <label>Unit Price:</label>
+    <span><%= bookItem.unitPrice %></span><br/>
+
+    <label for="qty-<%= bookItem.qty %>">Quantity:</label>
+    <input 
+      type="number" 
+      id="qty-<%= bookItem.qty %>" 
+      name="qty-<%= bookItem.qty %>" 
+      value="<%= bookItem.qty %>" 
+      min="1"
+      max ="10" 
+      required
+    />
+    <hr/>
+  </div>
+<% }) %>
+   <button type="submit">Place Order</button>
+</form>
+
+<%- include('../partials/footer.ejs') %>
