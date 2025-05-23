@@ -20,8 +20,8 @@ app.use(session({
     saveUninitialized: true
 }));
 app.use((req, res, next) => {
-    res.locals.user = req.session.user;
-    next();
+  res.locals.session = req.session; 
+  next();
 });
 
 

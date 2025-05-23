@@ -1,6 +1,8 @@
 
-<h1>All Books</h1>
   <%- include('../partials/header') %>
+      <div class="card">
+<h1>All Books</h1>
+
 <ul>
   <form action="/books/new">
   <button>Add New Book</button>
@@ -20,4 +22,5 @@
     <p>Author: <%= book.author?.name || 'No Author Info' %></p>.    </li>
   <% }) %>
 </ul>
+      </div>
 <%- include('../partials/footer') %>

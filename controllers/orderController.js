@@ -5,11 +5,21 @@ const Book = require('../models/Book.js')
 
 const listAllOrders = async (req, res) => {
     try {
-        const showAllOrders = await Order.find({});
+            if (!req.session || !req.session.user) {
+                res.redirect('/sign-in')
+            }
+
+
+        const showAllOrders = await Order.find({ user: req.session.user._id })
+        .populate('user')
+        .populate({
+            path: 'cart',
+            populate: { path: 'author', select: 'name' }
+        });        
         if(!showAllOrders){
             return res.send('No orders found!')
         }
-        return res.send({showAllOrders});
+        res.render('orders/allOrders', { orders: showAllOrders, user: req.session.user });
     } catch (error) {
         console.error(`${chalk.red('Error occurred in listing all orders ', error.message)}`); 
     }
@@ -17,11 +27,19 @@ const listAllOrders = async (req, res) => {
 
 const listOrderById = async (req, res) => {
     try {
-        const orderById = await Order.findById(req.params.id).populate('user');
+        //to show the author name in the order by access to the referenced schema which is author schema in this case
+        const orderById = await Order.findById(req.params.id)
+            .populate('user')
+            .populate({
+                path: 'cart',
+                populate: { path: 'author', select: 'name' } 
+      
+            });
         if(!orderById){
             return res.send(`${orderById.id} order not found`);
         }
-        return res.send(`${orderById.id} order has been found` + orderById);        
+        res.render('./orders/showOrder.ejs', { order: orderById });
+        //return res.send(`${orderById.id} order has been found` + orderById);        
     } catch (error) {
         console.error(`${chalk.red('Error occurred in listing order by ID ', error.message)}`); 
     }
@@ -41,7 +59,8 @@ const updateOrder = async (req, res) => {
 const createNewOrder = async (req, res) => {
   try {
     if (!req.session.user || !req.session.user._id) {
-      return res.status(401).send('User not logged in');
+      //return res.status(401).send('User not logged in');
+      res.redirect('/sign-in')
     }
 
     const user = await User.findById(req.session.user._id);
@@ -66,16 +85,20 @@ const createNewOrder = async (req, res) => {
       user: user._id,
       cart: bookIds, // just the array of book ObjectIds
       deliveryAddress,
-      totalPrice: totalPrice.toFixed(2),
+      totalPrice: totalPrice,
       orderDate: new Date().toString()
     });
+
+    
 
     // Save the order to the user
     user.order.push(newOrder._id);
     await user.save();
 
-    req.session.cart = []; // clear cart
-    res.render('/views/orders/showOrder.ejs',{user , newOrder});
+const populatedOrder = await Order.findById(newOrder._id).populate('cart').populate('user');
+
+req.session.cart = []; // clear cart
+res.render('orders/showOrder', { user, order: populatedOrder });
     //return res.send(`Dear ${user.first + user.last}, your order was placed successfully!`);
   } catch (error) {
     console.error('Error occurred in creating order!', error.message);

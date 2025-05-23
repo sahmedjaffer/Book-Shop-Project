@@ -8,6 +8,7 @@
 </head>
 <body>
   <%- include('../partials/header') %>
+  <div class="card">
 <h2>Login</h2>
 <form action="/sign-in" method="POST">
   <label>Email:</label>
@@ -15,7 +16,10 @@
   <label>Password:</label>
   <input type="password" name="password" required>
   <button type="submit">Login</button>
+  <label>Still not registered?</label>
+  <a href="/sign-up">Sign Up Now</a>
 </form>
+</div>
 <%- include('../partials/footer') %>
 </body>
 </html>

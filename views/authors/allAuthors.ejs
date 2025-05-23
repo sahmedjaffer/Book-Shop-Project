@@ -1,11 +1,10 @@
 
-<h1>All Authors</h1>
   <%- include('../partials/header') %>
-<ul>
-  <form action="/authors/new">
-  <button>Add New Author</button>
-</form>
+    <div class="card">
+<h1>All Authors</h1>
 
+<ul>
+  
   <% allAuthors.forEach(author => { %>
     <li>
       <a href="/authors/<%= author._id %>"><Name>: </Name><%= author.name %></a>
@@ -23,4 +22,5 @@
 
   <% }) %>
 </ul>
+    </div>
 <%- include('../partials/footer') %>

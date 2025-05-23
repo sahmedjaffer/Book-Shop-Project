@@ -1,32 +1,55 @@
 <%- include('../partials/header.ejs') %>
+      <div class="card">
 
-<h2>Cart</h2>
-<form action="/orders" method="POST">
-    <% bookCart.forEach(bookItem => { %>
-  <div>
-    <label>ISBN:</label>
-    <span><%= bookItem.isbn %></span><br/>
+<h2>🛒 Your Cart</h2>
 
-    <label>Title:</label>
-    <span><%= bookItem.title %></span><br/>
+<% if (bookCart && bookCart.length > 0) { %>
+  <form action="/orders" method="POST">
+    <% bookCart.forEach((book, index) => { %>
+      <div>
+        <input type="hidden" name="cart[]" value="<%= book.id %>" />
 
-    <label>Unit Price:</label>
-    <span><%= bookItem.unitPrice %></span><br/>
+        <label>ISBN:</label>
+        <span><%= book.isbn || 'N/A' %></span><br/>
 
-    <label for="qty-<%= bookItem.qty %>">Quantity:</label>
-    <input 
-      type="number" 
-      id="qty-<%= bookItem.qty %>" 
-      name="qty-<%= bookItem.qty %>" 
-      value="<%= bookItem.qty %>" 
-      min="1"
-      max ="10" 
-      required
-    />
-    <hr/>
-  </div>
-<% }) %>
-   <button type="submit">Place Order</button>
+        <label>Title:</label>
+        <span><%= book.title %></span><br/>
+
+        <label>Unit Price:</label>
+        <span>$<%= book.unitPrice %></span><br/>
+
+        <label for="qty-<%= index %>">Quantity:</label>
+        <input 
+          type="number" 
+          id="qty-<%= index %>" 
+          name="quantities[]" 
+          value="<%= book.qty %>" 
+          min="1" 
+          max="10" 
+          required
+        />
+
+        <!-- Delete button -->
+        <form action="/orders/deleteFromCart/<%= book.id %>" method="POST" style="display:inline;">
+          <button type="submit" style="color:red;">❌ Remove</button>
+        </form>
+<form action="/orders/clearCart" method="POST" style="margin-bottom: 20px;">
+  <button type="submit" style="background-color: #f44336; color: white;">🗑️ Clear Cart</button>
 </form>
 
+        <hr/>
+      </div>
+    <% }) %>
+
+    <p><strong>Total: $<%= bookCart.reduce((sum, item) => sum + item.unitPrice * item.qty, 0).toFixed(2) %></strong></p>
+
+    <label for="deliveryAddress">Delivery Address:</label><br/>
+    <input type="text" name="deliveryAddress" required /><br/><br/>
+
+    <button type="submit">📦 Place Order</button>
+  </form>
+<% } else { %>
+  <p>Your cart is empty.</p>
+<% } %>
+      </div>
 <%- include('../partials/footer.ejs') %>
