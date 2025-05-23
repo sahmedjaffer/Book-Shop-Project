@@ -70,8 +70,13 @@ const signInUser = async (req, res) => {
 
 const signOutUser = (req, res) =>{
     try {
+        if (!req.session || !req.session.user) {
+            res.redirect('/sign-in')
+        } else {
         req.session.destroy()
-        res.send('See you next time!!!')
+        res.redirect('/')
+        //res.send('See you next time!!!')
+        }
     } catch (error) {
                 console.error(`${chalk.red('An error has occurred signing out a user!')}` + `${chalk.red(error.message)}`)                
     }

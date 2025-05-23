@@ -1,4 +1,5 @@
 <%- include('../partials/header.ejs') %>
+    <div class="card">
 
 <h2><%= bookById.title %></h2>
 <p>Book ISBN: <%= bookById.isbn %></p>
@@ -22,5 +23,6 @@
 <form action="/books/<%= bookById._id %>?_method=DELETE" method="POST">
   <button type="submit">Delete</button>
 </form>
+    </div>
 <%- include('../partials/footer.ejs') %>
 

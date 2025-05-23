@@ -1,5 +1,5 @@
 <%- include('../partials/header.ejs') %>
-
+    <div class="card">
 <h2>Edit Book</h2>
 <form action="/books/<%= book._id %>?_method=PUT" method="POST">
   <label for="isbn">ISBN:</label>
@@ -41,5 +41,5 @@
   <button type="submit">Update</button>
 </form>
 
-
+    </div>
 <%- include('../partials/footer.ejs') %>

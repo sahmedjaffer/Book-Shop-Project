@@ -1,0 +1,31 @@
+<%- include('../partials/header') %>
+      <div class="card">
+
+<h2>All Orders for <%= user.first %> <%= user.last %></h2>
+
+<% if (orders.length > 0) { %>
+  <% orders.forEach(order => { %>
+    <div class="order-card">
+      <h3>Order ID: <%= order._id %></h3>
+      <p><strong>Date:</strong> <%= new Date(order.orderDate).toLocaleString('en-GB', { dateStyle: 'long', timeStyle: 'short' }) %></p>
+      <p><strong>Total:</strong> $<%= order.totalPrice %></p>
+      <p><strong>Status:</strong> <%= order.status || 'Pending' %></p>
+      <p><strong>Address:</strong> <%= order.deliveryAddress %></p>
+
+      <h4>Books in this Order:</h4>
+      <ul>
+        <% order.cart.forEach(book => { %>
+          <li>
+            <strong><%= book.title %></strong> by <%= book.author.name %> — $<%= book.price || book.unitPrice %>
+          </li>
+        <% }) %>
+      </ul>
+
+      <hr>
+    </div>
+  <% }) %>
+<% } else { %>
+  <p>No orders found.</p>
+<% } %>
+      </div>
+<%- include('../partials/footer') %>

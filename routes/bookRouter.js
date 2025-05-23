@@ -6,8 +6,13 @@ const bookController = require('../controllers/bookController.js')
 
 router.post('/', bookController.createNewBook);
 router.get('/', bookController.listAllBooks);
-router.get('/new', (req, res) => {
-  res.render('./books/newBook.ejs')
+router.get('/new', async (req, res) => {
+    try {
+    const authors = await Author.find();
+      res.render('./books/newBook.ejs', { authors });
+  } catch (err) {
+    res.send('Error loading form');
+  }
 })
 router.get('/:id', bookController.listBookById);
 router.put('/:id',bookController.updateBook);

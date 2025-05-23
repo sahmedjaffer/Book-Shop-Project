@@ -48,6 +48,26 @@ try {
   return res.send('Internal Server Error');
 }})
 
+router.get('/cart', (req, res) => {
+  const bookCart = req.session.cart || [];
+  res.render('orders/newOrder', { bookCart });
+});
+
+router.post('/deleteFromCart/:id', (req, res) => {
+  const bookId = req.params.id;
+
+  if (req.session.cart) {
+    req.session.cart = req.session.cart.filter(book => book.id !== bookId);
+  }
+
+  res.redirect('/cart');
+});
+
+router.post('/clearCart', (req, res) => {
+  req.session.cart = [];
+  res.redirect('/cart'); 
+});
+
 
 router.post('/', orderController.createNewOrder);
 router.get('/:id', orderController.listOrderById);
