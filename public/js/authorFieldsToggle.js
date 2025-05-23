@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (authorSelect && newAuthorFields) {
     authorSelect.addEventListener('change', function () {
       if (!this.value) {
-        newAuthorFields.style.display = 'flex'; // أو 'block' حسب CSS
+        newAuthorFields.style.display = 'flex';
       } else {
         newAuthorFields.style.display = 'none';
       }
