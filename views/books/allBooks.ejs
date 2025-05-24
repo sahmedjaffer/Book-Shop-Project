@@ -2,10 +2,15 @@
   <%- include('../partials/header') %>
       <div class="card">
 <h1>All Books</h1>
+ 
 
 <ul>
-  <form action="/books/new">
-  <button>Add New Book</button>
+<% if (userRole && userRole.role === 'admin' || 'Admin') { %>
+  <form action="/books/new" method="GET">
+    <button type="submit">Add New Book</button>
+  </form>
+<% } %>
+
 </form>
   <% allBooks.forEach(book => { %>
     <li>
