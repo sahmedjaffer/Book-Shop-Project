@@ -6,9 +6,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (authorSelect && newAuthorFields) {
     authorSelect.addEventListener('change', function () {
-      if (!this.value) {
+      if (!authorSelect) {
         newAuthorFields.style.display = 'flex';
-      } else {
+      } 
+      if(authorSelect){
         newAuthorFields.style.display = 'none';
       }
     });

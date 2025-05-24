@@ -1,34 +1,45 @@
 const chalk = require('chalk');
 const Book = require('../models/Book.js');
 const Author = require('../models/Author.js');
+const User = require('../models/User.js');
 
 const listAllBooks = async (req, res) => {
     try {
+     
         const allBooks = await Book.find().populate('author');
        if(!allBooks){
             res.render('./books/bookNotFound.ejs');
        }else{
-            res.render('../views/books/allBooks.ejs', {allBooks});
-       }
+    let userRole = null;
+    if (req.session.user && req.session.user._id) {
+        userRole = await User.findById(req.session.user._id);
+    }
+
+    res.render('../views/books/allBooks.ejs', { allBooks, userRole });  
+    }}
         //return res.send({allBooks});
-    } catch (error) {
+     catch (error) {
         console.error(`${chalk.red('Error occurred in listing all book ', error.message)}`)
-    } 
-}
+    } }
+
 const listBookById = async (req, res) => {
 
 try {
+
+    let userRole = null;
+    if (req.session.user && req.session.user._id) {
+        userRole = await User.findById(req.session.user._id);
+    }
         const bookById = await Book.findById(req.params.id).populate('author');
         const booksCart = [];
-        if(!bookById){
-            res.render('./books/bookNotFound.ejs', {allBooks});
-        }else {
-        res.render('../views/books/showBook.ejs', {bookById , booksCart})
-        }
-        //return res.send(`${bookById.title} has been found` + bookById);
-        
-    } catch (error) {
-        console.error(`${chalk.red('Error occurred in listing book by id ', error.message)}`)}
+    if(!bookById){
+        res.render('./books/bookNotFound.ejs', {allBooks});
+    }else {
+        res.render('../views/books/showBook.ejs', {bookById , booksCart, userRole})
+    }
+    //return res.send(`${bookById.title} has been found` + bookById);
+} catch (error) {
+    console.error(`${chalk.red('Error occurred in listing book by id ', error.message)}`)}
 }
     
 

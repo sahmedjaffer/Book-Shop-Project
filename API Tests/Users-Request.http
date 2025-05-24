@@ -1,0 +1,22 @@
+@baseUrl = http://localhost:4001
+
+
+###
+
+
+### Create a new book
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+  {
+        "first": "",
+        "last": "",
+        "email": "",
+        "password": "",
+        "address": "",
+        "phone": "",
+        "role":"",
+  }
+
+
+###
