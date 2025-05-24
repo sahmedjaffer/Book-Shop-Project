@@ -19,3 +19,6 @@ const bookSchema = new mongoose.Schema(
 const Book = mongoose.model('Book',bookSchema);
 module.exports= Book;
 
+// category  "Philosophy"
+// publisher  "Riverhead Books"
+// author  68319480f21fc0580dc1de59

@@ -5,7 +5,7 @@
  
 
 <ul>
-<% if (userRole && userRole.role === 'admin') { %>
+<% if (userRole && userRole.role === 'admin' || 'Admin') { %>
   <form action="/books/new" method="GET">
     <button type="submit">Add New Book</button>
   </form>

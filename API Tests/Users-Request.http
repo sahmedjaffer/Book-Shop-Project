@@ -5,17 +5,18 @@
 
 
 ### Create a new book
-POST {{baseUrl}}/users
+POST {{baseUrl}}/sign-up
 Content-Type: application/json
 
   {
-        "first": "",
-        "last": "",
-        "email": "",
-        "password": "",
-        "address": "",
-        "phone": "",
-        "role":"",
+        "first": "Sayed Ahmed",
+        "last": "Kadhem",
+        "email": "s.ahmad@gmail.com",
+        "password": "11223344",
+        "confirmPassword": "11223344",
+        "address": "Manama-Bahrain",
+        "phone": "33040006",
+        "role":"Admin"
   }
 
 
