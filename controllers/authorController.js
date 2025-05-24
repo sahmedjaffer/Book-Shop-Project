@@ -5,10 +5,10 @@ const listAllAuthors = async (req, res) => {
     try {
         const allAuthors = await Author.find().populate('works');
         if(!listAllAuthors) {
-         res.redirect('/authors/new')
+        return res.redirect('/authors/new')
         }
        // res.send({allAuthors})
-        res.render('../views/authors/allAuthors.ejs', {allAuthors});
+       return res.render('../views/authors/allAuthors.ejs', {allAuthors});
 
     } catch (error) {
         console.error(`${chalk.red('Error occurred in listing Authors!', error.message)}`)
@@ -19,9 +19,11 @@ const listAuthorById = async (req, res) => {
     try {
          const findAuthor = await Author.findById(req.params.id).populate('works')
          if(!findAuthor) {
-            return res.send(`No Authors with that id ${findAuthor} has been found`);
+            //return res.send(`No Authors with that id ${findAuthor} has been found`);
+            return res.render('../views/authors/authorNotFound.ejs');
          };
-         return res.send(findAuthor)
+         return res.render('../views/authors/showAuthor.ejs',{findAuthor})
+         //return res.send(findAuthor)
     } catch (error) {
          console.error(`${chalk.red('Error occurred in listing Author by id ', error.message)}`)
     }
@@ -31,10 +33,12 @@ const updateAuthor = async (req, res) => {
     try {
         const updateAuthorById = await Author.findByIdAndUpdate(req.params.id, req.body, {new:true})
         if(!updateAuthorById) {
-            return res.send(`No Authors with that id ${updateAuthorById} has been found`);
+           // return res.send(`No Authors with that id ${updateAuthorById} has been found`);
+           return res.render('../views/authors/authorNotFound.ejs')
         }
         await updateAuthorById.save();
-        return res.send(`Author with the id ${req.params.id} has been updated successfully`)   
+        //return res.send(`Author with the id ${req.params.id} has been updated successfully`);   
+        return res.redirect(`/authors/${updateAuthorById._id}`)
     } catch (error) {
         console.error(`${chalk.red('Error occurred in updating author by id ', error.message)}`)        
     }

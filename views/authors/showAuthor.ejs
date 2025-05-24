@@ -1,26 +1,23 @@
 <%- include('../partials/header.ejs') %>
     <div class="card">
 
-<h2><%= bookById.title %></h2>
-<p>Book ISBN: <%= bookById.isbn %></p>
-<p>Book Price: <%= bookById.unitPrice %></p>
-<% if(bookById.stock > 0){ %>
-<p>Stock:  Book is available we have <%= bookById.stock %> in stock</p>
-<% }else{ %>
-<p>Stock: Sorry the book is out stock</p>
-<% } %>
-<p>Book Category: <%= bookById.category %></p>
-<p>Book Publisher<%= bookById.publisher %></p>
-<p>Book Author: <%= bookById.author.name %></p>
-<p>Author Biography: <%= bookById.author.biography %></p>
-<img src="<%= bookById.image %>" alt="<%= bookById.title %>" width="300" />
-<p>About The Book <%= bookById.description %></p>
-  
-<form action="/books/<%= bookById._id %>/edit">
+<h2><%= findAuthor.name %></h2>
+<p>Author Biography<%= findAuthor.biography %></p>
+<p>Works: <%= findAuthor.works.title %></p>
+  <label for="authorName">Author Works:</label>
+  <select id="works" name="works">
+  <% findAuthor.works.forEach(work => { %>
+    <option value="<%= work._id %>">
+      <%= work.title %>
+    </option>
+  <% }) %>
+</select>
+
+<form action="/authors/<%= findAuthor._id %>/edit">
   <button>Edit</button>
 </form>
 
-<form action="/books/<%= bookById._id %>?_method=DELETE" method="POST">
+<form action="/authors/<%= findAuthor._id %>?_method=DELETE" method="POST">
   <button type="submit">Delete</button>
 </form>
     </div>
