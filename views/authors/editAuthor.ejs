@@ -1,42 +1,12 @@
 <%- include('../partials/header.ejs') %>
     <div class="card">
-<h2>Edit Book</h2>
-<form action="/books/<%= book._id %>?_method=PUT" method="POST">
-  <label for="isbn">ISBN:</label>
-  <input type="text" id="isbn" name="isbn" value="<%= book.isbn %>" required />
+<h2>Edit Author</h2>
+<form action="/authors/<%= authors._id %>?_method=PUT" method="POST">
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" value="<%= authors.name %>" required />
 
-  <label for="unitPrice">Unit Price:</label>
-  <input type="text" id="unitPrice" name="unitPrice" value="<%= book.unitPrice %>" required />
-
-  <label for="stock">Stock:</label>
-  <input type="text" id="stock" name="stock" value="<%= book.stock %>" required />
-
-  <label for="category">Category:</label>
-  <input type="text" id="category" name="category" value="<%= book.category %>" required />
-
-  <label for="publisher">Publisher:</label>
-  <input type="text" id="publisher" name="publisher" value="<%= book.publisher %>" required />
-
-  <label for="authorName">Author:</label>
-  <select id="authorName" name="authorName">
-    <% authors.forEach(author => { %>
-      <option value="<%= author._id %>" <%= book.author && book.author._id.toString() === author._id.toString() ? 'selected' : '' %>>
-        <%= author.name %>
-      </option>
-    <% }) %>
-  </select>
-
-  <label for="authorBiography">Author Biography:</label>
-  <input type="text" id="authorBiography" name="authorBiography" value="<%= book.authorBiography %>" required />
-
-  <label for="title">Title:</label>
-  <input type="text" id="title" name="title" value="<%= book.title %>" required />
-
-  <label for="description">Description:</label>
-  <textarea id="description" name="description" required><%= book.description %></textarea>
-
-  <label for="image">Image URL:</label>
-  <input type="text" id="image" name="image" value="<%= book.image %>" />
+  <label for="biography">Author Biography:</label>
+  <input type="text" id="biography" name="biography" value="<%= authors.biography %>" required />
 
   <button type="submit">Update</button>
 </form>
