@@ -137,7 +137,7 @@ footer {
 }
 
 #new-author-fields {
-  display: none; /* يتم التحكم فيه عبر JavaScript */
+  display: none; 
   margin-top: 1rem;
   padding: 1.5rem;
   background-color: #f9f9f9;
