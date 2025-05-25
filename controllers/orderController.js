@@ -64,7 +64,7 @@ const listAllOrders = async (req, res) => {
     try {
         const sessionUser = req.session.user
             if (!sessionUser) {
-                res.redirect('/sign-in')
+                return res.redirect('/sign-in')
             }
         const showAllOrders = await Order.find({ user: sessionUser._id })
         .populate('user')
