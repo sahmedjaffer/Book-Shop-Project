@@ -6,15 +6,15 @@
 <ul>
   
   <% allAuthors.forEach(author => { %>
-    <li>
-      <a href="/authors/<%= author._id %>">Name: <%= author.name %></a>
-    </li>
+    
+    <h2>  <a href="/authors/<%= author._id %>"><%= author.name %></a></h2>
+    
     <li>
       <p>Biography: <%= author.biography %></p>
     </li>
       <% author.works.forEach(work => { %>
     <li>
-      <p>Book Published: <%= work.title %></p>
+      <p> <a href="/bookss/<%= work._id %>"> <%= work.title %></a></p>
     </li>
       <% }) %>
   <% }) %>
