@@ -15,7 +15,9 @@
   <input type="email" name="email" required>
   <label>Password:</label>
   <input type="password" name="password" required>
-
+<% if (error) { %>
+  <p class="error-message"><%= error %></p>
+<% } %>
   <button type="submit">Login</button>
   <label>Still not registered?</label>
   <a href="/sign-up">Sign Up Now</a>

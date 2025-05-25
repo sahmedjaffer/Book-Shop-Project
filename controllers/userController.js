@@ -59,9 +59,9 @@ const updateUser = async (req, res) => {
          }
          // Save the updated user
          await updateUserById.save();
-         if (updateUserById.role === 'admin' ||'Admin')
+         if (updateUserById.role === 'admin' || updateUserById.role ==='Admin')
              res.redirect('/admins/profile')
-            else if (updateUserById.role === 'user' ||'User'){
+            else if (updateUserById.role === 'user' || updateUserById.role ==='User'){
               res.redirect('/users/profile')
             }
      } catch (error) {

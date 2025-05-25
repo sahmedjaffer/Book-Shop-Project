@@ -8,7 +8,10 @@ router.get('/sign-up', (req, res) => {
 });
 router.post('/sign-in', authController.signInUser);
 router.get('/sign-in', (req, res) => {
-  res.render('auth/sign-in')
+  res.render('auth/sign-in', {
+    error: null,
+    email: ''
+  });
 });
 router.get('/admins/profile', authController.adminProfile);
 router.get('/users/profile', authController.userProfile);

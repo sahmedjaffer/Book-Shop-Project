@@ -16,7 +16,7 @@
 
 <h3>Orders:</h3>
 <ul>
-  <% userData.order.forEach(order => { %>
+  <% user.order.forEach(order => { %>
     <li>
       <a href="/orders/<%= order._id %>">
         Order Date: <%= new Date(order.orderDate).toLocaleString('en-GB', { dateStyle: 'short', timeStyle: 'short' }) %> - 

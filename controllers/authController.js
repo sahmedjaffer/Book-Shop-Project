@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const chalk = require('chalk');
 const User = require('../models/User.js');
+const { findOne, findById } = require('../models/Author.js');
 
 
 // create a new user controller
@@ -66,30 +67,31 @@ const signInUser = async (req, res) => {
 
             email,
             password,
-            role
             } = req.body;
 
             // search in database for the user by email
             const user = await User.findOne({ email: email }).populate('order');
             
-            // validate if the user is exist
-            if (!user) {
-
-                return res.render(`auth/userNotFound`, email)
-        
-            }
-
             // if the user exist check the password is it matched with the saved password in the database using bcrypt        
             const validPassword = bcrypt.compareSync(password, user.password);
-            
-            //when password not matched
-            if (!validPassword) {
-                const errorMessage= 'Incorrect password, please try again!';
 
-                // if the password is mismatched show a message
-                return res.render('auth/sign-in',errorMessage);
-        
-            }
+            //when password or user not matched
+
+            if (!user || !validPassword) {
+      
+                return res.render('auth/sign-in', {
+      
+                    error: 'Invalid email or password',
+      
+                    email: email,
+                    
+      
+                }
+            )
+        };
+
+            
+
         
             // store user info in the session after successful authentication
         
@@ -103,16 +105,13 @@ const signInUser = async (req, res) => {
                 phone: user.phone
             };
 
-            const userData = user;
-
-
 
             //check the user role is it admin or user        
-            if (user.role === 'Admin') {
+            if (user.role === 'Admin' || user.role === 'admin') {
         
                 res.redirect(`admins/profile`);
         
-            } else if (user.role === 'User') {
+            } else if (user.role === 'User' || user.role === 'user') {
         
                 res.redirect(`users/profile`);
             }
@@ -187,15 +186,36 @@ const updatePassword = async (req, res) => {
 }
 
 const adminProfile = async(req, res) => {
-         const userData = req.session.user;
-         console.log(userData)
-    res.render('admins/adminProfile', { userData });
+    try {
+                 
+        const userData = req.session.user;
+        if (!userData) res.redirect('/sign-in')
+        console.log(userData)
+        res.render('admins/adminProfile', { userData });
+        
+    } catch (error) {
+        console.error(`${chalk.red('An error has occurred adminProfile!')}` + `${chalk.red(error.message)}`)
+    }
 }
 
-const userProfile =(req, res) => {
-     const userData = req.session.user;
-    res.render('users/userProfile', { userData })};
+const userProfile = async(req, res) => {
+    try{
 
+        const userData = req.session.user;
+
+
+        if (!userData) res.redirect('/sign-in')
+
+
+        const user=await User.findById(userData._id);
+
+
+        res.render('users/userProfile', { userData,user });
+
+    } catch (error) {
+        console.error(`${chalk.red('An error has occurred userProfile!')}` + `${chalk.red(error.message)}`)
+    }
+}
 // export the modules
 module.exports = {
     registerUser,
