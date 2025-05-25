@@ -38,14 +38,20 @@ const createNewBook = async (req, res) => {
     if (authorId) {
       // validate user existing
       author = await Author.findById(authorId);
-      if (!author) {
+    }
+
+       if (!author) {
+      if (!newAuthorName || !newAuthorBiography) {
+        return res.status(400).send('Author information is missing.');
+      }
+
       // Create new author
       author = await Author.create({
         name: newAuthorName,
         biography: newAuthorBiography,
         works: []
       });
-    }}
+
 
     // Create the book
     const book = await Book.create({
@@ -65,7 +71,7 @@ const createNewBook = async (req, res) => {
     await author.save();
 
     return res.redirect(`/books/${book._id}`);
-  } catch (error) {
+  }} catch (error) {
     console.error(`Error occurred in creating book: ${error.message}`);
     return res.status(500).send('Internal Server Error');
   }
