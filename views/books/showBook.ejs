@@ -18,7 +18,7 @@
 <p>About The Book <%= findBookById.description %></p>
 
 <% if (userRole ==='user' || userRole === 'User') { %>
-<form action="/orders/addToCart/<%= findBookById._id %>" method="POST">
+<form action="/orders/newOrder/<%= findBookById._id %>" method="POST">
   <input type="hidden" name="bookId" value="<%= findBookById._id %>" />
   <button type="submit">Add to Cart</button>
 </form>

@@ -9,11 +9,9 @@ const createNewOrder = async (req, res) => {
 
    const sessionUserId= req.session.user._id
 
-
-
     if (!sessionUserId) {
       
-      res.redirect('/sign-in');
+      return res.redirect('/sign-in');
 
     }
 
@@ -21,13 +19,13 @@ const createNewOrder = async (req, res) => {
 
     if (!user) {
       
-        return res.render('/views/auth/userNotFound.ejs')
+        return res.render('auth/userNotFound')
         
     }
 
     const cart = req.session.cart;
     if (!cart || cart.length === 0) {
-      return res.render('/views/cart/emptyCart.ejs')
+      return res.render('cart/emptyCart')
     }
 
     // Extract book IDs from session cart
@@ -52,7 +50,9 @@ const createNewOrder = async (req, res) => {
 const populatedOrder = await Order.findById(newOrder._id).populate('cart').populate('user');
 
 req.session.cart = []; // clear cart
-res.render('orders/showOrder', { user, order: populatedOrder });
+//res.redirect(`/orders/${populatedOrder._id}`)
+
+return res.render('orders/showOrder', { user, orderById: populatedOrder });
     //return res.send(`Dear ${user.first + user.last}, your order was placed successfully!`);
   } catch (error) {
     console.error('Error occurred in creating order!', error.message);
@@ -75,11 +75,14 @@ const listAllOrders = async (req, res) => {
         if(!showAllOrders){
             return res.send('No orders found!')
         }
-        res.render('orders/allOrders', { orders: showAllOrders, user: sessionUser});
+        return res.render('orders/allOrders', { orders: showAllOrders, user: sessionUser});
     } catch (error) {
         console.error(`${chalk.red('Error occurred in listing all orders ', error.message)}`); 
     }
 };
+
+
+
 
 const listOrderById = async (req, res) => {
     try {
@@ -92,9 +95,9 @@ const listOrderById = async (req, res) => {
       
             });
         if(!orderById){
-            return res.send(`${orderById.id} order not found`);
+            return res.send(` order not found`);
         }
-        res.render('./orders/showOrder.ejs', { order: orderById });
+        return res.render('./orders/showOrder.ejs', { orderById });
         //return res.send(`${orderById.id} order has been found` + orderById);        
     } catch (error) {
         console.error(`${chalk.red('Error occurred in listing order by ID ', error.message)}`); 
@@ -105,9 +108,9 @@ const updateOrder = async (req, res) => {
     try {
         const updateOrderById = await Order.findByIdAndUpdate(req.params.id, req.body, {new:true});
         if(!updateOrderById){
-            return res.send(`${req.params.id} order not found`);
+            return res.send(` order not found`);
         }        
-        return res.send(`Order ${updateOrderById.title} has been updated` + updateOrderById)
+        return res.render('orders/editOrder', updateOrderById)
     } catch (error) {
         console.error(`${chalk.red('Error occurred in Updating order!.', error.message)}`); 
     }   
@@ -122,7 +125,7 @@ const deleteOrder = async (req, res) => {
         }
        // return res.send(`Order ${deleteOrderById} has been deleted!`)
         
-       res.render('/views/orders/confirmOrderDeletion.ejs', {deleteBookById});
+       return res.render('orders/confirmOrderDeletion', {deleteOrderById});
 
 
     } catch (error) {
@@ -161,7 +164,8 @@ try {
   // Save the updated cart
   req.session.cart = bookCart;
   console.log('Cart contents:', bookCart);
-  res.render('../views/orders/newOrder.ejs', {bookCart});
+//res.redirect(`/orders/}`)
+  return res.render('orders/newOrder', {bookCart});
 
  // return res.json(bookCart); // or redirect or render a view
 } catch (error) {
@@ -172,7 +176,7 @@ try {
 
 const showCart = (req, res) => {
   const bookCart = req.session.cart || [];
-  res.render('orders/newOrder', { bookCart });
+  return res.render('orders/newOrder', { bookCart });
 }
 
 
@@ -183,13 +187,60 @@ const deleteFromCart = (req, res) => {
     req.session.cart = req.session.cart.filter(book => book.id !== bookId);
   }
 
-  res.redirect('/cart');
+  return res.redirect('/cart');
 }
 
 const clearCart = (req, res) => {
   req.session.cart = [];
-  res.redirect('/cart'); 
+ return res.redirect('/cart'); 
 }
+
+
+const showConfirmPage = async (req, res) => {
+  try {
+    let orders;
+
+    if (req.params.id) {
+      orders = await Order.findById(req.params.id)
+        .populate('user')
+        .populate('cart');
+
+      if (!orders) {
+        return res.render('admins/noOrderToConfirmedFound');
+      }
+
+      return res.render('admins/confirmOrders', { orders: [orders] }); // تحويل إلى array
+    } else {
+      orders = await Order.find({ status: 'pending' })
+        .populate('user')
+        .populate('cart');
+
+      if (!orders || orders.length === 0) {
+        return res.render('admins/noOrderToConfirmedFound');
+      }
+
+      return res.render('admins/confirmOrders', { orders });
+    }
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+};
+
+
+const confirmOrder = async (req, res) => {
+  try {
+    const order = await Order.findByIdAndUpdate(
+      req.params.id,
+      { status: 'confirmed' },
+      { new: true }
+    );
+    if (!order) return res.status(404).send('Order not found');
+return res.redirect('/orders/confirm');
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+};
+
 
 module.exports = {
     listAllOrders,
@@ -200,5 +251,7 @@ module.exports = {
     addToCartItems,
     showCart,
     deleteFromCart,
-    clearCart
+    clearCart,
+    confirmOrder,
+    showConfirmPage
 }

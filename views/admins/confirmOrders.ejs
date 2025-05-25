@@ -1,0 +1,19 @@
+<%- include('../partials/header.ejs') %>
+
+<h2>Confirm Pending Orders</h2>
+
+<ul>
+  <% orders.forEach(order => { %>
+    <li>
+      <p>Order ID: <%= order._id %></p>
+      <p>Customer: <%= order.user.name %></p>
+      <p>Status: <%= order.status %></p>
+      <form action="/orders/<%= order._id %>/confirm" method="POST" style="display:inline;">
+        <button type="submit">Confirm Order</button>
+      </form>
+    </li>
+    <hr>
+  <% }) %>
+</ul>
+
+<%- include('../partials/footer.ejs') %>

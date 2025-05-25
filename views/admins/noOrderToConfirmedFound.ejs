@@ -1,0 +1,8 @@
+  <%- include('../partials/header') %>
+      <div class="card">
+<p>No Order to confirmed found,       <% if (session.user) { %>
+
+             <a href="/<%= session.user.role %>s/profile">My Profile</a> | 
+      <% } %></p>
+      </div>
+<%- include('../partials/footer') %>

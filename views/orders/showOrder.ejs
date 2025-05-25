@@ -1,27 +1,27 @@
 <%- include('../partials/header.ejs') %>
       <div class="card">
 
-<% if ( order !== 'undefined' && order) { %>
+<% if ( orderById !== 'undefined' && orderById) { %>
   <h2>Order Details</h2>
 
-  <p><strong>Order ID:</strong> <%= order._id %></p>
-  <p><strong>Order Date:</strong> <%= new Date(order.orderDate).toLocaleString('en-GB', { dateStyle: 'full', timeStyle: 'short' }) %></p>
-  <p><strong>Total Price:</strong> $<%= order.totalPrice %></p>
-  <p><strong>Delivery Address:</strong> <%= order.deliveryAddress %></p>
-  <p><strong>Status:</strong> <%= order.status || 'Pending' %></p>
+  <p><strong>Order ID:</strong> <%= orderById._id %></p>
+  <p><strong>Order Date:</strong> <%= new Date(orderById.orderDate).toLocaleString('en-GB', { dateStyle: 'full', timeStyle: 'short' }) %></p>
+  <p><strong>Total Price:</strong> $<%= orderById.totalPrice %></p>
+  <p><strong>Delivery Address:</strong> <%= orderById.deliveryAddress %></p>
+  <p><strong>Status:</strong> <%= orderById.status || 'Pending' %></p>
 
   <hr>
 
   <h3>User Info</h3>
-  <p><strong>Name:</strong> <%= order.user.first %> <%= order.user.last %></p>
-  <p><strong>Email:</strong> <%= order.user.email %></p>
+  <p><strong>Name:</strong> <%= orderById.user.first %> <%= orderById.user.last %></p>
+  <p><strong>Email:</strong> <%= orderById.user.email %></p>
 
   <hr>
 
   <h3>Ordered Books</h3>
   <ul>
-    <% if (order.cart.length > 0) { %>
-      <% order.cart.forEach(book => { %>
+    <% if (orderById.cart.length > 0) { %>
+      <% orderById.cart.forEach(book => { %>
         <li>
           <strong>Title:</strong> <%= book.title %> |
           <strong>Author:</strong> <%= book.author?.name || book.author.name %> |
@@ -45,7 +45,7 @@
 
   <p><strong>Total: $<%= total || books.reduce((sum, b) => sum + (b.unitPrice || b.price || 0) * (b.qty || 1), 0).toFixed(2) %></strong></p>
 
-  <form action="/order" method="POST">
+  <form action="/order/newOrder" method="POST">
     <% books.forEach(book => { %>
       <input type="hidden" name="cart[]" value="<%= book.id || book._id %>" />
     <% }) %>

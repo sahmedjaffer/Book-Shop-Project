@@ -4,6 +4,7 @@ const logger = require('morgan');
 require('dotenv').config();
 const methodOverride = require('method-override');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const PORT = process.env.PORT ? (process.env.PORT) : 3005;
 const db = require('./db');
 const app = express();
@@ -18,6 +19,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    
     cookie: {
     maxAge: 30 * 60 * 1000 // 30 minutes in milliseconds
 }}));
@@ -26,28 +28,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
-
-// app.get('/', (req, res) =>{
-//     try {
-//     res.render('index');
-//     console.log(`${chalk.green('Welcome aboard!!!! , the root Page Working Fine')}`);
-//     } catch (error) {
-//         console.error('error occured', error.message)
-//     }
-
-// });
-
-// app.get('/', (req, res) => {
-//     res.render('index', {}, (err, html) => {
-//         if (err) {
-//             console.error('Render Error:', err.message);
-//             return res.status(500).send('خطأ في عرض الصفحة');
-//         }
-//         console.log(`${chalk.green('Welcome aboard!!!! , the root Page Working Fine')}`);
-//         res.send(html);
-//     });
-// });
 
 app.get('/', (req, res) => {
   res.render('index');

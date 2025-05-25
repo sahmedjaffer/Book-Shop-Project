@@ -215,7 +215,7 @@ const userProfile = async(req, res) => {
         if (!userData) res.redirect('/sign-in')
 
 
-        const user=await User.findById(userData._id);
+        const user=await User.findById(userData._id).populate('order');
 
 
         res.render('users/userProfile', { userData,user });
