@@ -15,12 +15,15 @@
       <a href="/authors">Authors</a> |
       <a href="/orders/">All Orders</a> |
       <a href="/orders/cart">Cart (<%= session.cart ? session.cart.length : 0 %>)</a> |
-       <% if (!session.user) { %>
+
+      <% if (!session.user) { %>
       <a href="/sign-in">Login</a> |
       <a href="/sign-up">Register</a> | 
       <% } %>
+
       <% if (session.user) { %>
-             <a href="/sign-out">Sign Out</a> | 
+             <a href="/sign-out">Sign Out</a> |
+             <a href="/<%= session.user.role %>s/profile">My Profile</a> | 
       <% } %>
 
 

@@ -9,7 +9,12 @@
 </form>
   <% findAllBooks.forEach(book => { %>
     <li>
-      <a href="/books/<%= book._id %>"><Title>: </Title><%= book.title %></a>
+      <div class="book-item">
+  <a href="/books/<%= book._id %>">
+    <img src="<%= book.image %>" alt="<%= book.title %>" width="100" height="150" />
+    <p><%= book.title %></p>
+  </a>
+</div>
     </li>
     <li>
       <p>Category: <%= book.category %></p>

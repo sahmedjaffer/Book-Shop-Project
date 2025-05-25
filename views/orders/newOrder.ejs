@@ -4,7 +4,7 @@
 <h2>🛒 Your Cart</h2>
 
 <% if (bookCart && bookCart.length > 0) { %>
-  <form action="/orders" method="POST">
+<form action="/orders" method="POST">
     <% bookCart.forEach((book, index) => { %>
       <div>
         <input type="hidden" name="cart[]" value="<%= book.id %>" />
@@ -30,12 +30,9 @@
         />
 
         <!-- Delete button -->
-        <form action="/orders/deleteFromCart/<%= book.id %>" method="POST" style="display:inline;">
-          <button type="submit" style="color:red;">❌ Remove</button>
-        </form>
-<form action="/orders/clearCart" method="POST" style="margin-bottom: 20px;">
-  <button type="submit" style="background-color: #f44336; color: white;">🗑️ Clear Cart</button>
-</form>
+<a href="/orders/deleteFromCart/<%= book.id %>" class="btn btn-danger">Remove</a>
+
+
 
         <hr/>
       </div>
@@ -48,6 +45,9 @@
 
     <button type="submit">📦 Place Order</button>
   </form>
+  <form action="/orders/clearCart" method="POST" style="margin-bottom: 20px;">
+  <button type="submit" style="background-color: #f44336; color: white;">🗑️ Clear Cart</button>
+</form>
 <% } else { %>
   <p>Your cart is empty.</p>
 <% } %>
