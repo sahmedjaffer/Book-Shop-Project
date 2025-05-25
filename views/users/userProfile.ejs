@@ -5,6 +5,14 @@
 <p>Email: <%= userData.email %></p>
 <p>Address: <%= userData.address %></p>
 <p>Phone: <%= userData.phone %></p>
+<p>User ID: <%= userData._id %></p>
+<% if (userData._id) { %>
+  <form action="/users/<%= userData._id %>/edit" method="GET">
+    <button type="submit">Update Your Info</button>
+  </form>
+<% } else { %>
+  <p>Missing user ID</p>
+<% } %>
 
 <h3>Orders:</h3>
 <ul>

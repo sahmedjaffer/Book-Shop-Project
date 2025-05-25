@@ -17,8 +17,10 @@ app.use(methodOverride('_method'));
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true
-}));
+    saveUninitialized: false,
+    cookie: {
+    maxAge: 30 * 60 * 1000 // 30 minutes in milliseconds
+}}));
 app.use((req, res, next) => {
   res.locals.session = req.session; 
   next();

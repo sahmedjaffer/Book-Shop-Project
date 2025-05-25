@@ -1,0 +1,30 @@
+<%- include('../partials/header.ejs') %>
+      <div class="card">
+
+<h2><%= userData.first %> <%= userData.last %>'s Admin Profile</h2>
+<p>Email: <%= userData.email %></p>
+<p>Address: <%= userData.address %></p>
+<p>Phone: <%= userData.phone %></p>
+<% if (userData._id) { %>
+  <form action="/users/<%= userData._id %>/edit" method="GET">
+    <button type="submit">Update Your Info</button>
+  </form>
+<% } else { %>
+  <p>Missing user ID</p>
+<% } %>
+  <form action="/authors/" method="GET">
+  <button type="submit">Add New Author</button>
+</form>
+<form action="/authors/" method="GET">
+  <button type="submit">Surf or edit authors</button>
+</form>
+ <form action="/books/new" method="GET">
+    <button type="submit">Add New Book</button>
+  </form>
+<form action="/books/" method="GET">
+  <button type="submit">Surf or edit Books</button>
+</form>
+ 
+      </div>
+<%- include('../partials/footer.ejs') %>
+  

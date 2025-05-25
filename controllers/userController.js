@@ -9,7 +9,7 @@ const listAllUsers = async (req, res) => {
         return res.send(`Sorry No Users was Found`);
         }
         //return res.send({listUsers});
-        res.render('./users/allUsers.ejs', { usersData });
+        res.render('./users/allUsers.ejs', { listUsers });
     } catch (error) {
         console.error(`${chalk.red('Error occurred in listing users!.', error.message)}`);
     }   
@@ -33,37 +33,37 @@ const listUserById = async (req, res) => {
       order: findUserById.order
     };
 
-    res.render('./users/profile.ejs', { userData });
+    return res.render('./users/profile.ejs', { userData });
   } catch (error) {
     console.error(chalk.red('Error occurred in listing user by ID!'), error.message);
-    res.status(500).send('Internal Server Error');
   }
 };
 
 const updateUser = async (req, res) => {
     try {
-        const { _id } = req.body ;
-        const { first , last , email , address , phone } = req.body ;
+        
       // find user by id
-         const user = await User.findByIdAndUpdate(req.params.id, req.body, {new:true});
-         if (!user) {
-         if(first) user.first = first ;
-         if(last) user.last = last ;
-         if(email) user.email= email ; 
-         if(address) user.address = address;
-         if(phone) user.phone = phone ; 
-         return res.status(404).json ({ message: "User not found !"});  
+         const updateUserById = await User.findByIdAndUpdate(req.params.id, req.body, {new:true});
+             const userData = {
+      first: updateUserById.first,
+      last: updateUserById.last,
+      email: updateUserById.email,
+      address: updateUserById.address,
+      phone: updateUserById.phone,
+      role: updateUserById.role,
+      order: updateUserById.order
+    };
+
+         if (!updateUserById) {
+         return res.render('auth/userNotFound');  
          }
          // Save the updated user
-         const updatedUser = await user.save();
-             res.status(200).json({
-                 _id: updatedUser._id,
-                 first: updatedUser.first,
-                 last: updatedUser.last,
-                 email: updatedUser.email,
-                 address: updatedUser.address,
-                 phone: updatedUser.phone
-             });
+         await updateUserById.save();
+         if (updateUserById.role === 'admin' ||'Admin')
+             res.redirect('/admins/profile')
+            else if (updateUserById.role === 'user' ||'User'){
+              res.redirect('/users/profile')
+            }
      } catch (error) {
          console.log(error);
          res.status(500).json({
@@ -94,9 +94,27 @@ const updateUser = async (req, res) => {
      }
      
  };
+
+ const updateUserPage = async (req, res) => {
+   try {
+       const user = await User.findById(req.params.id)
+       res.render('auth/updateUser', {user});
+     
+   } catch (error) {
+ 
+     res.send('Error loading form', error.message);
+ 
+   }
+ 
+ }
+
+
+
 module.exports = {
     listAllUsers,
     listUserById,
     updateUser,
     deleteUser ,
+    updateUserPage,
+
 }
