@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
 const chalk = require('chalk');
 const User = require('../models/User.js');
-const { findOne, findById } = require('../models/Author.js');
 
 
 // create a new user controller
