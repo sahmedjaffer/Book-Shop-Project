@@ -1,32 +1,41 @@
 <%- include('../partials/header.ejs') %>
       <div class="card">
 
-<h2><%= bookById.title %></h2>
-<p>Book ISBN: <%= bookById.isbn %></p>
-<p>Book Price: <%= bookById.unitPrice %></p>
-<% if(bookById.stock > 0){ %>
-<p>Stock:  Book is available we have <%= bookById.stock %> in stock</p>
+<h2><%= findBookById.title %></h2>
+<p>Book ISBN: <%= findBookById.isbn %></p>
+<p>Book Price: <%= findBookById.unitPrice %></p>
+<% if(findBookById.stock > 0){ %>
+<p>Stock:  Book is available we have <%= findBookById.stock %> in stock</p>
 <% }else{ %>
 <p>Stock: Sorry the book is out stock</p>
 <% } %>
-<p>Book Category: <%= bookById.category %></p>
-<p>Book Publisher<%= bookById.publisher %></p>
-<p>Book Author: <%= bookById.author.name %></p>
-<p>Author Biography: <%= bookById.author.biography %></p>
-<img src="<%= bookById.image %>" alt="<%= bookById.title %>" width="300" />
-<p>About The Book <%= bookById.description %></p>
-<% if (userRole && userRole.role === 'admin') { %>
-<form action="/books/<%= bookById._id %>/edit">
-  <button>Edit</button>
-</form>
-<% } %>
-<form action="/orders/addToCart/<%= bookById._id %>" method="POST">
-  <input type="hidden" name="bookId" value="<%= bookById._id %>" />
+<p>Book Category: <%= findBookById.category %></p>
+<p>Book Publisher<%= findBookById.publisher %></p>
+<p>Book Author: <a href="/authors/<%= findBookById.author._id %>"> <%= findBookById.author.name %> </a></p>
+
+<p>Author Biography: <%= findBookById.author.biography %></p>
+<img src="<%= findBookById.image %>" alt="<%= findBookById.title %>" width="300" />
+<p>About The Book <%= findBookById.description %></p>
+
+<% if (userRole ==='user' || userRole === 'User') { %>
+<form action="/orders/addToCart/<%= findBookById._id %>" method="POST">
+  <input type="hidden" name="bookId" value="<%= findBookById._id %>" />
   <button type="submit">Add to Cart</button>
 </form>
-<% if (userRole && userRole.role === 'admin') { %>
+<% } %>
 
-<form action="/books/<%= bookById._id %>?_method=DELETE" method="POST">
+<% if (userRole ==='guest' || userRole === 'Guest') { %>
+<form action="/sign-in" method="GET">
+  <button type="submit">Sign in </button>
+</form>
+<% } %>
+
+<% if (userRole === 'admin' || userRole === 'Admin') { %>
+<form action="/books/<%= findBookById._id %>/edit">
+  <button>Edit</button>
+</form>
+
+<form action="/books/<%= findBookById._id %>?_method=DELETE" method="POST">
   <button type="submit">Delete</button>
 </form>
 <% } %>

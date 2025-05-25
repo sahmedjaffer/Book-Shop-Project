@@ -177,3 +177,26 @@ footer {
   color: #555;
   margin-bottom: 0.5rem;
 }
+
+.book-image {
+  display: flex;
+  justify-content: center;
+  width: 300px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.book-image:hover {
+  transform: scale(1.05);
+}
+
+.book-item {
+  display: inline-block;
+  margin: 10px;
+  text-align: center;
+}
+.book-item img {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}

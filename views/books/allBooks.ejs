@@ -5,14 +5,9 @@
  
 
 <ul>
-<% if (userRole && userRole.role === 'admin' || 'Admin') { %>
-  <form action="/books/new" method="GET">
-    <button type="submit">Add New Book</button>
-  </form>
-<% } %>
 
 </form>
-  <% allBooks.forEach(book => { %>
+  <% findAllBooks.forEach(book => { %>
     <li>
       <a href="/books/<%= book._id %>"><Title>: </Title><%= book.title %></a>
     </li>

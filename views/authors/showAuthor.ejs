@@ -5,14 +5,16 @@
 <p>Author Biography<%= findAuthor.biography %></p>
 <p>Works: <%= findAuthor.works.title %></p>
   <label for="authorName">Author Works:</label>
-  <select id="works" name="works">
   <% findAuthor.works.forEach(work => { %>
-    <option value="<%= work._id %>">
-      <%= work.title %>
-    </option>
+<div class="book-item">
+  <a href="/books/<%= work._id %>">
+    <img src="<%= work.image %>" alt="<%= work.title %>" width="100" height="150" />
+    <p><%= work.title %></p>
+  </a>
+</div>
   <% }) %>
-</select>
 
+<% if ( userRole === 'admin' || userRole === 'Admin') { %>
 <form action="/authors/<%= findAuthor._id %>/edit">
   <button>Edit</button>
 </form>
@@ -20,6 +22,7 @@
 <form action="/authors/<%= findAuthor._id %>?_method=DELETE" method="POST">
   <button type="submit">Delete</button>
 </form>
+<% } %>
     </div>
 <%- include('../partials/footer.ejs') %>
 
