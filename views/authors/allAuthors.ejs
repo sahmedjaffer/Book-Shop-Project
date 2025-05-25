@@ -7,7 +7,7 @@
   
   <% allAuthors.forEach(author => { %>
     <li>
-      <a href="/authors/<%= author._id %>"><Name>: </Name><%= author.name %></a>
+      <a href="/authors/<%= author._id %>">Name: <%= author.name %></a>
     </li>
     <li>
       <p>Biography: <%= author.biography %></p>
@@ -17,9 +17,6 @@
       <p>Book Published: <%= work.title %></p>
     </li>
       <% }) %>
-
-    <li>
-
   <% }) %>
 </ul>
     </div>
