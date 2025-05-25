@@ -24,8 +24,18 @@ const registerUser = async (req, res) => {
 
         // if the user exist redirect to sign in page
         if(userIsExist){
-            return res.redirect('/sign-in')
-        };
+                          
+            return res.render('auth/sign-in', {
+      
+            
+                error: 'User Already exist',
+      
+            
+                email: email,
+                    
+        }
+        )
+    };
 
         // if the user is not exist check if the entered password and confirm password are matched
 
@@ -84,7 +94,6 @@ const signInUser = async (req, res) => {
       
                     email: email,
                     
-      
                 }
             )
         };
