@@ -4,7 +4,6 @@ const logger = require('morgan');
 require('dotenv').config();
 const methodOverride = require('method-override');
 const session = require('express-session');
-const MongoStore = require('connect-mongo');
 const PORT = process.env.PORT ? (process.env.PORT) : 3005;
 const db = require('./db');
 const app = express();

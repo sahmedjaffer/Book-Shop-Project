@@ -47,6 +47,17 @@ const createNewOrder = async (req, res) => {
     user.order.push(newOrder._id);
     await user.save();
 
+    // update books stock
+    bookIds.forEach(async (bookId) => {
+      const book = await Book.findById(bookId);
+      if (book) {
+        book.stock -= 1; // Decrease stock by 1
+        await book.save();
+      }
+      console.log(`Updated stock for book ${bookId}: ${book.stock}`);
+    });
+  //  const oldBookQty =   
+
 const populatedOrder = await Order.findById(newOrder._id).populate('cart').populate('user');
 
 req.session.cart = []; // clear cart

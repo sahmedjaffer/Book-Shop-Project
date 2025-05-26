@@ -22,10 +22,10 @@
         <input 
           type="number" 
           id="qty-<%= index %>" 
-          name="quantities[]" 
+          name="qty[<%= book.id %>]"
           value="<%= book.qty %>" 
           min="1" 
-          max="10" 
+          max="1" 
           required
         />
 
@@ -38,10 +38,10 @@
       </div>
     <% }) %>
 
-    <p><strong>Total: $<%= bookCart.reduce((sum, item) => sum + item.unitPrice * item.qty, 0).toFixed(2) %></strong></p>
+    <p><strong>Total: $<%= bookCart.reduce((sum, item) => sum + item.unitPrice * item.qty, 0) %></strong></p>
 
     <label for="deliveryAddress">Delivery Address:</label><br/>
-    <input type="text" name="deliveryAddress" required /><br/><br/>
+    <input type="text" name="deliveryAddress"/><br/><br/>
 
     <button type="submit">📦 Place Order</button>
   </form>

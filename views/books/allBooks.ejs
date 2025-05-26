@@ -6,25 +6,24 @@
 
 <ul>
 
-</form>
   <% findAllBooks.forEach(book => { %>
-    <li>
+
       <div class="book-item">
   <a href="/books/<%= book._id %>">
     <img src="<%= book.image %>" alt="<%= book.title %>" width="100" height="150" />
-    <p><%= book.title %></p>
+    <p><strong><%= book.title %></strong></p>
   </a>
 </div>
+
+    <li>
+      <p><strong>Category:</strong> <%= book.category %></p>
     </li>
     <li>
-      <p>Category: <%= book.category %></p>
-    </li>
-    <li>
-      <p>Publisher: <%= book.publisher %></p>
+      <p><strong>Publisher:</strong> <%= book.publisher %></p>
     </li>
     <li>
 
-    <p>Author: <%= book.author?.name || 'No Author Info' %></p>.    </li>
+    <p><strong>Author:</strong> <%= book.author?.name || 'No Author Info' %></p>.    </li>
   <% }) %>
 </ul>
       </div>
