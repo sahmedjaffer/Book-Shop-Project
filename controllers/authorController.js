@@ -1,5 +1,6 @@
 const chalk = require('chalk');
 const Author = require('../models/Author.js');
+const Book = require('../models/Book.js')
 
 const listAllAuthors = async (req, res) => {
     try {
@@ -84,6 +85,8 @@ const deleteAuthor = async (req, res) => {
         const id = req.params.id;
 
         const deleteAuthorById = await Author.findByIdAndDelete(id);
+
+        const findAuthorInBook = await Book.findOne({author: {id}})
 
         if(!deleteAuthorById){
 
