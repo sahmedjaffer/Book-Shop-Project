@@ -198,12 +198,12 @@ const deleteFromCart = (req, res) => {
     req.session.cart = req.session.cart.filter(book => book.id !== bookId);
   }
 
-  return res.redirect('/cart');
+  return res.redirect('/orders/cart');
 }
 
 const clearCart = (req, res) => {
   req.session.cart = [];
- return res.redirect('/cart'); 
+ return res.redirect('/orders/cart'); 
 }
 
 
