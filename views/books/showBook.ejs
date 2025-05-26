@@ -2,20 +2,20 @@
       <div class="card">
 
 <h2><%= findBookById.title %></h2>
-<p>Book ISBN: <%= findBookById.isbn %></p>
-<p>Book Price: <%= findBookById.unitPrice %></p>
+<p><strong>ISBN:</strong> <%= findBookById.isbn %></p>
+<p><strong>Price:</strong> <%= findBookById.unitPrice %></p>
 <% if(findBookById.stock > 0){ %>
-<p>Stock:  Book is available we have <%= findBookById.stock %> in stock</p>
+<p><strong>Stock:</strong> <span style="color: green;"><%= findBookById.stock %></span></p>
 <% }else{ %>
-<p>Stock: Sorry the book is out stock</p>
+<p><strong>Stock:</strong> <span style="color: red;"><%= findBookById.stock %></span></p>
 <% } %>
-<p>Book Category: <%= findBookById.category %></p>
-<p>Book Publisher<%= findBookById.publisher %></p>
-<p>Book Author: <a href="/authors/<%= findBookById.author._id %>"> <%= findBookById.author.name %> </a></p>
+<p><strong>Category:</strong> <%= findBookById.category %></p>
+<p><strong>Publisher:</strong> <%= findBookById.publisher %></p>
+<p><strong>Author:</strong> <a href="/authors/<%= findBookById.author._id %>"> <%= findBookById.author.name %> </a></p>
 
-<p>Author Biography: <%= findBookById.author.biography %></p>
+<p><strong>Biography:</strong> <%= findBookById.author.biography %></p>
 <img src="<%= findBookById.image %>" alt="<%= findBookById.title %>" width="300" />
-<p>About The Book <%= findBookById.description %></p>
+<p><strong>About The Book:</strong> <%= findBookById.description %></p>
 
 <% if (userRole ==='user' || userRole === 'User') { %>
 <form action="/orders/newOrder/<%= findBookById._id %>" method="POST">
