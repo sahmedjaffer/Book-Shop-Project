@@ -30,47 +30,48 @@ const listUserById = async (req, res) => {
       address: findUserById.address,
       phone: findUserById.phone,
       role: findUserById.role,
-      order: findUserById.order
+      order: findUserById.order,
+      _id: findUserById._id
     };
 
-    return res.render('./users/profile.ejs', { userData });
+    if (userData.role === 'admin') {
+      return res.render('admins/adminProfile', { userData });
+    }
+    if (userData.role === 'user' ) {
+      return res.render('users/userProfile', { userData });
+    }
+    // If the user is neither admin nor user, render a generic profile page
+
   } catch (error) {
     console.error(chalk.red('Error occurred in listing user by ID!'), error.message);
   }
 };
 
 const updateUser = async (req, res) => {
-    try {
-        
-      // find user by id
-         const updateUserById = await User.findByIdAndUpdate(req.params.id, req.body, {new:true});
-             const userData = {
-      first: updateUserById.first,
-      last: updateUserById.last,
-      email: updateUserById.email,
-      address: updateUserById.address,
-      phone: updateUserById.phone,
-      role: updateUserById.role,
-      order: updateUserById.order
-    };
+  try {
+    // find user by id and update
+    const updateUserById = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
 
-         if (!updateUserById) {
-         return res.render('auth/userNotFound');  
-         }
-         // Save the updated user
-         await updateUserById.save();
-         if (updateUserById.role === 'admin' || updateUserById.role ==='Admin')
-             res.redirect('/admins/profile')
-            else if (updateUserById.role === 'user' || updateUserById.role ==='User'){
-              res.redirect('/users/profile')
-            }
-     } catch (error) {
-         console.log(error);
-         res.status(500).json({
-             message: error.message
-         });
-     };
+    if (!updateUserById) {
+      return res.render('auth/userNotFound');
     }
+
+    // Update session user if this is the logged-in user
+    if (req.session.user._id == updateUserById._id) {
+      req.session.user = updateUserById;
+    }
+
+    if (updateUserById.role === 'admin')
+      return res.redirect('/admins/profile');
+    else if (updateUserById.role === 'user')
+      return res.redirect('/users/profile');
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: error.message
+    });
+  }
+};
  
  // Delete User 
  const deleteUser = async (req, res) => {

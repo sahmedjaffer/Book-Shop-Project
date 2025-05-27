@@ -1,34 +1,32 @@
 <%- include('../partials/header.ejs') %>
      
-<div class="admin-profile">
-    <div class="profile-header">
-        <h2>👑 <%= userData.first %> <%= userData.last %></h2>
-        <p>Welcome back, <%= userData.first %>! Here’s your administrator dashboard.</p>
+<div class="admin-profile-card">
+    <div class="admin-profile-header">
+        <h2 class="admin-profile-title">👑 Admin: <%= userData.first %> <%= userData.last %></h2>
+        <p class="admin-welcome">Welcome back, <%= userData.first %>! Here’s your administrator dashboard.</p>
     </div>
 
-    <div class="user-info">
-        <div class="info-card">
-            <h3>📬 Contact Information</h3>
-            <p><strong>Email:</strong> <%= userData.email %></p>
-            <p><strong>Address:</strong> <%= userData.address %></p>
-            <p><strong>Phone:</strong> <%= userData.phone %></p>
-            <% if (userData._id) { %>
-                <a href="/users/<%= userData._id %>/edit" class="btn btn-primary">
-                    ✏️ Edit Profile
-                </a>
-            <% } else { %>
-                <p class="text-danger">⚠️ Missing user ID</p>
-            <% } %>
-        </div>
+    <div class="admin-profile-info">
+        <h3>📬 Contact Information</h3>
+        <p><strong>Email:</strong> <%= userData.email %></p>
+        <p><strong>Address:</strong> <%= userData.address %></p>
+        <p><strong>Phone:</strong> <%= userData.phone %></p>
+        <% if (userData._id) { %>
+            <a href="/users/<%= userData._id %>/edit" class="btn btn-primary mt-1">
+                ✏️ Edit Profile
+            </a>
+        <% } else { %>
+            <p class="error-message">⚠️ Missing user ID</p>
+        <% } %>
     </div>
 
     <hr class="divider">
 
-    <div class="action-grid">
+    <div class="admin-action-grid">
         <!-- Authors Section -->
-        <div class="action-card">
+        <div class="admin-action-card">
             <h3>📚 Authors Management</h3>
-            <a href="/authors/" class="btn btn-success">
+            <a href="/authors/new" class="btn btn-success">
                 ➕ Add New Author
             </a>
             <a href="/authors/" class="btn btn-warning mt-1">
@@ -37,7 +35,7 @@
         </div>
 
         <!-- Books Section -->
-        <div class="action-card">
+        <div class="admin-action-card">
             <h3>📖 Books Management</h3>
             <a href="/books/new" class="btn btn-success">
                 📘 Add New Book
@@ -48,7 +46,7 @@
         </div>
 
         <!-- Orders Section -->
-        <div class="action-card">
+        <div class="admin-action-card">
             <h3>📦 Orders Management</h3>
             <a href="/orders/confirm" class="btn btn-primary">
                 ✅ Confirm Orders
@@ -61,7 +59,7 @@
 
     <hr class="divider">
 
-    <div class="logout-section">
+    <div class="logout-section" style="text-align:center;">
         <a href="/logout" class="btn btn-danger">
             🚪 Logout
         </a>

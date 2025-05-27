@@ -77,6 +77,20 @@ const listAllOrders = async (req, res) => {
             if (!sessionUser) {
                 return res.redirect('/sign-in')
             }
+        if (sessionUser.role === 'admin') {
+            const showAllOrders = await Order.find({})
+        .populate('user')
+        .populate({
+            path: 'cart',
+            populate: { path: 'author', select: 'name' }
+        }).sort({ orderDate: -1 }); // Sort by order date, most recent first
+
+                if(!showAllOrders){
+            return res.send('No orders found!')
+        }
+        return res.render('orders/allOrders', { orders: showAllOrders, user: sessionUser});
+        
+        }
         const showAllOrders = await Order.find({ user: sessionUser._id })
         .populate('user')
         .populate({
@@ -220,9 +234,16 @@ const showConfirmPage = async (req, res) => {
         return res.render('admins/noOrderToConfirmedFound');
       }
 
-      return res.render('admins/confirmOrders', { orders: [orders] }); // تحويل إلى array
+      return res.render('admins/confirmOrders', { orders: [orders] });
     } else {
-      orders = await Order.find({ status: 'pending' })
+      orders = await Order.find({
+  $or: [
+    { status: "pending" },
+    { status: null },
+    { status: "" }
+  ]
+})
+        .sort({ orderDate: -1 }) // Sort by order date, most recent first
         .populate('user')
         .populate('cart');
 
