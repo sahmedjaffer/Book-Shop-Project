@@ -1,5 +1,9 @@
-  <%- include('../partials/header') %>
-      <div class="card">
-<p>Your cart is empty. <a href="/books">Please add some books to your cart</a></p>
-      </div>
+<%- include('../partials/header') %>
+<div class="card empty-cart-card text-center">
+  <h2 class="empty-cart-title">🛒 Your Cart is Empty</h2>
+  <p class="empty-cart-message">
+    You have no items in your cart.<br>
+    <a href="/books" class="btn btn-primary mt-1">Browse Books</a>
+  </p>
+</div>
 <%- include('../partials/footer') %>

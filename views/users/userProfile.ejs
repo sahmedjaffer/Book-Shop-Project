@@ -1,30 +1,30 @@
 <%- include('../partials/header.ejs') %>
-      <div class="card">
+<div class="card user-profile-card">
+  <h2 class="profile-title"><%= userData.first %> <%= userData.last %>'s Profile</h2>
+  <div class="profile-info">
+    <p><strong>Email:</strong> <%= userData.email %></p>
+    <p><strong>Address:</strong> <%= userData.address %></p>
+    <p><strong>Phone:</strong> <%= userData.phone %></p>
+    <p><strong>User ID:</strong> <%= userData._id %></p>
+    <% if (userData._id) { %>
+      <form action="/users/<%= userData._id %>/edit" method="GET" class="inline-form">
+        <button type="submit" class="btn btn-primary mt-1">Update Your Info</button>
+      </form>
+    <% } else { %>
+      <p class="error-message">Missing user ID</p>
+    <% } %>
+  </div>
 
-<h2><%= userData.first %> <%= userData.last %>'s Profile</h2>
-<p>Email: <%= userData.email %></p>
-<p>Address: <%= userData.address %></p>
-<p>Phone: <%= userData.phone %></p>
-<p>User ID: <%= userData._id %></p>
-<% if (userData._id) { %>
-  <form action="/users/<%= userData._id %>/edit" method="GET">
-    <button type="submit">Update Your Info</button>
-  </form>
-<% } else { %>
-  <p>Missing user ID</p>
-<% } %>
-
-<h3>Orders:</h3>
-<ul>
-  <% user.order.forEach(order => { %>
-    <li>
-      <a href="/orders/<%= order._id %>">
-        Order Date: <%= new Date(order.orderDate).toLocaleString('en-GB', { dateStyle: 'short', timeStyle: 'short' }) %> - 
-        Total: <%= order.totalPrice %>
-      </a>
-    </li>
-  <% }) %>
-</ul>
-      </div>
+  <h3 class="orders-title">Orders:</h3>
+  <ul class="user-orders-list">
+    <% user.order.forEach(order => { %>
+      <li>
+        <a href="/orders/<%= order._id %>" class="order-link">
+          Order Date: <%= new Date(order.orderDate).toLocaleString('en-GB', { dateStyle: 'short', timeStyle: 'short' }) %> - 
+          Total: $<%= order.totalPrice %>
+        </a>
+      </li>
+    <% }) %>
+  </ul>
+</div>
 <%- include('../partials/footer.ejs') %>
-  

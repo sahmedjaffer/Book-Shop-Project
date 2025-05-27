@@ -1,31 +1,34 @@
 <%- include('../partials/header') %>
-      <div class="card">
+<div class="card all-orders-card">
+  <h2 class="form-title">All Orders for <%= user.first %> <%= user.last %></h2>
 
-<h2>All Orders for <%= user.first %> <%= user.last %></h2>
+  <% if (orders.length > 0) { %>
+    <% orders.forEach(order => { %>
+      <div class="order-card">
+        <h3 class="order-id">Order ID: <%= order._id %></h3>
+        <p><strong>Date:</strong> <%= new Date(order.orderDate).toLocaleString('en-GB', { dateStyle: 'long', timeStyle: 'short' }) %></p>
+        <p><strong>Total:</strong> $<%= order.totalPrice %></p>
+        <p>
+          <strong>Status:</strong>
+          <span class="<%= order.status === 'Pending' ? 'order-status-pending' : 'order-status-confirmed' %>">
+            <%= order.status || 'Pending' %>
+          </span>
+        </p>
+        <p><strong>Address:</strong> <%= order.deliveryAddress %></p>
 
-<% if (orders.length > 0) { %>
-  <% orders.forEach(order => { %>
-    <div class="order-card">
-      <h3>Order ID: <%= order._id %></h3>
-      <p><strong>Date:</strong> <%= new Date(order.orderDate).toLocaleString('en-GB', { dateStyle: 'long', timeStyle: 'short' }) %></p>
-      <p><strong>Total:</strong> $<%= order.totalPrice %></p>
-      <p><strong>Status:</strong> <%= order.status || 'Pending' %></p>
-      <p><strong>Address:</strong> <%= order.deliveryAddress %></p>
-
-      <h4>Books in this Order:</h4>
-      <ul>
-        <% order.cart.forEach(book => { %>
-          <li>
-            <strong><%= book.title %></strong> by <%= book.author.name %> — $<%= book.price || book.unitPrice %>
-          </li>
-        <% }) %>
-      </ul>
-
-      <hr>
-    </div>
-  <% }) %>
-<% } else { %>
-  <p>No orders found.</p>
-<% } %>
+        <h4>Books in this Order:</h4>
+        <ul class="order-books-list">
+          <% order.cart.forEach(book => { %>
+            <li>
+              <strong><%= book.title %></strong> by <%= book.author.name %> — $<%= book.price || book.unitPrice %>
+            </li>
+          <% }) %>
+        </ul>
+        <hr>
       </div>
+    <% }) %>
+  <% } else { %>
+    <div class="error-message text-center">No orders found.</div>
+  <% } %>
+</div>
 <%- include('../partials/footer') %>

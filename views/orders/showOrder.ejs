@@ -1,63 +1,62 @@
 <%- include('../partials/header.ejs') %>
-      <div class="card">
-
-<% if ( orderById !== 'undefined' && orderById) { %>
-  <h2>Order Details</h2>
-
-  <p><strong>Order ID:</strong> <%= orderById._id %></p>
-  <p><strong>Order Date:</strong> <%= new Date(orderById.orderDate).toLocaleString('en-GB', { dateStyle: 'full', timeStyle: 'short' }) %></p>
-  <p><strong>Total Price:</strong> $<%= orderById.totalPrice %></p>
-  <p><strong>Delivery Address:</strong> <%= orderById.deliveryAddress %></p>
-  <p><strong>Status:</strong> <%= orderById.status || 'Pending' %></p>
-
-  <hr>
-
-  <h3>User Info</h3>
-  <p><strong>Name:</strong> <%= orderById.user.first %> <%= orderById.user.last %></p>
-  <p><strong>Email:</strong> <%= orderById.user.email %></p>
-
-  <hr>
-
-  <h3>Ordered Books</h3>
-  <ul>
-    <% if (orderById.cart.length > 0) { %>
-      <% orderById.cart.forEach(book => { %>
+<div class="card show-order-card">
+  <% if (orderById !== 'undefined' && orderById) { %>
+    <h2 class="form-title">📦 Order Details</h2>
+    <div class="order-info">
+      <p><strong>Order ID:</strong> <span class="order-id"><%= orderById._id %></span></p>
+      <p><strong>Order Date:</strong> <%= new Date(orderById.orderDate).toLocaleString('en-GB', { dateStyle: 'full', timeStyle: 'short' }) %></p>
+      <p><strong>Total Price:</strong> $<%= orderById.totalPrice %></p>
+      <p><strong>Delivery Address:</strong> <%= orderById.deliveryAddress %></p>
+      <p>
+        <strong>Status:</strong>
+        <span class="<%= orderById.status === 'Pending' ? 'order-status-pending' : 'order-status-confirmed' %>">
+          <%= orderById.status || 'Pending' %>
+        </span>
+      </p>
+    </div>
+    <hr>
+    <h3>User Info</h3>
+    <p><strong>Name:</strong> <%= orderById.user.first %> <%= orderById.user.last %></p>
+    <p><strong>Email:</strong> <%= orderById.user.email %></p>
+    <hr>
+    <h3>Ordered Books</h3>
+    <ul class="order-books-list">
+      <% if (orderById.cart.length > 0) { %>
+        <% orderById.cart.forEach(book => { %>
+          <li>
+            <strong>Title:</strong> <%= book.title %> |
+            <strong>Author:</strong> <%= book.author?.name || book.author.name %> |
+            <strong>Price:</strong> $<%= book.unitPrice || book.price %>
+          </li>
+        <% }) %>
+      <% } else { %>
+        <li>No books found in this order.</li>
+      <% } %>
+    </ul>
+  <% } else if (books !== 'undefined' && books.length > 0) { %>
+    <h2 class="form-title">🛒 Your Cart</h2>
+    <ul class="order-books-list">
+      <% books.forEach(book => { %>
         <li>
-          <strong>Title:</strong> <%= book.title %> |
-          <strong>Author:</strong> <%= book.author?.name || book.author.name %> |
-          <strong>Price:</strong> $<%= book.unitPrice || book.price %>
+          <%= book.title %> - $<%= book.unitPrice || book.price %> (Qty: <%= book.qty || 1 %>)
         </li>
       <% }) %>
-    <% } else { %>
-      <li>No books found in this order.</li>
-    <% } %>
-  </ul>
-
-<% } else if ( books !== 'undefined' && books.length > 0) { %>
-
-  <h1>Your Cart</h1>
-
-  <ul>
-    <% books.forEach(book => { %>
-      <li><%= book.title %> - $<%= book.unitPrice || book.price %> (Qty: <%= book.qty || 1 %>)</li>
-    <% }) %>
-  </ul>
-
-  <p><strong>Total: $<%= total || books.reduce((sum, b) => sum + (b.unitPrice || b.price || 0) * (b.qty || 1), 0).toFixed(2) %></strong></p>
-
-  <form action="/order/newOrder" method="POST">
-    <% books.forEach(book => { %>
-      <input type="hidden" name="cart[]" value="<%= book.id || book._id %>" />
-    <% }) %>
-
-    <label for="address">Delivery Address:</label>
-    <input type="text" name="deliveryAddress" required />
-
-    <button type="submit">Place Order</button>
-  </form>
-
-<% } else { %>
-  <p>Your cart is empty.</p>
-<% } %>
+    </ul>
+    <p class="cart-total">
+      <strong>Total: $<%= total || books.reduce((sum, b) => sum + (b.unitPrice || b.price || 0) * (b.qty || 1), 0).toFixed(2) %></strong>
+    </p>
+    <form action="/order/newOrder" method="POST" class="form-vertical">
+      <% books.forEach(book => { %>
+        <input type="hidden" name="cart[]" value="<%= book.id || book._id %>" />
+      <% }) %>
+      <div class="form-group">
+        <label for="address">Delivery Address:</label>
+        <input type="text" name="deliveryAddress" id="address" required />
       </div>
+      <button type="submit" class="btn btn-success mt-1">📦 Place Order</button>
+    </form>
+  <% } else { %>
+    <p class="error-message text-center">Your cart is empty.</p>
+  <% } %>
+</div>
 <%- include('../partials/footer.ejs') %>

@@ -1,5 +1,11 @@
-  <%- include('../partials/header') %>
-      <div class="card">
-<p>This user not found in our database, <a href="/sign-up">Please Sign up</a></p>
-      </div>
+<%- include('../partials/header') %>
+<div class="card user-not-found-card text-center">
+  <h2 class="error-title">🙁 User Not Found</h2>
+  <div class="error-message">
+    This user was not found in our database.
+  </div>
+  <a href="/sign-up" class="btn btn-success mt-1">
+    📝 Please Sign Up
+  </a>
+</div>
 <%- include('../partials/footer') %>

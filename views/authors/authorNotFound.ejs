@@ -1,5 +1,11 @@
-  <%- include('../partials/header') %>
-      <div class="card">
-<p>Sorry this author not found in our database</p>
-      </div>
+<%- include('../partials/header') %>
+<div class="card author-not-found-card text-center">
+  <h2 class="error-title">🙁 Author Not Found</h2>
+  <div class="error-message">
+    Sorry, this author was not found in our database.
+  </div>
+  <a href="/authors" class="btn btn-primary mt-1">
+    🔙 Back to All Authors
+  </a>
+</div>
 <%- include('../partials/footer') %>

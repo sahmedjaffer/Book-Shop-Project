@@ -1,6 +1,13 @@
 <%- include('../partials/header.ejs') %>
-      <div class="card">
-
-<h2>Dear <%= user.first %> Your Order Number <%= newOrder._id %> has been deleted!</h2>
-      </div>
+<div class="card confirm-order-deletion-card text-center">
+  <h2 class="error-title">
+    🗑️ Dear <%= user.first %>, your order <span class="order-id"><%= newOrder._id %></span> has been deleted!
+  </h2>
+  <div class="success-message">
+    The order has been successfully removed from your account.
+  </div>
+  <a href="/orders" class="btn btn-primary mt-1">
+    🔙 Back to My Orders
+  </a>
+</div>
 <%- include('../partials/footer.ejs') %>

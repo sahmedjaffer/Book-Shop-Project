@@ -1,28 +1,39 @@
 <%- include('../partials/header.ejs') %>
-    <div class="card">
+<div class="card show-author-card">
+  <h2 class="author-title"><%= findAuthor.name %></h2>
+  <p class="author-bio">
+    <strong>Biography:</strong><br>
+    <span><%= findAuthor.biography %></span>
+  </p>
 
-<h2><%= findAuthor.name %></h2>
-<p>Author Biography<%= findAuthor.biography %></p>
-<p>Works: <%= findAuthor.works.title %></p>
-  <label for="authorName">Author Works:</label>
-  <% findAuthor.works.forEach(work => { %>
-<div class="book-item">
-  <a href="/books/<%= work._id %>">
-    <img src="<%= work.image %>" alt="<%= work.title %>" width="100" height="150" />
-    <p><%= work.title %></p>
-  </a>
-</div>
-  <% }) %>
+  <div class="author-works-section">
+    <strong>Works:</strong>
+    <% if (findAuthor.works && findAuthor.works.length > 0) { %>
+      <div class="author-works-list">
+        <% findAuthor.works.forEach(work => { %>
+          <div class="book-item">
+            <a href="/books/<%= work._id %>" class="book-link">
+              <img src="<%= work.image %>" alt="<%= work.title %>" width="90" height="130" class="book-image" />
+              <p class="book-title"><%= work.title %></p>
+            </a>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <div class="no-works">No works listed for this author.</div>
+    <% } %>
+  </div>
 
-<% if ( userRole === 'admin' || userRole === 'Admin') { %>
-<form action="/authors/<%= findAuthor._id %>/edit">
-  <button>Edit</button>
-</form>
-
-<form action="/authors/<%= findAuthor._id %>?_method=DELETE" method="POST">
-  <button type="submit">Delete</button>
-</form>
-<% } %>
+  <% if (userRole === 'admin' || userRole === 'Admin') { %>
+    <div class="author-actions">
+      <form action="/authors/<%= findAuthor._id %>/edit" method="GET" class="inline-form">
+        <button class="btn btn-warning" type="submit">✏️ Edit</button>
+      </form>
+      <form action="/authors/<%= findAuthor._id %>?_method=DELETE" method="POST" class="inline-form" onsubmit="return confirm('Are you sure you want to delete this author?');">
+        <button class="btn btn-danger" type="submit">🗑️ Delete</button>
+      </form>
     </div>
+  <% } %>
+</div>
 <%- include('../partials/footer.ejs') %>
 

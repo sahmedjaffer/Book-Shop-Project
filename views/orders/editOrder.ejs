@@ -1,13 +1,17 @@
 <%- include('../partials/header.ejs') %>
-<div class="card">
-  <h2>Confirm Order</h2>
+<div class="card edit-order-card">
+  <h2 class="form-title">📝 Confirm Order</h2>
 
-  <form action="/orders/<%= order._id %>/confirm" method="POST">
+  <form action="/orders/<%= order._id %>/confirm" method="POST" class="form-vertical">
     <p><strong>Customer:</strong> <%= order.user.name %></p>
-    <p><strong>Status:</strong> <%= order.status %></p>
+    <p><strong>Status:</strong> 
+      <span class="<%= order.status === 'Pending' ? 'order-status-pending' : 'order-status-confirmed' %>">
+        <%= order.status %>
+      </span>
+    </p>
 
     <h3>Items:</h3>
-    <ul>
+    <ul class="order-items-list">
       <% order.orderItems.forEach(item => { %>
         <li>
           <strong>Title:</strong> <%= item.book.title %><br>
@@ -18,10 +22,10 @@
       <% }) %>
     </ul>
 
-    <% if (order.status === 'pending') { %>
-      <button type="submit">Confirm Order</button>
+    <% if (order.status === 'Pending') { %>
+      <button type="submit" class="btn btn-success mt-1">✅ Confirm Order</button>
     <% } else { %>
-      <p>This order is already confirmed.</p>
+      <p class="success-message">This order is already confirmed.</p>
     <% } %>
   </form>
 </div>

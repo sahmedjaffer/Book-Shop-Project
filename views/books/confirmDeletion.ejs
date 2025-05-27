@@ -1,6 +1,13 @@
 <%- include('../partials/header.ejs') %>
-      <div class="card">
-
-<h2><%= deleteBookById.title %> has been deleted!</h2>
-      </div>
+<div class="card confirm-deletion-book-card text-center">
+  <h2 class="error-title">
+    🗑️ "<%= deleteBookById.title %>" has been deleted!
+  </h2>
+  <div class="success-message">
+    The book has been successfully removed from the collection.
+  </div>
+  <a href="/books" class="btn btn-primary mt-1">
+    🔙 Back to All Books
+  </a>
+</div>
 <%- include('../partials/footer.ejs') %>
