@@ -1,15 +1,19 @@
 <%- include('../partials/header.ejs') %>
-    <div class="card">
-<h2>Edit Author</h2>
-<form action="/authors/<%= authors._id %>?_method=PUT" method="POST">
-  <label for="name">Name:</label>
-  <input type="text" id="name" name="name" value="<%= authors.name %>" required />
-
-  <label for="biography">Author Biography:</label>
-  <input type="text" id="biography" name="biography" value="<%= authors.biography %>" required />
-
-  <button type="submit">Update</button>
-</form>
-
+<div class="card author-edit-card">
+  <h2 class="form-title">✏️ Edit Author</h2>
+  <form action="/authors/<%= authors._id %>?_method=PUT" method="POST" class="form-vertical">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" value="<%= authors.name %>" required />
     </div>
+    <div class="form-group">
+      <label for="biography">Author Biography:</label>
+      <textarea id="biography" name="biography" required rows="4"><%= authors.biography %></textarea>
+    </div>
+    <button type="submit" class="btn btn-success mt-1">💾 Update Author</button>
+    <div class="form-footer">
+      <a href="/authors/<%= authors._id %>" class="btn btn-primary">🔙 Back to Author</a>
+    </div>
+  </form>
+</div>
 <%- include('../partials/footer.ejs') %>

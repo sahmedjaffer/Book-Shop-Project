@@ -78,36 +78,44 @@ const createNewBook = async (req, res) => {
 };
 
 
-const listAllBooks = async (req, res) => {
-    try {
+// const listAllBooks = async (req, res) => {
+//     try {
           
-      const findAllBooks = await Book.find().populate('author');
+//       const findAllBooks = await Book.find().populate('author');
       
-      if(!findAllBooks){
+//       if(!findAllBooks){
       
-        res.render('books/bookNotFound');
+//         res.render('books/bookNotFound');
       
-      }else{
+//       }else{
     
-        let userRole = null;
+//         let userRole = null;
     
-        if (req.session.user && req.session.user._id) {
+//         if (req.session.user && req.session.user._id) {
     
-          userRole = await User.findById(req.session.user._id);
+//           userRole = await User.findById(req.session.user._id);
     
-        }
+//         }
+//         const author = findAllBooks.find(book => book.author && book.author.name);
+        
+//         console.log(chalk.blue('Author name: ', author.name));
 
-        res.render('books/allBooks', { findAllBooks, userRole });  
     
-      }
-    }
+
+//         console.log();
+//        // if(!author){
+
+//         res.render('books/allBooks', { findAllBooks, userRole });  
     
-    catch (error) {
+//       }
+//     }
     
-      console.error(`${chalk.red('Error occurred in listing all book ', error.message)}`)
+//     catch (error) {
     
-    } 
-  }
+//       console.error(`${chalk.red('Error occurred in listing all book ', error.message)}`)
+    
+//     } 
+//   }
 
 
 
@@ -193,12 +201,82 @@ const newBookPage = async (req, res) => {
   }
 }
 
-module.exports = {
-    listAllBooks,
+
+
+
+const searchBooks = async (req, res) => {  
+  try {
+    const filter = req.query.filter || 'all';
+    const search = req.query.search;
+    let userRole = null;
+    if (req.session.user && req.session.user.role) {
+      userRole = req.session.user.role
+    }else {
+      userRole='Guest'
+    }
+    if(!search) {
+      const showAllBooks = await Book.find({}).populate('author');
+      return res.render('books/allBooks', { showAllBooks,userRole });
+    }
+    if (filter === 'author' && search) {
+      // If filter is 'author', return books by author
+      const authorId = await Author.findOne({ name: search });
+      if (!authorId) {
+        return res.render('books/bookAuthorNotFound', { search });
+      }
+      const showAllBooks = await Book.find({ author: authorId._id }).populate('author');
+      if (showAllBooks.length === 0) {
+        return res.render('books/bookNotFound', search);
+      }
+      return res.render('books/allBooks', { showAllBooks,userRole, filter });
+    } else if (filter === 'title' && search) {
+      // If filter is 'title', return books by title
+      const showAllBooks = await Book.find({ title: search }).populate('author');
+      if (showAllBooks.length === 0) {
+        return res.render('books/bookNotFound');
+      }
+      return res.render('books/allBooks', { showAllBooks,userRole, filter });
+    } else if (filter === 'category' && search) {
+      // If filter is 'category', return books by category
+      const showAllBooks = await Book.find({ category: search }).populate('author');
+      if (showAllBooks.length === 0) {
+        return res.render('books/bookNotFound');
+      }
+      return res.render('books/allBooks', { showAllBooks,userRole, filter });
+    }else if (filter === 'publisher' && search) {
+      // If filter is 'publisher', return books by publisher
+      const showAllBooks = await Book.find({ publisher: search }).populate('author');
+      if (showAllBooks.length === 0) {
+        return res.render('books/bookNotFound');
+      }
+      return res.render('books/allBooks', { showAllBooks,userRole, filter });
+    }else if (filter === 'isbn' && search) {
+      // If filter is 'isbn', return books by isbn
+      const showAllBooks = await Book.find({ isbn: search }).populate('author');
+      if (showAllBooks.length === 0) {
+        return res.render('books/bookNotFound');
+      }
+      return res.render('books/allBooks', { showAllBooks,userRole, filter });
+    }else
+          return res.render('books/bookNotFound');
+  }catch (error) {
+    console.error(`${chalk.red('Error occurred in searching books ', error.message)}`);
+    return res.status(500).send('Internal Server Error');
+  };     
+}
+
+
+
+
+
+    module.exports = {
+    //listAllBooks,
     listBookById,
     updateBook,
     deleteBook,
     createNewBook,
     editBookPage,
-    newBookPage
+    newBookPage,
+    searchBooks,
+    
 }

@@ -18,30 +18,32 @@ const registerUser = async (req, res) => {
             role
             } = req.body;
 
-
-        // check if user email has been registered before
-        const userIsExist = await User.findOne({email: email});
-
-        // if the user exist redirect to sign in page
-        if(userIsExist){
-                          
-            return res.render('auth/sign-in', {
-      
-            
-                error: 'User Already exist',
-      
-            
-                email: email,
-                    
+    // Normalize email to lowercase
+    const normalizedEmail = email.toLowerCase();
+    
+    // Check if user exists with case-insensitive search
+    const userExists = await User.findOne({ email: normalizedEmail });
+    
+        if (userExists) {
+            return res.render('auth/sign-up', { // Stay on sign-up page
+                error: 'Email already registered',
+                email: normalizedEmail,
+            });
         }
-        )
-    };
 
         // if the user is not exist check if the entered password and confirm password are matched
 
-        if (password !== confirmPassword){
-            return res.render('auth/newPasswordsNotMatch');
-        };
+         // Validate password match
+        if (password !== confirmPassword) {
+            return res.render('auth/sign-up', {
+                error: 'Passwords do not match',
+                email: normalizedEmail,
+                first,
+                last,
+                address,
+                phone
+            });
+        }
 
         // hashing the password using bcrypt library
         const hashedPassword = bcrypt.hashSync(password, 12);
@@ -51,7 +53,7 @@ const registerUser = async (req, res) => {
         {
             first: first,
             last: last,
-            email: email,
+            email: normalizedEmail,
             password: hashedPassword,
             address: address,
             phone: phone,
@@ -62,8 +64,11 @@ const registerUser = async (req, res) => {
         res.render('auth/thanks', { user });
 
     } catch (error) {
-        console.error(`${chalk.red('An error occurred registering a user!')} `+`${chalk.red(error.message)}`)
-    }  
+     console.error(chalk.red(`Registration error: ${error.message}`));
+        res.render('auth/sign-up', {
+            error: 'Registration failed. Please try again.',
+            ...req.body
+        });    }  
 }
 
 

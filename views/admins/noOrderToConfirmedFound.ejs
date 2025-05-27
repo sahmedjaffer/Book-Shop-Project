@@ -1,8 +1,13 @@
-  <%- include('../partials/header') %>
-      <div class="card">
-<p>No Order to confirmed found,       <% if (session.user) { %>
-
-             <a href="/<%= session.user.role %>s/profile">My Profile</a> | 
-      <% } %></p>
-      </div>
+<%- include('../partials/header') %>
+<div class="card no-orders-card text-center">
+  <h2 class="form-title">📦 No Orders to Confirm</h2>
+  <div class="success-message">
+    🎉 All orders are up to date. There are no pending orders to confirm!
+  </div>
+  <% if (session.user) { %>
+    <a href="/<%= session.user.role %>s/profile" class="btn btn-primary mt-1">
+      🔙 Back to My Profile
+    </a>
+  <% } %>
+</div>
 <%- include('../partials/footer') %>

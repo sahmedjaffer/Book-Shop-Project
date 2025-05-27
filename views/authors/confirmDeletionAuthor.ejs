@@ -1,6 +1,13 @@
 <%- include('../partials/header.ejs') %>
-    <div class="card">
-
-<h2><%= deleteAuthorById.title %> has been deleted!</h2>
-    </div>
+<div class="card confirm-deletion-author-card text-center">
+  <h2 class="error-title">
+    🗑️ Author Deleted
+  </h2>
+  <div class="success-message">
+    <strong><%= deleteAuthorById.title %></strong> has been deleted from the database.
+  </div>
+  <a href="/authors" class="btn btn-primary mt-1">
+    🔙 Back to All Authors
+  </a>
+</div>
 <%- include('../partials/footer.ejs') %>

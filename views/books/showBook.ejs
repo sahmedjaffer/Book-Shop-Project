@@ -1,45 +1,60 @@
 <%- include('../partials/header.ejs') %>
-      <div class="card">
-
-<h2><%= findBookById.title %></h2>
-<p><strong>ISBN:</strong> <%= findBookById.isbn %></p>
-<p><strong>Price:</strong> <%= findBookById.unitPrice %></p>
-<% if(findBookById.stock > 0){ %>
-<p><strong>Stock:</strong> <span style="color: green;"><%= findBookById.stock %></span></p>
-<% }else{ %>
-<p><strong>Stock:</strong> <span style="color: red;"><%= findBookById.stock %></span></p>
-<% } %>
-<p><strong>Category:</strong> <%= findBookById.category %></p>
-<p><strong>Publisher:</strong> <%= findBookById.publisher %></p>
-<p><strong>Author:</strong> <a href="/authors/<%= findBookById.author._id %>"> <%= findBookById.author.name %> </a></p>
-
-<p><strong>Biography:</strong> <%= findBookById.author.biography %></p>
-<img src="<%= findBookById.image %>" alt="<%= findBookById.title %>" width="300" />
-<p><strong>About The Book:</strong> <%= findBookById.description %></p>
-
-<% if (userRole ==='user' || userRole === 'User') { %>
-<form action="/orders/newOrder/<%= findBookById._id %>" method="POST">
-  <input type="hidden" name="bookId" value="<%= findBookById._id %>" />
-  <button type="submit">Add to Cart</button>
-</form>
-<% } %>
-
-<% if (userRole ==='guest' || userRole === 'Guest') { %>
-<form action="/sign-in" method="GET">
-  <button type="submit">Sign in </button>
-</form>
-<% } %>
-
-<% if (userRole === 'admin' || userRole === 'Admin') { %>
-<form action="/books/<%= findBookById._id %>/edit">
-  <button>Edit</button>
-</form>
-
-<form action="/books/<%= findBookById._id %>?_method=DELETE" method="POST">
-  <button type="submit">Delete</button>
-</form>
-<% } %>
-
-      </div>
+<div class="card show-book-card">
+  <div class="show-book-header">
+    <h2 class="book-title"><%= findBookById.title %></h2>
+  </div>
+  <div class="show-book-body">
+    <div class="show-book-image">
+      <img src="<%= findBookById.image %>" alt="<%= findBookById.title %>" width="220" height="320" />
+    </div>
+    <div class="show-book-details">
+      <p><strong>ISBN:</strong> <%= findBookById.isbn %></p>
+      <p><strong>Price:</strong> $<%= findBookById.unitPrice %></p>
+      <% if(findBookById.stock > 2){ %>
+        <p><strong>Stock:</strong> <span class="stock-in"><%= findBookById.stock %></span></p>
+      <% } else if(findBookById.stock > 0) { %>
+        <p><strong>Stock:</strong> <span class="stock-low"><%= findBookById.stock %></span></p>
+      <% } else { %>
+        <p><strong>Stock:</strong> <span class="stock-out">Out of stock</span></p>
+      <% } %>
+      <p><strong>Category:</strong> <%= findBookById.category %></p>
+      <p><strong>Publisher:</strong> <%= findBookById.publisher %></p>
+      <p><strong>Author:</strong>
+        <a href="/authors/<%= findBookById.author._id %>" class="author-link">
+          <%= findBookById.author.name %>
+        </a>
+      </p>
+      <p><strong>Biography:</strong> <span class="author-bio"><%= findBookById.author.biography %></span></p>
+    </div>
+  </div>
+  <div class="show-book-description">
+    <p><strong>About The Book:</strong></p>
+    <p><%= findBookById.description %></p>
+  </div>
+  <div class="show-book-actions">
+    <% if (userRole === 'user' || userRole === 'User') { %>
+      <form action="/orders/newOrder/<%= findBookById._id %>" method="POST" class="inline-form">
+        <input type="hidden" name="bookId" value="<%= findBookById._id %>" />
+        <button type="submit" class="btn btn-success">🛒 Add to Cart</button>
+      </form>
+    <% } %>
+    <% if (userRole === 'guest' || userRole === 'Guest') { %>
+      <form action="/sign-in" method="GET" class="inline-form">
+        <button type="submit" class="btn btn-primary">🔑 Sign in to Order</button>
+      </form>
+    <% } %>
+    <% if (userRole === 'admin' || userRole === 'Admin') { %>
+      <form action="/books/<%= findBookById._id %>/edit" class="inline-form">
+        <button class="btn btn-warning" type="submit">✏️ Edit</button>
+      </form>
+      <form action="/books/<%= findBookById._id %>?_method=DELETE" method="POST" class="inline-form" onsubmit="return confirm('Are you sure you want to delete this book?');">
+        <button class="btn btn-danger" type="submit">🗑️ Delete</button>
+      </form>
+    <% } %>
+  </div>
+  <div class="show-book-navigation text-center mt-2">
+    <a href="/books" class="btn btn-outline">← Back to Books</a>
+  </div>
+</div>
 <%- include('../partials/footer.ejs') %>
 

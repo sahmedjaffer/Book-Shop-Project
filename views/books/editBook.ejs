@@ -1,46 +1,64 @@
 <%- include('../partials/header.ejs') %>
-      <div class="card">
-
-<h2>Edit Book</h2>
-<form action="/books/<%= book._id %>?_method=PUT" method="POST">
-  <label for="isbn">ISBN:</label>
-  <input type="text" id="isbn" name="isbn" value="<%= book.isbn %>" required />
-
-  <label for="unitPrice">Unit Price:</label>
-  <input type="text" id="unitPrice" name="unitPrice" value="<%= book.unitPrice %>" required />
-
-  <label for="stock">Stock:</label>
-  <input type="text" id="stock" name="stock" value="<%= book.stock %>" required />
-
-  <label for="category">Category:</label>
-  <input type="text" id="category" name="category" value="<%= book.category %>" required />
-
-  <label for="publisher">Publisher:</label>
-  <input type="text" id="publisher" name="publisher" value="<%= book.publisher %>" required />
-
-  <label for="authorName">Author:</label>
-  <select id="authorName" name="authorName">
-    <% authors.forEach(author => { %>
-      <option value="<%= author._id %>" <%= book.author && book.author._id.toString() === author._id.toString() ? 'selected' : '' %>>
-        <%= author.name %>
-      </option>
-    <% }) %>
-  </select>
-
-  <label for="authorBiography">Author Biography:</label>
-  <input type="text" id="authorBiography" name="authorBiography" value="<%= book.author.biography %>" required />
-
-  <label for="title">Title:</label>
-  <input type="text" id="title" name="title" value="<%= book.title %>" required />
-
-  <label for="description">Description:</label>
-  <textarea id="description" name="description" required><%= book.description %></textarea>
-
-  <label for="image">Image URL:</label>
-  <input type="text" id="image" name="image" value="<%= book.image %>" />
-
-  <button type="submit">Update</button>
-</form>
-      </div>
-
+<div class="card edit-book-card">
+  <h2 class="form-title">✏️ Edit Book</h2>
+  <form action="/books/<%= book._id %>?_method=PUT" method="POST" class="form-vertical">
+    <div class="form-group">
+      <label for="isbn">ISBN:</label>
+      <input type="text" id="isbn" name="isbn" value="<%= book.isbn %>" required />
+    </div>
+    <div class="form-group">
+      <label for="unitPrice">Unit Price:</label>
+      <input type="number" step="0.01" id="unitPrice" name="unitPrice" value="<%= book.unitPrice %>" required />
+    </div>
+    <div class="form-group">
+      <label for="stock">Stock:</label>
+      <input type="number" id="stock" name="stock" value="<%= book.stock %>" required />
+    </div>
+    <div class="form-group">
+      <label for="category">Category:</label>
+      <input type="text" id="category" name="category" value="<%= book.category %>" required />
+    </div>
+    <div class="form-group">
+      <label for="publisher">Publisher:</label>
+      <input type="text" id="publisher" name="publisher" value="<%= book.publisher %>" required />
+    </div>
+    <div class="form-group">
+      <label for="authorName">Author:</label>
+      <select id="authorName" name="authorName">
+        <% authors.forEach(author => { %>
+          <option value="<%= author._id %>" <%= book.author && book.author._id.toString() === author._id.toString() ? 'selected' : '' %>>
+            <%= author.name %>
+          </option>
+        <% }) %>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="authorBiography">Author Biography:</label>
+      <input type="text" id="authorBiography" name="authorBiography" value="<%= book.author.biography %>" required />
+    </div>
+    <div id="new-author-fields" class="hide-author-fields">
+      <p>If not in list, add new author below:</p>
+      <label for="newAuthorName">New Author Name:</label>
+      <input type="text" id="newAuthorName" name="newAuthorName" />
+      <label for="newAuthorBiography">New Author Biography:</label>
+      <input type="text" id="newAuthorBiography" name="newAuthorBiography" />
+    </div>
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" value="<%= book.title %>" required />
+    </div>
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea id="description" name="description" required rows="4"><%= book.description %></textarea>
+    </div>
+    <div class="form-group">
+      <label for="image">Image URL:</label>
+      <input type="text" id="image" name="image" value="<%= book.image %>" />
+    </div>
+    <button type="submit" class="btn btn-success mt-1">💾 Update Book</button>
+    <div class="form-footer">
+      <a href="/books/<%= book._id %>" class="btn btn-primary">🔙 Back to Book</a>
+    </div>
+  </form>
+</div>
 <%- include('../partials/footer.ejs') %>

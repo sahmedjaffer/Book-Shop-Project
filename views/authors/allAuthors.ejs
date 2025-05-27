@@ -1,23 +1,41 @@
-
-  <%- include('../partials/header') %>
-    <div class="card">
-<h1>All Authors</h1>
-
-<ul>
-  
-  <% allAuthors.forEach(author => { %>
-    
-    <h2>  <a href="/authors/<%= author._id %>"><%= author.name %></a></h2>
-    
-    <li>
-      <p>Biography: <%= author.biography %></p>
-    </li>
-      <% author.works.forEach(work => { %>
-    <li>
-      <p> <a href="/bookss/<%= work._id %>"> <%= work.title %></a></p>
-    </li>
+<%- include('../partials/header') %>
+<div class="card all-authors-card">
+  <h1 class="form-title">🖋️ All Authors</h1>
+  <% if (allAuthors && allAuthors.length > 0) { %>
+    <ul class="author-list">
+      <% allAuthors.forEach(author => { %>
+        <li class="info-card author-item">
+          <h2>
+            <a href="/authors/<%= author._id %>" class="author-link">
+              <%= author.name %>
+            </a>
+          </h2>
+          <p>
+            <strong>Biography:</strong> <%= author.biography %>
+          </p>
+          <% if (author.works && author.works.length > 0) { %>
+            <div>
+              <strong>Works:</strong>
+              <ul class="works-list">
+                <% author.works.forEach(work => { %>
+                  <li>
+                    <a href="/books/<%= work._id %>" class="work-link">
+                      <%= work.title %>
+                    </a>
+                  </li>
+                <% }) %>
+              </ul>
+            </div>
+          <% } else { %>
+            <div class="no-works">No works listed.</div>
+          <% } %>
+        </li>
       <% }) %>
-  <% }) %>
-</ul>
+    </ul>
+  <% } else { %>
+    <div class="error-message text-center">
+      No authors found.
     </div>
+  <% } %>
+</div>
 <%- include('../partials/footer') %>

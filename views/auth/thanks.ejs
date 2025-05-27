@@ -1,8 +1,12 @@
 <%- include('../partials/header.ejs') %>
-  <div class="card">
-
-<h2>Thanks for signing up!</h2>
-
-<h2>Sign in <a href="sign-in">here</a>.</h2>
+<div class="card thanks-card text-center">
+  <h2 class="success-title">🎉 Thanks for Signing Up!</h2>
+  <p class="thanks-message">
+    Your account has been created successfully.<br>
+    You can now log in and start exploring our book shop.
+  </p>
+  <a href="/sign-in" class="btn btn-primary mt-1">
+    🔑 Sign In Now
+  </a>
 </div>
 <%- include('../partials/footer.ejs') %>
