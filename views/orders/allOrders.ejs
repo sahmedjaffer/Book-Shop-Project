@@ -1,7 +1,10 @@
 <%- include('../partials/header') %>
 <div class="card all-orders-card">
+  <% if (user.role === 'admin') { %>
+     <h2 class="form-title">All Orders Listed</h2>
+  <% } else { %>
   <h2 class="form-title">All Orders for <%= user.first %> <%= user.last %></h2>
-
+  <% } %>
   <% if (orders.length > 0) { %>
     <% orders.forEach(order => { %>
       <div class="order-card">

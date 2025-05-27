@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const orderSchema = new mongoose.Schema(
     {
         orderDate: {type: String , required: true},
-        status: {type: String},
+        status: {type: String, default: 'pending'},
         deliveryAddress: {type: String, required: true},
         totalPrice:{type: Number, required: true},
         cart: [

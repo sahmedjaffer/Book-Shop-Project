@@ -223,7 +223,13 @@ const userProfile = async(req, res) => {
         const user=await User.findById(userData._id).populate('order');
 
 
+        if (user.role.toLocaleLowerCase !== 'user') {
+        res.render('admins/adminProfile', { userData,user });
+        }else if (!user) {
         res.render('users/userProfile', { userData,user });
+        }
+
+
 
     } catch (error) {
         console.error(`${chalk.red('An error has occurred userProfile!')}` + `${chalk.red(error.message)}`)

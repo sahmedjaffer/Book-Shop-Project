@@ -19,7 +19,7 @@
             </span>
           </p>
           <form action="/orders/<%= order._id %>/confirm" method="POST" class="inline-form">
-            <button type="submit" class="btn btn-success" <%= order.status !== 'Pending' ? 'disabled' : '' %>>
+            <button type="submit" class="btn btn-success"   <%= (order.status && order.status.toLowerCase() !== 'pending' && order.status !== '') ? 'disabled' : '' %>>
               ✅ Confirm Order
             </button>
           </form>

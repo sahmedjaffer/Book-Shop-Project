@@ -1,47 +1,55 @@
 <%- include('../partials/header.ejs') %>
-<div class="card new-order-card">
-  <h2 class="form-title">🛒 Your Cart</h2>
+      <div class="card">
 
-  <% if (bookCart && bookCart.length > 0) { %>
-    <form action="/orders" method="POST" class="form-vertical">
-      <% bookCart.forEach((book, index) => { %>
-        <div class="cart-item">
-          <input type="hidden" name="cart[]" value="<%= book.id %>" />
+<h2>🛒 Your Cart</h2>
 
-          <p><strong>ISBN:</strong> <%= book.isbn || 'N/A' %></p>
-          <p><strong>Title:</strong> <%= book.title %></p>
-          <p><strong>Unit Price:</strong> $<%= book.unitPrice %></p>
-          <div class="form-group">
-            <label for="qty-<%= index %>">Quantity:</label>
-            <input 
-              type="number" 
-              id="qty-<%= index %>" 
-              name="qty[<%= book.id %>]"
-              value="<%= book.qty %>" 
-              min="1" 
-              max="1" 
-              required
-            />
-          </div>
-          <a href="/orders/deleteFromCart/<%= book.id %>" class="btn btn-danger btn-sm mt-1">Remove</a>
-          <hr/>
-        </div>
-      <% }) %>
+<% if (bookCart && bookCart.length > 0) { %>
+<form action="/orders" method="POST">
+    <% bookCart.forEach((book, index) => { %>
+      <div>
+        <input type="hidden" name="cart[]" value="<%= book.id %>" />
 
-      <p class="cart-total"><strong>Total: $<%= bookCart.reduce((sum, item) => sum + item.unitPrice * item.qty, 0) %></strong></p>
+        <label>ISBN:</label>
+        <span><%= book.isbn || 'N/A' %></span><br/>
 
-      <div class="form-group">
-        <label for="deliveryAddress">Delivery Address:</label>
-        <input type="text" name="deliveryAddress" id="deliveryAddress" required />
+        <label>Title:</label>
+        <span><%= book.title %></span><br/>
+
+        <label>Unit Price:</label>
+        <span>$<%= book.unitPrice %></span><br/>
+
+        <label for="qty-<%= index %>">Quantity:</label>
+        <input 
+          type="number" 
+          id="qty-<%= index %>" 
+          name="qty[<%= book.id %>]"
+          value="<%= book.qty %>" 
+          min="1" 
+          max="1" 
+          required
+        />
+
+        <!-- Delete button -->
+<a href="/orders/deleteFromCart/<%= book.id %>" class="btn btn-danger">Remove</a>
+
+
+
+        <hr/>
       </div>
+    <% }) %>
 
-      <button type="submit" class="btn btn-success mt-1">📦 Place Order</button>
-    </form>
-    <form action="/orders/clearCart" method="POST" class="mt-2">
-      <button type="submit" class="btn btn-danger">🗑️ Clear Cart</button>
-    </form>
-  <% } else { %>
-    <p>Your cart is empty.</p>
-  <% } %>
-</div>
+    <p><strong>Total: $<%= bookCart.reduce((sum, item) => sum + item.unitPrice * item.qty, 0) %></strong></p>
+
+    <label for="deliveryAddress">Delivery Address:</label><br/>
+    <input type="text" name="deliveryAddress"/><br/><br/>
+
+    <button type="submit">📦 Place Order</button>
+  </form>
+  <form action="/orders/clearCart" method="POST" style="margin-bottom: 20px;">
+  <button type="submit" style="background-color: #f44336; color: white;">🗑️ Clear Cart</button>
+</form>
+<% } else { %>
+  <p>Your cart is empty.</p>
+<% } %>
+      </div>
 <%- include('../partials/footer.ejs') %>

@@ -15,9 +15,9 @@ router.get('/cart', orderController.showCart);
 
 router.post('/clearCart', orderController.clearCart);
 
-router.get('/deleteFromCart/:id', orderController.deleteFromCart);
 
-router.get('/confirm', orderController.showConfirmPage);      
+router.get('/confirm', orderController.showConfirmPage); 
+router.get('/deleteFromCart/:id', orderController.deleteFromCart);
 router.get('/:id/confirm', orderController.showConfirmPage);  
 router.post('/:id/confirm', orderController.confirmOrder);    
 
