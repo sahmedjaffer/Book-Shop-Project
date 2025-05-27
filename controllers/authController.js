@@ -223,9 +223,9 @@ const userProfile = async(req, res) => {
         const user=await User.findById(userData._id).populate('order');
 
 
-        if (user.role.toLocaleLowerCase !== 'user') {
+        if (user.role.toLocaleLowerCase === 'admin') {
         res.render('admins/adminProfile', { userData,user });
-        }else if (!user) {
+        }else {
         res.render('users/userProfile', { userData,user });
         }
 
