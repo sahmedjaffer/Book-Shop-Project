@@ -13,8 +13,7 @@ router.get('/sign-in', (req, res) => {
     email: ''
   });
 });
-router.get('/admins/profile', authController.adminProfile);
-router.get('/users/profile', authController.userProfile);
+router.get('/profile', authController.profileRedirect);
 router.get('/sign-out', authController.signOutUser);
 router.put('/:id', authController.updatePassword);
 router.get('/:id/update-password', (req, res) => {

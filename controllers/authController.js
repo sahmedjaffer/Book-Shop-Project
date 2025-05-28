@@ -120,14 +120,16 @@ const signInUser = async (req, res) => {
 
 
             //check the user role is it admin or user        
-            if (user.role === 'Admin' || user.role === 'admin') {
+            //if (role === 'admin') {
+
+              console.log('Hi' + user.first +' your role in signIn is: ' + user.role)
         
-                res.redirect(`admins/profile`);
+                res.redirect(`/profile`);
         
-            } else if (user.role === 'User' || user.role === 'user') {
+          //  } else if (role === 'user') {
         
-                res.redirect(`users/profile`);
-            }
+          //      res.redirect(`users/profile`);
+          //  }
     
         } catch (error) {
     
@@ -198,20 +200,7 @@ const updatePassword = async (req, res) => {
     }
 }
 
-const adminProfile = async(req, res) => {
-    try {
-                 
-        const userData = req.session.user;
-        if (!userData) res.redirect('/sign-in')
-        console.log(userData)
-        res.render('admins/adminProfile', { userData });
-        
-    } catch (error) {
-        console.error(`${chalk.red('An error has occurred adminProfile!')}` + `${chalk.red(error.message)}`)
-    }
-}
-
-const userProfile = async(req, res) => {
+const profileRedirect = async(req, res) => {
     try{
 
         const userData = req.session.user;
@@ -220,12 +209,16 @@ const userProfile = async(req, res) => {
         if (!userData) res.redirect('/sign-in')
 
 
-        const user=await User.findById(userData._id).populate('order');
+        const user = await User.findById(userData._id).populate('order');
+
+        console.log('Hi' + user.first +' your role in profileRedirect is: ' + user.role)
+
+        console.log(userData);
 
 
-        if (user.role.toLocaleLowerCase === 'admin') {
-        res.render('admins/adminProfile', { userData,user });
-        }else {
+        if (userData.role.toLocaleLowerCase() === 'admin') {
+        res.render('./admins/adminProfile', { userData,user });
+        }else if (userData.role.toLocaleLowerCase() === 'user'){
         res.render('users/userProfile', { userData,user });
         }
 
@@ -241,7 +234,7 @@ module.exports = {
     signInUser,
     signOutUser,
     updatePassword,
-    adminProfile,
-    userProfile,
+    //adminProfile,
+    profileRedirect,
 
 }
