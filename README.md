@@ -67,7 +67,7 @@ This project is a practical demonstration of an online bookstore, featuring auth
 
 ### Trello Board
 <br>
-<img src="./IMG/Trello.jpeg>">
+<img src="./IMG/Trello.jpeg">
 <br>
 
 ---
