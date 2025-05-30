@@ -10,21 +10,65 @@ This project is a practical demonstration of an online bookstore, featuring auth
 
 ## 🖼️ Screenshots
 
-### Home Page
-![Bookshop Home](./IMAGES/screenshot.png)
-
-### Success Message
-![Success Message](./IMAGES/success1.png)
-
-### Error Messages
-![Error Message 1](./IMAGES/error1.png)
-![Error Message 2](./IMAGES/error2.png)
+### Website Images
+<img src="./IMG/Screenshot From 2025-05-30 08-45-02.png">
+<br>
+<img src="./IMG/Screenshot From 2025-05-30 08-45-17.png">
+<br>
+<img src="./IMG/Screenshot From 2025-05-30 08-45-58.png">
+<br>
+<img src="./IMG/Screenshot From 2025-05-30 08-46-10.png">
+<br>
+<img src="./IMG/Screenshot From 2025-05-30 08-46-18.png">
+<br>
+<img src="./IMG/Screenshot From 2025-05-30 08-46-39.png">
+<br>
+<img src="./IMG/Screenshot From 2025-05-30 08-46-50.png">
+<br>
+<img src="./IMG/Screenshot From 2025-05-30 08-47-24.png">
+<br>
+<img src="./IMG/Screenshot From 2025-05-30 08-47-48.png">
+<br>
+<img src="./IMG/Screenshot From 2025-05-30 08-48-08.png">
+<br>
+<img src="./IMG/Screenshot From 2025-05-30 08-48-30.png">
+<br>
+<img src="./IMG/Screenshot From 2025-05-30 08-48-39.png">
+<br>
+<img src="./IMG/Screenshot From 2025-05-30 08-48-52.png">
+<br>
+<img src="./IMG/Screenshot From 2025-05-30 08-49-21.png">
+<br>
+<img src="./IMG/Screenshot From 2025-05-30 08-49-31.png">
+<br>
+<img src="./IMG/Screenshot From 2025-05-30 08-49-39.png">
+<br>
+<img src="./IMG/Screenshot From 2025-05-30 08-49-55.png">
+<br>
+<img src="./IMG/Screenshot From 2025-05-30 08-50-29.png">
+<br>
+<img src="./IMG/Screenshot From 2025-05-30 08-50-59.png">
+<br>
+<img src="./IMG/Screenshot From 2025-05-30 08-51-09.png">
+<br>
+<img src="./IMG/Screenshot From 2025-05-30 08-51-21.png">
+<br>
+<img src="./IMG/Screenshot From 2025-05-30 08-51-27.png">
+<br>
+<img src="./IMG/Screenshot From 2025-05-30 08-51-40.png">
+<br>
+<img src="./IMG/Screenshot From 2025-05-30 08-52-16.png">
+<br>
 
 ### ERD Diagram
-![Bookshop ERD](./IMAGES/ERD.png)
+<br>
+<img src="./IMG/BookShopModel.jpeg">
+<br>
 
 ### Trello Board
-![Bookshop Trello](./IMAGES/trello.png)
+<br>
+<img src="./IMG/Trello.jpeg>">
+<br>
 
 ---
 
@@ -42,7 +86,8 @@ This project is a practical demonstration of an online bookstore, featuring auth
   > 🛑 **Note:** To place an order, users must log in or sign up.  
   > 💳 **Online payment will be available in a future upgrade.**
 - **Order Tracking:** Users can view their order history and track order status.
-- **Admin Dashboard:** Admins can add, edit, or remove books and authors, manage users, and confirm orders.
+- **Admin Dashboard:** Admins can add, edit, or remove books and authors and confirm orders.
+🛑 **Note:** User management will be included in the future upgrade. 
 
 ---
 
@@ -50,7 +95,7 @@ This project is a practical demonstration of an online bookstore, featuring auth
 
 - Users can browse and purchase books online.
 - Customers manage their accounts and track orders securely.
-- Admins efficiently manage authors, book listings, and orders.
+- Admins efficiently manage authors, books, and orders.
 
 ---
 
@@ -59,7 +104,7 @@ This project is a practical demonstration of an online bookstore, featuring auth
 - **Frontend:** HTML, CSS, JavaScript (EJS templating)
 - **Backend:** Node.js, Express.js
 - **Database:** MongoDB (Mongoose)
-- **Authentication:** Sessions (express-session)
+- **Authentication:** Auth (express-session)
 - **Architecture:** MVC pattern, RESTful APIs
 
 ---
@@ -78,22 +123,22 @@ This project is a practical demonstration of an online bookstore, featuring auth
 
 ### 👑 Admin
 
-- View and manage all users (list, update, delete).
 - Manage authors (create, update, delete).
 - Manage books (create, update, delete).
-- Confirm, update, or delete orders.
-- View detailed info for users, authors, books, and orders.
+- Confirm orders.
+- View detailed info for authors, books, and orders.
 
 ---
 
 ## 🛍️ How to Buy
 
 1. **Browse Books:** View all books without logging in.
-2. **Add to Cart:** Add your favorite books to the cart.
+2. **Add to Cart:** Add your favorite books to the cart after sign in.
 3. **Checkout:**  
    - If not logged in, you’ll be prompted to log in or sign up to proceed.
    - Review your cart, confirm your order, and place it.
-4. **Order Tracking:** Track your orders in your profile.
+4. **Order Tracking:** 
+   - Track your orders status in your profile.
 5. **Online Payment:**  
    - *Coming soon!* Online payment will be available in a future upgrade.
 
@@ -109,7 +154,7 @@ This project is a practical demonstration of an online bookstore, featuring auth
 
 ## 🖼 Attributions
 
-- Book cover images: [CleanPNG](https://www.cleanpng.com)
+- Book cover images: from amazon website
 
 ---
 
@@ -122,6 +167,8 @@ This project is a practical demonstration of an online bookstore, featuring auth
 - Email/SMS notifications for order updates.
 - Enhanced analytics for admins.
 - Improved UI/UX design.
+- Controlling users.
+- Controlling Orders.
 
 ---
 
