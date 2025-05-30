@@ -1,139 +1,128 @@
-# 📚 Book Shop
+# 📚 Book Shop Project
+
 ## 📝 Description
 
-BookShop-MEN is a simple full-stack web app built with MongoDB, Express.js, and Node.js. 
-It lets you add, edit, and delete books, authors, and users. The app is made for both customers and admin, 
-and it's a great project to learn how an online book store works.
+**BookShop-MEN** is a full-stack web application built with **MongoDB**, **Express.js**, and **Node.js**.  
+It allows users to browse books, add them to a cart, and place orders. Admins can manage books, authors, users, and orders through a dedicated dashboard.  
+This project is a practical demonstration of an online bookstore, featuring authentication, cart, checkout, and admin management.
 
 ---
 
-### 🛒 Key Features
+## 🖼️ Screenshots
 
-🛒 Browse & Buy Books: Search and view many books with detailed information.
-📝 User Authentication: Secure login/signup for customers and admins.
-💼 Admin Dashboard: Manage books, orders, users, and authors.
-💳 Cart & Checkout: Add books to cart and complete purchases easily.
-📦 Order Management: Track order status from placement to delivery.
-
-### 🧠 Background Info
-
-- Book Shop allows users to browse, and purchase books online.
-- Customers can manage their accounts and track orders in a secure.
-- Admins can efficiently manage authors, book listings, orders.
-
-### 🎯 Reason 
-I chose the book shop project because it’s easy to understand and a good way to practice the basics like adding, editing,reading, 
-and deleting data(CRUD Operations).
-It also helped me learn how to organize my code using MVC and work with a real database.
-
-## 📸 Screenshots
-
-### Book Shop Interface
-![Bookshop Screenshot](./IMAGES/screenshot.png)
+### Home Page
+![Bookshop Home](./IMAGES/screenshot.png)
 
 ### Success Message
 ![Success Message](./IMAGES/success1.png)
 
 ### Error Messages
-![Error Message - ](./IMAGES/error1.png)
-![Error Message - ](./IMAGES/error2.png)
+![Error Message 1](./IMAGES/error1.png)
+![Error Message 2](./IMAGES/error2.png)
 
-## ERD diagram :
+### ERD Diagram
 ![Bookshop ERD](./IMAGES/ERD.png)
 
-## Trello : 
+### Trello Board
 ![Bookshop Trello](./IMAGES/trello.png)
-
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Live Demo & Resources
 
-### 🔗 Planning Materials
+- **Live Demo:** [utopianbookshop.onrender.com](https://utopianbookshop.onrender.com)
+- **GitHub Repo:** [Book-Shop-Project](https://github.com/sahmedjaffer/Book-Shop-Project.git)
 
-- GitHub Repo: https://github.com/sahmedjaffer/Book-Shop-Project.git
-- Live Demo / Deployment: https://utopianbookshop.onrender.com
+---
+
+## 🛒 Key Features
+
+- **Browse Books:** Anyone can view all available books and see detailed information.
+- **Add to Cart & Checkout:** Users can add books to their cart and proceed to checkout.  
+  > 🛑 **Note:** To place an order, users must log in or sign up.  
+  > 💳 **Online payment will be available in a future upgrade.**
+- **Order Tracking:** Users can view their order history and track order status.
+- **Admin Dashboard:** Admins can add, edit, or remove books and authors, manage users, and confirm orders.
+
+---
+
+## 🧠 Background
+
+- Users can browse and purchase books online.
+- Customers manage their accounts and track orders securely.
+- Admins efficiently manage authors, book listings, and orders.
 
 ---
 
 ## 🛠 Technologies Used
 
-🌐 Front-end: HTML/CSS, JavaScript  
-⚙️ Back-end: Node.js, Express.js  
-🗃 Database: MongoDB  
- 
+- **Frontend:** HTML, CSS, JavaScript (EJS templating)
+- **Backend:** Node.js, Express.js
+- **Database:** MongoDB (Mongoose)
+- **Authentication:** Sessions (express-session)
+- **Architecture:** MVC pattern, RESTful APIs
+
 ---
 
 ## 👥 User Stories
 
 ### 👤 User
 
-- As a user, I want to register , log in & log out securely so that I can purchase books and access my account.
-- As a user, I want to update my profile with my first name, last name, email, password, address, and phone number to ensure that the account details are correct.
-- As a user, I want to view detailed information about a book, including the title, image, author and price, so I can make informed purchasing decisions.
-- As a user, I want to add books to my cart and complete a secure checkout so I can purchase books online.
-- As a user, I want to view my order history so I can keep track of my past purchases.
-- As a user, I want to view all books by a specific author so I can explore more works from authors I enjoy.
-- As a user, I want to place an order for books in my cart so I can purchase them in one transaction.
-- As a user, I want to view details and status of past orders so I can track my purchases and deliveries.
-- As a user, I want to add a new one during checkout.
-- As a user, I want to see a summary of my order (titles, quantities, prices, and total) before confirming.
-- As a user, I want to edit or remove items in my cart before placing the order.
+- Register, log in, and log out securely.
+- Update profile (name, email, password, address, phone).
+- Browse all books and view details (title, author, price, image).
+- Add books to cart and complete checkout.
+- View order history and order details.
+- Edit or remove items from cart before placing an order.
+- **Must log in or sign up to place an order.**
+
+### 👑 Admin
+
+- View and manage all users (list, update, delete).
+- Manage authors (create, update, delete).
+- Manage books (create, update, delete).
+- Confirm, update, or delete orders.
+- View detailed info for users, authors, books, and orders.
 
 ---
 
-### 🛒 Admin
-- As a admin , I want to view and manage all users by listing, viewing details, updating profiles, and deleting accounts to maintain accurate platform membership. 
+## 🛍️ How to Buy
 
-- As a an Admin , I want to view and manage all authors by listing, creating, updating, editing pages, and deleting profiles to keep author information accurate and up-to-date. 
-
-- As a an Admin , I want to view and manage all books by listing, creating, updating, editing pages, and deleting entries to maintain an accurate book catalog. 
-
-- As a an Admin , I want to view and manage all orders by listing, viewing details, updating, deleting, and handling cart management to supervise the order process accurately. 
-
-- As a an Admin , I want to view detailed information of specific users, authors, books, and orders to provide precise support and data management.
+1. **Browse Books:** View all books without logging in.
+2. **Add to Cart:** Add your favorite books to the cart.
+3. **Checkout:**  
+   - If not logged in, you’ll be prompted to log in or sign up to proceed.
+   - Review your cart, confirm your order, and place it.
+4. **Order Tracking:** Track your orders in your profile.
+5. **Online Payment:**  
+   - *Coming soon!* Online payment will be available in a future upgrade.
 
 ---
 
-## 🛍 How to Buy
+## 🗂️ Project Structure
 
-1. Register or Log In  
-   Create an account or log in to start shopping.
-
-2. View Book Details  
-   Click a book to see full details including author and availability.
-
-3. Add to Cart  
-   Add your selected books to the shopping cart.
-
-4. Review Cart  
-   Adjust quantities or remove books as needed.
-
-5. Checkout  
-   Confirm shipping and payment details.
-
-6. Place Order  
-   Submit your order and track status in your account.
+- **MVC Architecture:** Models, Views (EJS), Controllers.
+- **Public Assets:** CSS, JS, and images for a responsive, modern UI.
+- **Routes:** RESTful routes for users, books, authors, and orders.
 
 ---
 
 ## 🖼 Attributions
 
-Images and sources from:
-
-- [CleanPNG](https://www.cleanpng.com)  
+- Book cover images: [CleanPNG](https://www.cleanpng.com)
 
 ---
 
 ## 🔮 Future Improvements
 
-Planned enhancements include:
-
-- User ratings and reviews for books. 
-- ⁠Search and filter by the books or authors
+- Online payment integration.
+- User ratings and reviews for books.
+- Advanced search and filtering.
 - Mobile-friendly responsive layout.
 - Email/SMS notifications for order updates.
-- Improved design for a better user experience .
+- Enhanced analytics for admins.
+- Improved UI/UX design.
+
 ---
 
 ## 👥 Team Members (Group 5: The CSS Crusaders)
@@ -144,4 +133,4 @@ Planned enhancements include:
 
 ---
 
-📚 Happy Reading! ✨
+📚 **Happy Reading and Shopping!** ✨
